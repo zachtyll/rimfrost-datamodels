@@ -1,0 +1,61 @@
+plugins {
+    alias libs.plugins.jandex
+    // Apply the groovy plugin to also add support for Groovy (needed for Spock)
+    id 'groovy'
+
+    id 'java-library'
+
+    id 'jacoco'
+}
+
+// group and version are special properties in gradle, therefore they are placed here. If they are in gradle.properties
+// they will be shadowed and can't be used.
+group = "se.fk.mimer"
+version = "0.0.1"
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xlint:all'
+    options.compilerArgs << '-Xlint:-processing' // Turn off warning for missing annotation processors. This warning assumes that every
+                                    // annotation will be processed by an annotation processor, which is a false assumption.
+                                    // Things like jakarta.ws.rs.Path annotations etc. are not, and are not meant to be,
+                                    // processed by an annotation processor.
+    options.compilerArgs << '-Werror' // Warnings as errors
+    options.compilerArgs << '-parameters'
+
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+    dependsOn( ":jandex" )
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required.set(false)
+        xml.required.set(true)
+    }
+}
+
+test {
+    systemProperty "app.url", System.getProperty("app.url")
+
+    finalizedBy jacocoTestReport
+
+    jacoco {
+        excludeClassLoaders = ["*QuarkusClassLoader"]
+        destinationFile = layout.buildDirectory.file("jacoco-quarkus.exec").get().asFile
+    }
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}

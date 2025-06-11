@@ -1,0 +1,89 @@
+plugins {
+    alias libs.plugins.jandex
+    id 'java'
+    id 'java-library'
+    id 'jacoco'
+
+    // Adds the 'publish' task which is used to push to java.repo
+    id 'maven-publish'
+}
+
+group = 'se.fk.mimer'
+version = '0.0.1'
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required.set(false)
+        xml.required.set(true)
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Version': "${version}"
+    }
+}
+
+dependencies {
+
+    implementation libs.jakartaee.api
+    implementation libs.jackson.databind
+    implementation libs.jackson.datatype
+    implementation libs.jackson.core
+    implementation libs.jackson.jdk8
+    implementation libs.java.uuid.generator
+
+    compileOnly libs.lombok
+    annotationProcessor( libs.lombok )
+    testCompileOnly libs.lombok
+    testAnnotationProcessor( libs.lombok )
+
+    testImplementation platform( libs.junit.bom )
+    testImplementation libs.junit.jupiter
+
+    testImplementation libs.hibernate.validator
+    testImplementation libs.glassfish.expressly
+    testImplementation platform( libs.mockito.bom )
+    testImplementation libs.mockito
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required.set(true)
+        html.required.set(false)
+    }
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+    jacoco {
+        destinationFile = layout.buildDirectory.file("jacoco/test.exec").get().asFile
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+publishing {
+    publications {
+        lib(MavenPublication) {
+            artifactId = "${artifact}"
+            version = "${version}"
+
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url = uploadURLReleases
+            credentials {
+                username uploadUser
+                password uploadPassword
+            }
+        }
+    }
+}

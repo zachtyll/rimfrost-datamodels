@@ -1,0 +1,26 @@
+pluginManagement {
+    repositories {
+        maven {
+            url downloadURL
+        }
+    }
+    plugins {
+        id 'version-catalog'
+    }
+}
+
+dependencyResolutionManagement {
+    // Med denna behöver man inte definiera repositories i varje build.gradle
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+    repositories {
+        mavenLocal()
+        maven { url "https://java.repo.sfa.se/repository/java-all/" }
+    }
+    versionCatalogs {
+        create( "libs" ) {
+            from( "se.fk.rdl:rdl-version-catalog:0.0.19" )
+        }
+    }
+}
+rootProject.name = 'mimer-datamodels'
+include 'lib'

@@ -1,0 +1,11 @@
+{
+  "@type": "StatligtStod",
+  "arendeId": "ÄRE123",
+  "avslutad": "2025-04-29T11:04:23.4877805+02:00",
+  "hanterarKundbehov": [
+    "01967ba3-efbf-7ac4-980c-317e0b53b37a"
+  ],
+  "id": "e22b339d-7097-42b6-a76a-4bc8a38d81d7",
+  "skapad": "2025-04-28T11:04:23.4877805+02:00",
+  "version": 1
+}
