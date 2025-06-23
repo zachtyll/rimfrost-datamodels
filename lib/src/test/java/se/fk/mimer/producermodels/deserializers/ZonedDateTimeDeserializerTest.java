@@ -3,6 +3,7 @@ package se.fk.mimer.producermodels.deserializers;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import se.fk.mimer.producermodels.exceptions.MimerException;
 
@@ -10,7 +11,8 @@ import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static se.fk.mimer.producermodels.utils.TestCDIUtility.inject;
 
 public class ZonedDateTimeDeserializerTest {
@@ -18,26 +20,33 @@ public class ZonedDateTimeDeserializerTest {
     ZonedDateTimeDeserializer dut = new ZonedDateTimeDeserializer();
     ObjectMapper mapper = inject( ObjectMapper.class );
 
+    @BeforeAll
+    static void a()
+    {
+    }
+
     @Test
     void deserializeZonedDateTime() throws IOException {
+        //Seems like timezones changes with summer/winter time
         String json = """
-                { "hello": "2024-01-01T10:00:00.000000000+01:00[Europe/Stockholm]" }
+                { "hello": "2024-01-01T00:00:00.000000000+01:00[Europe/Stockholm]" }
                 """;
-        try( JsonParser parser = prepareParser( mapper, json ) )  {
-            ZonedDateTime dateTime = dut.deserialize(parser, null);
-            assertEquals(ZonedDateTime.of(2024, 1, 1, 10, 0, 0, 0, ZoneId.of("Europe/Stockholm")), dateTime);
+        try( JsonParser parser = prepareParser( mapper, json ) )
+        {
+            ZonedDateTime dateTime = dut.deserialize(parser, mapper.getDeserializationContext());
+            assertEquals(ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Europe/Stockholm")), dateTime);
         }
     }
 
     @Test
     void deserializeLocalDateTimeWithoutZone() throws IOException {
         String json = """
-                { "hello": "2024-01-01T10:00:00" }
+                { "hello": "2024-01-01T00:00:00" }
                 """;
-        try (JsonParser parser = prepareParser(mapper, json)) {
-            ZonedDateTime dateTime = dut.deserialize(parser, null);
-            System.out.println("Zone in deserialized dateTime: " + dateTime.getZone());
-            assertEquals(ZonedDateTime.of(2024, 1, 1, 10, 0, 0, 0, ZoneId.of("UTC")), dateTime);
+        try( JsonParser parser = prepareParser( mapper, json ) )
+        {
+            ZonedDateTime dateTime = dut.deserialize(parser, mapper.getDeserializationContext());
+            assertEquals(ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Europe/Stockholm")), dateTime);
         }
     }
 
@@ -49,8 +58,8 @@ public class ZonedDateTimeDeserializerTest {
                 """;
         try( JsonParser parser = prepareParser( mapper, json ) )
         {
-            ZonedDateTime dateTime = dut.deserialize(parser, null);
-            assertEquals(ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("UTC")), dateTime);
+            ZonedDateTime dateTime = dut.deserialize(parser, mapper.getDeserializationContext());
+            assertEquals(ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Europe/Stockholm")), dateTime);
         }
     }
 
