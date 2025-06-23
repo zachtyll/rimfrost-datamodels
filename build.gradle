@@ -11,7 +11,8 @@ plugins {
 // group and version are special properties in gradle, therefore they are placed here. If they are in gradle.properties
 // they will be shadowed and can't be used.
 group = "se.fk.mimer"
-version = "0.0.2"
+version = "1.0.0"
+
 
 compileJava {
     options.encoding = 'UTF-8'
