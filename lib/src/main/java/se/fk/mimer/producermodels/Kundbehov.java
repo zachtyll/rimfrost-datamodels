@@ -28,35 +28,29 @@ import java.util.UUID;
 public class Kundbehov implements DataObject
 {
     @JsonDeserialize( using = UUIDDeserializer.class )
-    @NotNull( message = "Kundbehov must have a id" )
+    @NotNull( message = "Kundbehov must have id" )
     private UUID id;
 
-    @Getter
-    @NotBlank( message = "Kundbehov must have a kundbehovsstatus" )
+    @Nullable
     private String kundbehovsstatus;
 
-    @Getter
-    @NotBlank( message = "Kundbehov must contain avsikt" )
+    @Nullable
     private String avsikt;
 
     @Nullable
     private String andringsorsak;
 
     @JsonDeserialize( using = ZonedDateTimeDeserializer.class )
-    @Getter
-    @NotNull( message = "Kundbehov must have a kundbehovsdatum" )
+    @Nullable
     private ZonedDateTime kundbehovsdatum;
 
-    @Getter
-    @NotNull( message = "Kundbehov must have a period" )
+    @Nullable
     private Period period;
 
-    @Getter
-    @NotBlank( message = "Kundbehov must have a avserErbjudande" )
+    @Nullable
     private String avserErbjudande;
 
     @Getter
-    @NotEmpty( message = "Kundbehov must have a rollIKundbehov" )
     private List<RollIKundbehov> roller;
 
     @NotNull( message = "Beslut must have a version" )
@@ -76,6 +70,35 @@ public class Kundbehov implements DataObject
     }
 
     @Nullable
+    public Optional<String> getKundbehovsstatus()
+    {
+        return Optional.ofNullable( kundbehovsstatus );
+    }
+
+    @Nullable
+    public Optional<String> getAvsikt()
+    {
+        return Optional.ofNullable( avsikt );
+    }
+
+    @Nullable
+    public Optional<ZonedDateTime> getKundbehovsdatum()
+    {
+        return Optional.ofNullable( kundbehovsdatum );
+    }
+
+    @Nullable
+    public Optional<Period> getPeriod()
+    {
+        return Optional.ofNullable( period );
+    }
+
+    @Nullable
+    public Optional<String> getAvserErbjudande()
+    {
+        return Optional.ofNullable( avserErbjudande );
+    }
+
     public Optional<String> getAndringsorsak()
     {
         return Optional.ofNullable( andringsorsak );

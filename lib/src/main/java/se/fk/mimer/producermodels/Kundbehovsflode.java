@@ -15,11 +15,11 @@ import lombok.experimental.Accessors;
 import se.fk.mimer.producermodels.deserializers.ZonedDateTimeDeserializer;
 
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor( force = true )
 @Accessors( chain = true )
 @EqualsAndHashCode
@@ -27,6 +27,16 @@ import java.util.UUID;
 @Builder
 public class Kundbehovsflode implements DataObject
 {
+    public Kundbehovsflode( UUID id, int version, ZonedDateTime avslutad, ZonedDateTime skapad, List<UUID> hanterarKundbehov, String arendeId )
+    {
+        this.id = id;
+        this.version = version;
+        this.avslutad = avslutad;
+        this.skapad = skapad;
+        this.hanterarKundbehov = Optional.ofNullable( hanterarKundbehov ).orElse( Collections.emptyList() );
+        this.arendeId = arendeId;
+    }
+
     @JsonDeserialize( using = UUIDDeserializer.class )
     @NotNull( message = "Kundbehovsflode must have a kundbehov" )
     private UUID id;
@@ -35,27 +45,33 @@ public class Kundbehovsflode implements DataObject
     private int version;
 
     @JsonDeserialize( using = ZonedDateTimeDeserializer.class )
-    @Getter
-    @NotNull
     private ZonedDateTime avslutad;
 
     @JsonDeserialize( using = ZonedDateTimeDeserializer.class )
-    @Getter
-    @NotNull( message = "Kundbehovsflode must have a skapad timestamp" )
     private ZonedDateTime skapad;
 
     @JsonDeserialize( contentUsing = UUIDDeserializer.class )
     @Getter
-    @NotEmpty( message = "Kundbehovsflode must have a hanterarKundbehov" )
     private List<UUID> hanterarKundbehov;
 
     @Nullable
     private String arendeId;
 
+    public Optional<ZonedDateTime> getAvslutad()
+    {
+        return Optional.ofNullable( avslutad );
+    }
+
+    public Optional<ZonedDateTime> getSkapad()
+    {
+        return Optional.ofNullable( skapad );
+    }
+
     public Optional<String> getArendeId()
     {
         return Optional.ofNullable( arendeId );
     }
+
 
     @Override
     public UUID getId()

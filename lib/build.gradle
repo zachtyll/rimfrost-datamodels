@@ -9,7 +9,8 @@ plugins {
 }
 
 group = 'se.fk.mimer'
-version = '1.0.0'
+//Dont need to bump version for 2.0.1, this is just needed to fix pipeline run
+version = '2.0.1'
 
 
 jacocoTestReport {

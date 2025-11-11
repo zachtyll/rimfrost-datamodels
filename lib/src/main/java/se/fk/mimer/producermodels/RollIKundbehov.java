@@ -10,23 +10,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.Optional;
+
 
 @AllArgsConstructor
 @NoArgsConstructor( force = true )
 @Accessors( chain = true )
 @EqualsAndHashCode
 @Setter
-@Getter
 @Builder
 public class RollIKundbehov
 {
-    @NotBlank( message = "RollIKundbehov must have a kundid" )
     private String kundid;
 
-    @NotBlank( message = "RollIKundbehov must have a roll" )
     private String roll;
 
     @NotNull( message = "RollIKundbehov must have an yrkande" )
+    @Getter
     private boolean yrkande;
+
+    public Optional<String> getKundid()
+    {
+        return Optional.ofNullable( kundid );
+    }
+
+    public Optional<String> getRoll()
+    {
+        return Optional.ofNullable( roll );
+    }
 
 }

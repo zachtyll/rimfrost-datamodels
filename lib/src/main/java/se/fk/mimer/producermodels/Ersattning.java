@@ -25,10 +25,9 @@ import java.util.UUID;
 public class Ersattning extends ProduceratResultat
 {
     @Builder
-    public Ersattning( UUID id, UUID faststallsForKundbehov, int version, String avserPerson, Period period, String typ, ZonedDateTime datum, String beloppstyp, BigDecimal belopp, double omfattning, String periodisering, @Nullable String andringsorsak, @Nullable String avslagsanledning, String status, String berakningsgrund )
+    public Ersattning( UUID id, UUID faststallsForKundbehov, int version, String avserPerson, Period period, String typ, String beloppstyp, BigDecimal belopp, double omfattning, String periodisering, @Nullable String andringsorsak, @Nullable String avslagsanledning, String status, String berakningsgrund )
     {
         super( id, faststallsForKundbehov, version, avserPerson, period, typ, status );
-        this.datum = datum;
         this.beloppstyp = beloppstyp;
         this.belopp = belopp;
         this.omfattning = omfattning;
@@ -38,21 +37,16 @@ public class Ersattning extends ProduceratResultat
         this.berakningsgrund = berakningsgrund;
     }
 
-    @JsonDeserialize( using = ZonedDateTimeDeserializer.class )
-    @NotNull( message = "Ersattning must have a datum" )
-    private ZonedDateTime datum;
-
-    @NotBlank( message = "Ersattning must have a beloppstyp" )
+    @Nullable
     private String beloppstyp;
 
-    @NotNull( message = "Ersattning must have a belopp" )
+    @Nullable
     private BigDecimal belopp;
 
-    @NotNull( message = "Ersattning must have an omfattning" )
     @Getter
     private double omfattning;
 
-    @NotBlank( message = "Ersattning must have a periodisering" )
+    @Nullable
     private String periodisering;
 
     @Nullable
@@ -61,13 +55,8 @@ public class Ersattning extends ProduceratResultat
     @Nullable
     private String avslagsanledning;
 
-    @NotBlank( message = "Ersattning must have a berakningsgrund" )
+    @Nullable
     private String berakningsgrund;
-
-    public Optional<ZonedDateTime> getDatum()
-    {
-        return Optional.ofNullable( datum );
-    }
 
     public Optional<String> getBeloppstyp()
     {

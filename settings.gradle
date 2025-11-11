@@ -18,7 +18,7 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         create( "libs" ) {
-            from( "se.fk.rdl:rdl-version-catalog:1.0.0" )
+            from( "se.fk.rdl:rdl-version-catalog:1.0.2" )
         }
     }
 }

@@ -30,11 +30,19 @@ public class StatligtStod implements DataObject {
     @NotNull( message = "StatligtStod must have a version" )
     private int version;
 
-    @NotNull( message = "StatligtStod must have a period" )
     private Period period;
 
-    @NotBlank( message = "StatligtStod must have a stodtyp" )
     private String stodtyp;
+
+    public Optional<Period> getPeriod()
+    {
+        return Optional.ofNullable( period );
+    }
+
+    public Optional<String> getStodtyp()
+    {
+        return Optional.ofNullable( stodtyp );
+    }
 
     @Override
     public UUID getId() {
@@ -45,15 +53,5 @@ public class StatligtStod implements DataObject {
     public int getVersion()
     {
         return version;
-    }
-
-    public Optional<Period> getPeriod()
-    {
-        return Optional.ofNullable( period );
-    }
-
-    public Optional<String> getStodtyp()
-    {
-        return Optional.ofNullable( stodtyp );
     }
 }

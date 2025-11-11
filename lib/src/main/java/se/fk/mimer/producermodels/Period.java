@@ -12,7 +12,6 @@ import se.fk.mimer.producermodels.deserializers.ZonedDateTimeDeserializer;
 
 import java.time.ZonedDateTime;
 
-
 @AllArgsConstructor
 @NoArgsConstructor( force = true )
 @Accessors( chain = true )

@@ -32,7 +32,6 @@ import java.util.UUID;
 } )
 public abstract class ProduceratResultat implements DataObject
 {
-
     @JsonDeserialize( using = UUIDDeserializer.class )
     @NotNull( message = "ProduceratResultat must have a id" )
     private UUID id;
@@ -46,33 +45,14 @@ public abstract class ProduceratResultat implements DataObject
     private int version;
 
     @NotBlank( message = "ProduceratResultat must have a avserPerson" )
+    @Getter
     private String avserPerson;
 
-    @NotNull( message = "ProduceratResultat must have a period" )
     private Period period;
 
-    @NotBlank( message = "ProduceratResultat must have a typ" )
     private String typ;
 
-    @NotBlank( message = "ProduceratResultat must have a status" )
     private String status;
-
-    @Override
-    public UUID getId()
-    {
-        return id;
-    }
-
-    @Override
-    public int getVersion()
-    {
-        return version;
-    }
-
-    public Optional<String> getAvserPerson()
-    {
-        return Optional.ofNullable( avserPerson );
-    }
 
     public Optional<Period> getPeriod()
     {
@@ -87,5 +67,17 @@ public abstract class ProduceratResultat implements DataObject
     public Optional<String> getStatus()
     {
         return Optional.ofNullable( status );
+    }
+
+    @Override
+    public UUID getId()
+    {
+        return id;
+    }
+
+    @Override
+    public int getVersion()
+    {
+        return version;
     }
 }

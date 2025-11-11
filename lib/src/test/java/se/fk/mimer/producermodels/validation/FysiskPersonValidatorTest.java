@@ -57,7 +57,7 @@ public class FysiskPersonValidatorTest {
                 .kundid(null)
                 .build();
 
-        assertFalse(validator.isValid(customer, context));
+        assertTrue(validator.isValid(customer, context));
     }
 
     @Test
@@ -67,6 +67,6 @@ public class FysiskPersonValidatorTest {
                 .kundid(null)
                 .build();
 
-        assertFalse(validator.isValid(customer, context));
+        assertTrue(validator.isValid(customer, context));
     }
 }

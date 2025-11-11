@@ -54,17 +54,17 @@ class BeslutTest
         UUID uuid = Generators.timeBasedEpochRandomGenerator().generate();
 
         return Stream.of(
-                Arguments.of(new Beslut(), 8),
-                Arguments.of(new Beslut(null,null, null, null, null, null, null, null, 0), 8),
-                Arguments.of(new Beslut(uuid,null, null, null, null, null, null, null, 0), 7),
-                Arguments.of(new Beslut(uuid, uuid, null, null, null, null, null, null, 0), 6),
-                Arguments.of(new Beslut(uuid, uuid, date, null, null, null, null, null, 0), 5),
-                Arguments.of(new Beslut(uuid, uuid, date, "SLUTLIGT", null, null, null, null, 0), 4),
-                Arguments.of(new Beslut(uuid, uuid, date, "SLUTLIGT", "BEVILJAN", null, null, null, 0), 3),
-                Arguments.of(new Beslut(uuid, uuid, date, "SLUTLIGT", "BEVILJAN", "kortnr", null, null, 0), 2),
-                Arguments.of(new Beslut(uuid, uuid, date, "INTERIMISTISKT", "BEVILJAN", "kortnr", "LawReference", null, 0), 1),
-                Arguments.of(new Beslut(uuid, uuid, date, "INTERIMISTISKT", "AVSLAG", "kortnr", "LawReference", "Organization", 0), 0),
-                Arguments.of(new Beslut(uuid, uuid, date, "INTERIMISTISKT", "AVSLAG", "kortnr", "LawReference", "Organization", 0), 0)
+                Arguments.of(new Beslut(), 2),
+                Arguments.of(new Beslut(null,null, null, null, null, null, null, null, null, 0), 2),
+                Arguments.of(new Beslut(uuid,null, null, null, null, null, null, null, null, 0), 1),
+                Arguments.of(new Beslut(uuid, uuid, null, null, null, null, null, null, null, 0), 0),
+                Arguments.of(new Beslut(uuid, uuid, date, null, null, null, null, null, null, 0), 0),
+                Arguments.of(new Beslut(uuid, uuid, date, "SLUTLIGT", null, null, null, null, null, 0), 0),
+                Arguments.of(new Beslut(uuid, uuid, date, "SLUTLIGT", "BEVILJAN", null, null, null, null, 0), 0),
+                Arguments.of(new Beslut(uuid, uuid, date, "SLUTLIGT", "BEVILJAN", "kortnr", null, null, null, 0), 0),
+                Arguments.of(new Beslut(uuid, uuid, date, "INTERIMISTISKT", "BEVILJAN", "kortnr", "LawReference", null, null, 0), 0),
+                Arguments.of(new Beslut(uuid, uuid, date, "INTERIMISTISKT", "AVSLAG", "kortnr", "LawReference", "Organization", null, 0), 0),
+                Arguments.of(new Beslut(uuid, uuid, date, "INTERIMISTISKT", "AVSLAG", "kortnr", "LawReference", "Organization", "avslagsanledning", 0), 0)
         );
     }
 }

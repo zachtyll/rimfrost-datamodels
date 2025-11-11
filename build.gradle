@@ -11,7 +11,8 @@ plugins {
 // group and version are special properties in gradle, therefore they are placed here. If they are in gradle.properties
 // they will be shadowed and can't be used.
 group = "se.fk.mimer"
-version = "1.0.0"
+//Dont need to bump version for 2.0.1, this is just needed to fix pipeline run
+version = "2.0.1"
 
 
 compileJava {

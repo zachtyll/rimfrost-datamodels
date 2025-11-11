@@ -56,23 +56,23 @@ class UtforareTest
     private static Stream<Arguments> provideUtforareTestData() {
         UUID uuid = Generators.timeBasedEpochRandomGenerator().generate();
         ZonedDateTime date = ZonedDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault());
-        Kontouppgift validKontoUtforare = new Kontouppgift("typ789", "nr0123");
-        Kontouppgift validKontoBetaltjanst = new Kontouppgift( "typ789", "nr0123");
+        Kontouppgift validKontoUtforare = new Kontouppgift("typ789", "nr0123", Boolean.TRUE);
+        Kontouppgift validKontoBetaltjanst = new Kontouppgift( "typ789", "nr0123", Boolean.TRUE);
 
         return Stream.of(
-                Arguments.of(new Utforare(), 7),
-                Arguments.of(new Utforare(null, null, 0, null, null, null, null, null, null), 7),
-                Arguments.of(new Utforare(uuid, null, 0, null, null, null, null, null, null), 6),
-                Arguments.of(new Utforare(uuid, uuid, 0, null, null, null, null, null, null), 5),
-                Arguments.of(new Utforare(uuid, uuid, 0, null, null, null, null, null, null), 5),
-                Arguments.of(new Utforare(uuid, uuid, 0, "avserPerson", null, null, null, null, null), 4),
-                Arguments.of(new Utforare(uuid, uuid, 0, "avserPerson", new Period( date, date.plusDays( 5 ) ), "typ", "status", null, null), 1),
+                Arguments.of(new Utforare(), 3),
+                Arguments.of(new Utforare(null, null, 0, null, null, null, null, null, null), 3),
+                Arguments.of(new Utforare(uuid, null, 0, null, null, null, null, null, null), 2),
+                Arguments.of(new Utforare(uuid, uuid, 0, null, null, null, null, null, null), 1),
+                Arguments.of(new Utforare(uuid, uuid, 0, null, null, null, null, null, null), 1),
+                Arguments.of(new Utforare(uuid, uuid, 0, "avserPerson", null, null, null, null, null), 0),
+                Arguments.of(new Utforare(uuid, uuid, 0, "avserPerson", new Period( date, date.plusDays( 5 ) ), "typ", "status", null, null), 0),
                 Arguments.of(new Utforare(uuid, uuid, 0, "avserPerson", new Period( date, date.plusDays( 5 ) ), "typ", "status", List.of(validKontoUtforare), List.of(validKontoBetaltjanst) ), 0),
                 // Valid with kontoUtforare
                 Arguments.of(new Utforare(uuid, uuid, 0, "avserPerson", new Period( date, date.plusDays( 5 ) ), "typ", "status", List.of(validKontoUtforare), null), 0),
                 // Valid with kontoBetaltjanst but No konroUtforare
-                Arguments.of(new Utforare(uuid, uuid, 0, "avserPerson", new Period( date, date.plusDays( 5 ) ), "typ", "status", null, List.of(validKontoBetaltjanst)), 1),
-                Arguments.of(new Utforare(uuid, uuid, 0, "avserPerson", new Period( date, date.plusDays( 5 ) ), "typ", "status", Collections.emptyList(), Collections.emptyList() ), 1)
+                Arguments.of(new Utforare(uuid, uuid, 0, "avserPerson", new Period( date, date.plusDays( 5 ) ), "typ", "status", null, List.of(validKontoBetaltjanst)), 0),
+                Arguments.of(new Utforare(uuid, uuid, 0, "avserPerson", new Period( date, date.plusDays( 5 ) ), "typ", "status", Collections.emptyList(), Collections.emptyList() ), 0)
         );
     }
 }

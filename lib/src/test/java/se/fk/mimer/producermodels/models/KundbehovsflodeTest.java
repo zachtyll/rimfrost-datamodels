@@ -53,11 +53,11 @@ class KundbehovsflodeTest
         UUID uuid = Generators.timeBasedEpochRandomGenerator().generate();
         ZonedDateTime date = ZonedDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault());
         return Stream.of(
-                Arguments.of(new Kundbehovsflode(), 4),
-                Arguments.of(new Kundbehovsflode(uuid, 0, null, null, null, null), 3),
-                Arguments.of(new Kundbehovsflode(uuid, 0, null, null, null, null), 3),
-                Arguments.of(new Kundbehovsflode(uuid, 0, date.plusDays( 5 ), null, null, null), 2),
-                Arguments.of(new Kundbehovsflode(uuid, 0, date.plusDays( 5 ), date, null, null), 1),
+                Arguments.of(new Kundbehovsflode(), 1),
+                Arguments.of(new Kundbehovsflode(uuid, 0, null, null, null, null), 0),
+                Arguments.of(new Kundbehovsflode(uuid, 0, null, null, null, null), 0),
+                Arguments.of(new Kundbehovsflode(uuid, 0, date.plusDays( 5 ), null, null, null), 0),
+                Arguments.of(new Kundbehovsflode(uuid, 0, date.plusDays( 5 ), date, null, null), 0),
                 Arguments.of(new Kundbehovsflode(uuid, 0, date.plusDays( 5 ), date, List.of( uuid ), null), 0),
                 Arguments.of(new Kundbehovsflode(uuid, 0, date.plusDays( 5 ), date, List.of( uuid ), "arendeId"), 0)
         );

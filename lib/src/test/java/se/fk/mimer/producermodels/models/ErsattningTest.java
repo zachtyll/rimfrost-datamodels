@@ -56,25 +56,24 @@ class ErsattningTest
         UUID uuid = Generators.timeBasedEpochRandomGenerator().generate();
         BigDecimal amount = new BigDecimal("1000.00");
         double omfattning = 0.0;
-        new Ersattning();
+        new Ersattning(uuid, uuid, 0, "", Period.builder().build(), "", "", amount, omfattning, "", "", "", "", "" );
         return Stream.of(
-                Arguments.of(new Ersattning(), 11),
-                Arguments.of(new Ersattning( null, null, 0, null, null, null, null, null, null, omfattning, null, null, null, null, null), 11),
-                Arguments.of(new Ersattning( uuid, null, 0, null, null, null, null, null, null, omfattning, null, null, null, null, null), 10),
-                Arguments.of(new Ersattning( uuid, uuid, 0, null, null, null, null, null, null, omfattning, null, null, null, null, null) , 9),
-                Arguments.of(new Ersattning( uuid, uuid, 0, null, null, null, null, null, null,omfattning, null, null, null, null, null) , 9),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", null, "type", null, null, null, omfattning, null, null, null, null, null) , 7),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", null, null, null, omfattning, null, null, null, null, null) , 6),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", date, null, null, omfattning, null, null, null, null, null) , 5),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", date, "typ", null, omfattning, null, null, null, null, null) , 4),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", date, "typ", amount, omfattning, null, null, null, null, null) , 3),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", date, "typ", amount, omfattning, null, null, null, null, null) , 3),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", date, "typ", amount, omfattning, null, null, null, null, null) , 3),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", date, "typ", amount, omfattning, "periodisering", null, null, null, null) , 2),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", date, "typ", amount, omfattning, "periodisering", "andringsorsak", null, null, null) , 2),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", date, "typ", amount, omfattning, "periodisering", "andringsorsak", "avslagsanledning", null, null) , 2),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", date, "typ", amount, omfattning, "periodisering", "andringsorsak", "avslagsanledning", "status", null) , 1),
-                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", date, "typ", amount, omfattning, "periodisering", "andringsorsak", "avslagsanledning", "status", "berakningsgrund") , 0)
+                Arguments.of(new Ersattning(), 3),
+                Arguments.of(new Ersattning( null, null, 0, null, null, null, null, null, omfattning, null, null, null, null, null), 3),
+                Arguments.of(new Ersattning( uuid, null, 0, null, null, null, null, null, omfattning, null, null, null, null, null), 2),
+                Arguments.of(new Ersattning( uuid, uuid, 0, null, null, null, null, null, omfattning, null, null, null, null, null), 1),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", null, null, null, null, omfattning, null, null, null, null, null), 0),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), null, null, null, omfattning, null, null, null, null, null), 0),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "typ", null, null, omfattning, null, null, null, null, null), 0),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", "beloppstyp", null, omfattning, null, null, null, null, null) , 0),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", "beloppstyp", amount, omfattning, null, null, null, null, null) , 0),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", "beloppstyp", amount, omfattning, null, null, null, null, null) , 0),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", "beloppstyp", amount, omfattning, null, null, null, null, null) , 0),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", "beloppstyp", amount, omfattning, "periodisering", null, null, null, null) , 0),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", "beloppstyp", amount, omfattning, "periodisering", "andringsorsak", null, null, null) , 0),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", "beloppstyp", amount, omfattning, "periodisering", "andringsorsak", "avslagsanledning", null, null) , 0),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", "beloppstyp", amount, omfattning, "periodisering", "andringsorsak", "avslagsanledning", "status", null) , 0),
+                Arguments.of(new Ersattning( uuid, uuid, 0, "person", new Period( date, date.plusDays( 5 )), "type", "beloppstyp", amount, omfattning, "periodisering", "andringsorsak", "avslagsanledning", "status", "berakningsgrund") , 0)
         );
     }
 }

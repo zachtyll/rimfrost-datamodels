@@ -19,4 +19,5 @@ import lombok.experimental.Accessors;
 public class Kontouppgift {
     private String kontotyp;
     private String kontonummer;
+    private Boolean tillatUtbetalning;
 }

@@ -31,13 +31,13 @@ class RollIKundbehovTest
     private static Stream<Arguments> provideRollIKundbehovTestData() {
         UUID uuid = UUID.randomUUID();
         return Stream.of(
-                Arguments.of(new RollIKundbehov(), 2),
-                Arguments.of(new RollIKundbehov( null, null, true), 2),
-                Arguments.of(new RollIKundbehov( null ,null, false), 2),
-                Arguments.of(new RollIKundbehov( null, "yrkande", true), 1),
-                Arguments.of(new RollIKundbehov( null, "yrkande", false), 1),
-                Arguments.of(new RollIKundbehov( "Kundid", null, true), 1),
-                Arguments.of(new RollIKundbehov( "Kundid", null, false), 1),
+                Arguments.of(new RollIKundbehov(), 0),
+                Arguments.of(new RollIKundbehov( null, null, true), 0),
+                Arguments.of(new RollIKundbehov( null ,null, false), 0),
+                Arguments.of(new RollIKundbehov( null, "yrkande", true), 0),
+                Arguments.of(new RollIKundbehov( null, "yrkande", false), 0),
+                Arguments.of(new RollIKundbehov( "Kundid", null, true), 0),
+                Arguments.of(new RollIKundbehov( "Kundid", null, false), 0),
                 Arguments.of(new RollIKundbehov( "Kundid", "yrkande", true), 0),
                 Arguments.of(new RollIKundbehov( "Kundid", "yrkande", false), 0)
 

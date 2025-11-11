@@ -55,10 +55,10 @@ class StatligtStodTest {
         ZonedDateTime to = ZonedDateTime.of(9999, 12, 31, 23, 59, 59, 0, ZoneId.systemDefault());
 
         return Stream.of(
-                Arguments.of(new StatligtStod(null, 0, null, null), 3),
-                Arguments.of(new StatligtStod(uuid, 0, null, null), 2),
-                Arguments.of(new StatligtStod(uuid, 0, null, null), 2),
-                Arguments.of(new StatligtStod(uuid, 0, new Period(from, to), null), 1),
+                Arguments.of(new StatligtStod(null, 0, null, null), 1),
+                Arguments.of(new StatligtStod(uuid, 0, null, null), 0),
+                Arguments.of(new StatligtStod(uuid, 0, null, null), 0),
+                Arguments.of(new StatligtStod(uuid, 0, new Period(from, to), null), 0),
                 Arguments.of(new StatligtStod(uuid, 0, new Period( from, to ), "Type1"), 0)
         );
     }

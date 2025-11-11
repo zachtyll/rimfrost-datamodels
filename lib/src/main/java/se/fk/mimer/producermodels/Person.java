@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -20,7 +21,6 @@ import java.util.UUID;
 @Accessors( chain = true )
 @EqualsAndHashCode
 @Setter
-@Getter
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -32,13 +32,18 @@ import java.util.UUID;
 public abstract class Person implements DataObject
 {
     @JsonDeserialize( using = UUIDDeserializer.class )
+    @NotNull( message = "Person must have id")
     protected UUID id;
 
-    @NotBlank( message = "Person must have a kundid" )
     protected String kundid;
 
     @NotNull( message = "Person must have a version" )
     protected int version;
+
+    public Optional<String> getKundid()
+    {
+        return Optional.ofNullable( kundid );
+    }
 
     @Override
     public UUID getId()

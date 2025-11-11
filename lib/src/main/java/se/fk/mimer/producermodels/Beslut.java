@@ -2,6 +2,7 @@ package se.fk.mimer.producermodels;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -35,23 +36,26 @@ public class Beslut implements DataObject
     private UUID avserKundbehov;
 
     @JsonDeserialize( using = ZonedDateTimeDeserializer.class )
-    @NotNull( message = "Beslut must have a beslutsdatum" )
+    @Nullable
     private ZonedDateTime beslutsdatum;
 
-    @NotBlank( message = "Beslut must have a beslutstyp" )
+    @Nullable
     private String beslutstyp;
 
-    @NotBlank( message = "Beslut must have a beslutsutfall" )
+    @Nullable
     private String beslutsutfall;
 
-    @NotBlank( message = "Beslut must have a beslutsfattareId" )
+    @Nullable
     private String beslutsfattareId;
 
-    @NotBlank( message = "Beslut must have a beslutEnligtLagrum" )
+    @Nullable
     private String beslutEnligtLagrum;
 
-    @NotBlank( message = "Beslut must have a beslutandeOrganisation" )
+    @Nullable
     private String beslutandeOrganisation;
+
+    @Nullable
+    private String avslagsAnledning;
 
     @NotNull( message = "Beslut must have a version" )
     private int version;
@@ -96,5 +100,10 @@ public class Beslut implements DataObject
     public Optional<String> getBeslutandeOrganisation()
     {
         return Optional.ofNullable( beslutandeOrganisation );
+    }
+
+    public Optional<String> getAvslagsAnledning()
+    {
+        return Optional.ofNullable( avslagsAnledning );
     }
 }

@@ -1,7 +1,6 @@
 package se.fk.mimer.producermodels;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,9 +21,7 @@ import java.util.UUID;
 @Setter
 public class Utforare extends ProduceratResultat {
 
-
     @JsonDeserialize(using = KontouppgiftDeserializer.class )
-    @NotEmpty(message = "Utförare must have an utforarkonto")
     private List<Kontouppgift> utforarkonto;
 
     @JsonDeserialize(using = KontouppgiftDeserializer.class )

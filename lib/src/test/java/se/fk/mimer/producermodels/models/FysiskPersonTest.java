@@ -51,9 +51,9 @@ public class FysiskPersonTest
         UUID uuid = Generators.timeBasedEpochRandomGenerator().generate();
 
         return Stream.of(
-                Arguments.of(new FysiskPerson(), 2),
-                Arguments.of(new FysiskPerson(uuid, null, 0, null), 2),
-                Arguments.of(new FysiskPerson(uuid, null, 0, "PERSONNUMMER"), 1),
+                Arguments.of(new FysiskPerson(), 1),
+                Arguments.of(new FysiskPerson(uuid, null, 0, null), 0),
+                Arguments.of(new FysiskPerson(uuid, null, 0, "PERSONNUMMER"), 0),
                 Arguments.of(new FysiskPerson(uuid, "TEST", 0, null), 0),
                 Arguments.of(new FysiskPerson(uuid, "TEST", 0, "PERSONNUMMER"), 0)
         );

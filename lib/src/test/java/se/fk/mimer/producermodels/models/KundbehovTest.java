@@ -59,14 +59,14 @@ class KundbehovTest
         Period period = new Period( date, date.plusDays( 5 ) );
         RollIKundbehov rollIKundbehov = new RollIKundbehov("kundid" , "yrkande", true );
         return Stream.of(
-                Arguments.of( new Kundbehov(), 7 ),
-                Arguments.of( new Kundbehov( uuid, null, null, null,null, null, null, null, 0 ), 6 ),
-                Arguments.of( new Kundbehov( uuid, "The", null, null, null, null, null, null, 0 ), 5 ),
-                Arguments.of( new Kundbehov( uuid, "The", "Death", null, null, null, null, null, 0 ), 4 ),
-                Arguments.of( new Kundbehov( uuid, "The", "Death", "Laser", null, null, null, null, 0 ), 4 ),
-                Arguments.of( new Kundbehov( uuid, "The", "Death", "Laser", date, null, null, null, 0 ), 3 ),
-                Arguments.of( new Kundbehov( uuid, "The", "Death", "Laser", date, period, null, null, 0 ), 2 ),
-                Arguments.of( new Kundbehov( uuid, "The", "Death", "Laser", date, period, "avserErbjudande", null, 0 ), 1 ),
+                Arguments.of( new Kundbehov(), 1 ),
+                Arguments.of( new Kundbehov( uuid, null, null, null,null, null, null, null, 0 ), 0 ),
+                Arguments.of( new Kundbehov( uuid, "The", null, null, null, null, null, null, 0 ), 0 ),
+                Arguments.of( new Kundbehov( uuid, "The", "Death", null, null, null, null, null, 0 ), 0 ),
+                Arguments.of( new Kundbehov( uuid, "The", "Death", "Laser", null, null, null, null, 0 ), 0 ),
+                Arguments.of( new Kundbehov( uuid, "The", "Death", "Laser", date, null, null, null, 0 ), 0 ),
+                Arguments.of( new Kundbehov( uuid, "The", "Death", "Laser", date, period, null, null, 0 ), 0 ),
+                Arguments.of( new Kundbehov( uuid, "The", "Death", "Laser", date, period, "avserErbjudande", null, 0 ), 0 ),
                 Arguments.of( new Kundbehov( uuid, "The", "Death", "Laser", date, period, "avserErbjudande", List.of( rollIKundbehov ), 0 ), 0 ),
                 Arguments.of( new Kundbehov( uuid, "The", "Death", "Laser", date, period, "Erbjudande", List.of( rollIKundbehov ), 0 ), 0 ) );
     }
