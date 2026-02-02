@@ -1,25 +1,14 @@
 plugins {
     alias libs.plugins.jandex
-    id 'java'
-    id 'java-library'
-    id 'jacoco'
-
+    // TODO: is groovy necessary?, i will paste earlier comment below:
+    // Apply the groovy plugin to also add support for Groovy (needed for Spock)
+    id 'groovy'
     // Adds the 'publish' task which is used to push to java.repo
     id 'maven-publish'
 }
 
 group = 'se.fk.mimer'
-//Dont need to bump version for 2.0.1, this is just needed to fix pipeline run
-version = '2.0.1'
-
-
-jacocoTestReport {
-    dependsOn test
-    reports {
-        html.required.set(false)
-        xml.required.set(true)
-    }
-}
+version = '2.0.2'
 
 jar {
     manifest {
@@ -28,7 +17,6 @@ jar {
 }
 
 dependencies {
-
     implementation libs.jakartaee.api
     implementation libs.jackson.databind
     implementation libs.jackson.datatype
@@ -48,25 +36,6 @@ dependencies {
     testImplementation libs.glassfish.expressly
     testImplementation platform( libs.mockito.bom )
     testImplementation libs.mockito
-}
-
-jacocoTestReport {
-    dependsOn test
-    reports {
-        xml.required.set(true)
-        html.required.set(false)
-    }
-}
-
-test {
-    useJUnitPlatform()
-    finalizedBy jacocoTestReport
-    jacoco {
-        destinationFile = layout.buildDirectory.file("jacoco/test.exec").get().asFile
-    }
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
 }
 
 publishing {

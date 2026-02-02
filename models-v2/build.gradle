@@ -1,0 +1,9 @@
+plugins {
+    alias libs.plugins.jandex
+}
+
+// TODO: Confirm if Jandex is needed for models-v2; remove if not required
+
+dependencies {
+    // Empty for now
+}

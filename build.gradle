@@ -1,63 +1,72 @@
-plugins {
-    alias libs.plugins.jandex
-    // Apply the groovy plugin to also add support for Groovy (needed for Spock)
-    id 'groovy'
-
-    id 'java-library'
-
-    id 'jacoco'
-}
-
 // group and version are special properties in gradle, therefore they are placed here. If they are in gradle.properties
 // they will be shadowed and can't be used.
 group = "se.fk.mimer"
-//Dont need to bump version for 2.0.1, this is just needed to fix pipeline run
-version = "2.0.1"
+version = "2.0.2"
 
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'jacoco'
 
-compileJava {
-    options.encoding = 'UTF-8'
-    options.compilerArgs << '-Xlint:all'
-    options.compilerArgs << '-Xlint:-processing' // Turn off warning for missing annotation processors. This warning assumes that every
-                                    // annotation will be processed by an annotation processor, which is a false assumption.
-                                    // Things like jakarta.ws.rs.Path annotations etc. are not, and are not meant to be,
-                                    // processed by an annotation processor.
-    options.compilerArgs << '-Werror' // Warnings as errors
-    options.compilerArgs << '-parameters'
-
-}
-
-compileTestJava {
-    options.encoding = 'UTF-8'
-    dependsOn( ":jandex" )
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
-jacocoTestReport {
-    dependsOn test
-    reports {
-        html.required.set(false)
-        xml.required.set(true)
-    }
-}
-
-test {
-    systemProperty "app.url", System.getProperty("app.url")
-
-    finalizedBy jacocoTestReport
-
-    jacoco {
-        excludeClassLoaders = ["*QuarkusClassLoader"]
-        destinationFile = layout.buildDirectory.file("jacoco-quarkus.exec").get().asFile
+    java {
+        withJavadocJar()
+        withSourcesJar()
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
-    testLogging {
-        events "passed", "skipped", "failed"
+    // If a module has a 'jandex' task, make sure javadoc runs after it.
+    // Fixes Gradle task validation (javadoc uses outputs touched by jandex).
+    tasks.matching{ it.name == 'javadoc' }.configureEach {
+        if (tasks.findByName( 'jandex' ) != null) {
+            dependsOn(tasks.named('jandex'))
+        }
     }
+
+    // Apply to both main + test
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+    }
+
+    // Apply only to main
+    tasks.withType(JavaCompile).matching { it.name == 'compileJava' }.configureEach {
+        // Compiler flags (javac)
+        def args = []
+        args += '-Xlint:all'
+
+        // Turn off warning for missing annotation processors. This warning assumes that every
+        // annotation will be processed by an annotation processor, which is a false assumption.
+        // Things like jakarta.ws.rs.Path annotations etc. are not, and are not meant to be,
+        // processed by an annotation processor.
+        args += '-Xlint:-processing'
+
+        // Warnings as errors
+        args += '-Werror'
+
+        // Store method parameter names in bytecode (useful for reflection/frameworks)
+        args += '-parameters'
+
+        options.compilerArgs += args
+    }
+
+    test {
+        useJUnitPlatform()
+        //TODO: why do we have app.url, what is it used for and should we keep it?
+        systemProperty "app.url", System.getProperty("app.url")
+        testLogging { events "passed", "skipped", "failed" }
+        finalizedBy jacocoTestReport
+
+        jacoco {
+            excludeClassLoaders = ["*QuarkusClassLoader"]
+            destinationFile = layout.buildDirectory.file("jacoco/test.exec").get().asFile
+        }
+    }
+
+    jacocoTestReport {
+        dependsOn test
+        reports {
+            xml.required.set(true)
+            html.required.set(false)
+        }
+    }
+
 }
