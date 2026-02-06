@@ -1,0 +1,17 @@
+{
+  "@type": "BerakningsgrundBaseratPaErsattningstypEnligtLagrum",
+  "id": "b2e7fef8-db6e-4c91-8d2b-f3a95cac03b6",
+  "revision": 1,
+  "variant": "BerakningsgrundBaseratPaErsattningstypEnligtLagrum",
+  "berakningsgrundRegel": "AS",
+  "berakningsgrund": "ARBETSBASERAD_AKASSA",
+  "ersattningstypEnligtLagrum": {
+      "@type": "ErsattningstypEnligtLagrum",
+      "id": "e31ae1b4-1959-4f1f-9250-2a2bec2d8817",
+      "revision": 1,
+      "variant": "ErsattningstypEnligtLagrum",
+      "ersattningstyp": "BEGRAVNINGSBIDRAG_TILL_TOTALFORSVARSPLIKTIGA",
+      "ersattningstypRegel": "LAGX",
+      "lagrumForErsattningstyp": "LAGX"
+  }
+}

@@ -1,9 +1,66 @@
 plugins {
     alias libs.plugins.jandex
+//    id 'java'
+//    id 'java-library'
+    id 'jacoco'
 }
 
-// TODO: Confirm if Jandex is needed for models-v2; remove if not required
+group = 'se.fk.mimer'
+version = '0.0.2'
+
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required.set(false)
+        xml.required.set(true)
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Version': "${version}"
+    }
+}
 
 dependencies {
-    // Empty for now
+
+    implementation libs.jakartaee.api
+    implementation libs.jackson.databind
+    implementation libs.jackson.datatype
+    implementation libs.jackson.core
+    implementation libs.jackson.jdk8
+    implementation libs.java.uuid.generator
+
+    compileOnly libs.lombok
+    annotationProcessor( libs.lombok )
+    testCompileOnly libs.lombok
+    testAnnotationProcessor( libs.lombok )
+
+    testImplementation platform( libs.junit.bom )
+    testImplementation libs.junit.jupiter
+
+    testImplementation libs.hibernate.validator
+    testImplementation libs.glassfish.expressly
+    testImplementation platform( libs.mockito.bom )
+    testImplementation libs.mockito
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required.set(true)
+        html.required.set(false)
+    }
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+    jacoco {
+        destinationFile = layout.buildDirectory.file("jacoco/test.exec").get().asFile
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }

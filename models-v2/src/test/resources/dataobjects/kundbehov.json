@@ -1,0 +1,38 @@
+{
+  "@type": "Kundbehov",
+  "andringsorsak": "teständring",
+  "avserErbjudande": {
+    "@type": "Erbjudande",
+    "id": "ba12827e-4761-4b3c-99bb-f7c9acd1e29a",
+    "revision": 1,
+    "erbjudandenamn": "testerbjudande",
+    "produktnamn": "FAMILJEBIDRAG",
+    "erbjudande": "FAMILJEPENNING"
+  },
+  "avsikt": "ANDRING",
+  "id": "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3",
+  "kundbehovsdatum": "2025-04-28T11:04:23.4877805+02:00",
+  "kundbehovsstatus": "PLANERAT",
+  "period": {
+    "from": "2025-04-18T11:04:23.4877805+02:00",
+    "tom": "2025-04-30T11:04:23.4877805+02:00"
+  },
+  "roller": [
+    {
+      "kundid": "123123",
+      "roll": "MAKA",
+      "yrkande": true
+    },
+    {
+      "kundid": "1234567811234",
+      "roll": "MAKA",
+      "yrkande": true
+    },
+    {
+      "kundid": "8765432114321",
+      "roll": "MAKE",
+      "yrkande": true
+    }
+  ],
+  "revision": 1
+}

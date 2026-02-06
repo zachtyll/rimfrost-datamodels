@@ -1,0 +1,48 @@
+{
+  "@type": "Ombud",
+  "id": "fe6272ab-ba50-45c5-888d-56d7e3bd0a41",
+  "kundid": "1234567811234",
+  "revision": 1,
+  "variant": "Ombud",
+  "rollIKundbehov": { "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3": {
+    "@type": "RollIKundbehov",
+    "kundid": "1234567811234",
+    "kundbehovId": "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3",
+    "roll": "MAKA",
+    "yrkande": true
+  }
+  },
+  "personnummer": "12345678-1234",
+  "rollIProdukt": {
+    "@type": "RollIProdukt",
+    "kundid": "1234567811234",
+    "produktId": "6a9fefdd-b92e-4dd7-a043-721c0a0b9e10",
+    "roll": "PRODUKTAGARE"
+  },
+  "enkildNaringsidkare": {
+    "@type": "EnskildNaringsidkare",
+    "id": "14b7e7a9-59c0-4d46-aed7-eb5c140eb638"
+  },
+  "personId": "1234567811234",
+  "ombudId": "fe6272ab-ba50-45c5-888d-56d7e3bd0a41",
+  "foretradartyp": "FULLMAKT",
+  "period":{
+    "from": "2025-01-01T11:00:00.0000000+02:00",
+    "tom": "2026-01-01T11:00:00.0000000+02:00"
+  },
+  "foretrader": {
+    "@type": "FysiskPerson",
+    "id": "f2f153be-5d9c-484c-9480-06e35f26a3c0",
+    "kundid": "8765432114321",
+    "revision": 1,
+    "variant": "FysiskPerson",
+    "rollIKundbehov": { "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3": {
+      "@type": "RollIKundbehov",
+      "kundid": "8765432114321",
+      "kundbehovId": "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3",
+      "roll": "MAKE",
+      "yrkande": true
+    }
+    }
+  }
+}

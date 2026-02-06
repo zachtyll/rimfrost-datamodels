@@ -1,0 +1,26 @@
+{
+  "@type": "Produkt",
+  "id": "6a9fefdd-b92e-4dd7-a043-721c0a0b9e10",
+  "revision": 1,
+  "produktnamn": "UNDERHALLSSTOD",
+  "roller": [{
+    "@type": "RollIProdukt",
+    "id": "2308dbfd-1131-4caf-95c1-f36110f4a6d8",
+    "revision": 1,
+    "variant": "RollIProdukt",
+    "kundid": "1234567811234",
+    "produktid": "6a9fefdd-b92e-4dd7-a043-721c0a0b9e10",
+    "roll": "PRODUKTAGARE"
+    }
+  ],
+  "erbjudanden": { "ba12827e-4761-4b3c-99bb-f7c9acd1e29a": {
+      "@type": "Erbjudande",
+      "id": "ba12827e-4761-4b3c-99bb-f7c9acd1e29a",
+      "revision": 1,
+      "variant": "Erbjudande",
+      "erbjudandenamn": "testerbjudande",
+      "produktnamn": "FAMILJEBIDRAG",
+      "erbjudande": "FAMILJEPENNING"
+    }
+  }
+}

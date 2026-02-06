@@ -1,0 +1,8 @@
+{
+  "@type": "Kontouppgift",
+  "id": "6c9625cd-19fa-4dcf-b38a-16dc8f02c29d",
+  "revision": 1,
+  "kontotyp": "testkonto",
+  "kontonummer": "11223344",
+  "tillatUtbetalning": true
+}

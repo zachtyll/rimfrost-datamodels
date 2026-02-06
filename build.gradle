@@ -1,7 +1,7 @@
 // group and version are special properties in gradle, therefore they are placed here. If they are in gradle.properties
 // they will be shadowed and can't be used.
 group = "se.fk.mimer"
-version = "2.0.2"
+version = "2.1.0"
 
 subprojects {
     apply plugin: 'java-library'

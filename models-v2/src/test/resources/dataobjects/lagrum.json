@@ -1,0 +1,15 @@
+{
+  "@type": "Lagrum",
+  "id": "b1864bef-c502-4c53-a13e-2605f88cc8cc",
+  "revision": 1,
+  "variant": "Lagrum",
+  "forfattning": "Brottsbalken",
+  "kapitel": "1 Kapitel",
+  "paragraf": "§1",
+  "stycke": "1a Stycke",
+  "punkt": "1a Punkt",
+  "period": {
+      "from": "2025-01-01T11:00:00.0000000+02:00",
+      "tom": "2026-01-01-T11:00:00.0000000+02:00"
+  }
+}

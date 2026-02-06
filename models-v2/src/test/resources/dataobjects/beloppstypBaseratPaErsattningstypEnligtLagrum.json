@@ -1,0 +1,15 @@
+{
+  "@type": "BeloppstypBaseratPaErsattningstypEnligtLagrum",
+  "id": "9a230e3e-60e8-4224-8b21-baba5209773c",
+  "revision": 1,
+  "beloppstypRegel": "AS",
+  "beloppstyp": "SANKTIONSTAK",
+  "ersattningstypEnligtLagrum": {
+      "@type": "ErsattningstypEnligtLagrum",
+      "id": "e31ae1b4-1959-4f1f-9250-2a2bec2d8817",
+      "revision": 1,
+      "variant": "ErsattningstypEnligtLagrum",
+      "ersattningstyp": "BEGRAVNINGSBIDRAG_TILL_TOTALFORSVARSPLIKTIGA",
+      "lagrumForErsattningstyp": "LAGX"
+    }
+}

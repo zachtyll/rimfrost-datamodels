@@ -1,0 +1,15 @@
+{
+  "@type": "OmfattningBaseratPaErsattningstypEnligtLagrum",
+  "id": "fe55970e-4b23-45b5-bfc5-7297b023713e",
+  "revision": 1,
+  "variant": "OmfattningBaseratPaErsattningstypEnligtLagrum",
+  "procentAvErsattning": 20.0,
+  "ersattningstypEnligtLagrum": {
+      "@type": "ErsattningstypEnligtLagrum",
+      "id": "e31ae1b4-1959-4f1f-9250-2a2bec2d8817",
+      "revision": 1,
+      "variant": "ErsattningstypEnligtLagrum",
+      "ersattningstyp": "BEGRAVNINGSBIDRAG_TILL_TOTALFORSVARSPLIKTIGA",
+      "lagrumForErsattningstyp": "LAGX"
+  }
+}

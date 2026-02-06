@@ -1,0 +1,17 @@
+{
+  "@type": "JuridiskPerson",
+  "id": "fe6272ab-ba50-45c5-888d-56d7e3bd0a41",
+  "kundid": "1234567811234",
+  "revision": 1,
+  "variant": "JuridiskPerson",
+  "rollIKundbehov": {
+    "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3": {
+      "@type": "RollIKundbehov",
+      "kundid": "1234567811234",
+      "kundbehovId": "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3",
+      "roll": "MAKA",
+      "yrkande": true
+    }
+  },
+  "organisationsnummer": "11223344"
+}
