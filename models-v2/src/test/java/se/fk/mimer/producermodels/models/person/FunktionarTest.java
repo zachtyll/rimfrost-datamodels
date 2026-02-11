@@ -67,9 +67,9 @@ class FunktionarTest
         FysiskPerson person = TestObjectUtil.getForetraderPerson();
 
         return Stream.of(
-                Arguments.of(new Funktionar(), 6),
-                Arguments.of(new Funktionar(null, null, 0, null, null, null, null, null, null, null, null, null, null, null), 6),
-                Arguments.of(new Funktionar(uuid, null, 0, null, null, null, null, null, null, null, null, null, null, null), 5),
+                Arguments.of(new Funktionar(), 7),
+                Arguments.of(new Funktionar(null, null, 0, null, null, null, null, null, null, null, null, null, null, null), 7),
+                Arguments.of(new Funktionar(uuid, null, 0, null, null, null, null, null, null, null, null, null, null, null), 6),
                 Arguments.of(new Funktionar(uuid, "1234567811234", 0, null,null, null, null, null, null, null, null, null, null, null), 4),
                 Arguments.of(new Funktionar(uuid, "1234567811234", 0, "Funktionar" ,null, null, null, null, null, null, null, null, null, null), 3),
                 Arguments.of(new Funktionar(uuid, "1234567811234", 0, "Funktionar", roll, null, null, null, null, null, null, null, null, null), 2),

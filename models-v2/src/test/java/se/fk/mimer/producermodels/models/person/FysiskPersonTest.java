@@ -58,10 +58,10 @@ class FysiskPersonTest
         Map<UUID, RollIKundbehov> roll = TestObjectUtil.getRollIKundbehovMap();
 
         return Stream.of(
-                Arguments.of(new FysiskPerson(), 4),
-                Arguments.of(new FysiskPerson(null, null, 0, null, null, null, null, null), 4),
-                Arguments.of(new FysiskPerson(uuid, null, 0, null, null, null, null, null), 3),
-                Arguments.of(new FysiskPerson(uuid, null, 0, "FysiskPerson", null, null, null, null), 2),
+                Arguments.of(new FysiskPerson(), 5),
+                Arguments.of(new FysiskPerson(null, null, 0, null, null, null, null, null), 5),
+                Arguments.of(new FysiskPerson(uuid, null, 0, null, null, null, null, null), 4),
+                Arguments.of(new FysiskPerson(uuid, null, 0, "FysiskPerson", null, null, null, null), 3),
                 Arguments.of(new FysiskPerson(uuid, "1234567811234", 0, "FysiskPerson", null, null, null, null), 1),
                 Arguments.of(new FysiskPerson(uuid, "1234567811234", 0, "FysiskPerson", "12345678-1234", null, null, null), 1),
                 Arguments.of(new FysiskPerson(uuid, "1234567811234", 0, "FysiskPerson", "12345678-1234", rollip, null, null), 1),

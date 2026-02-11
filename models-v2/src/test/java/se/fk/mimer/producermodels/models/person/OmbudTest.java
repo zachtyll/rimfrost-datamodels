@@ -67,9 +67,9 @@ class OmbudTest
 
 
         return Stream.of(
-                Arguments.of(new Ombud(), 6),
-                Arguments.of(new Ombud(null, null, 0, null, null, null, null, null, null, null, null, null, null), 6),
-                Arguments.of(new Ombud(personid, null, 0, null, null, null, null, null, null, null, null, null, null), 5),
+                Arguments.of(new Ombud(), 7),
+                Arguments.of(new Ombud(null, null, 0, null, null, null, null, null, null, null, null, null, null), 7),
+                Arguments.of(new Ombud(personid, null, 0, null, null, null, null, null, null, null, null, null, null), 6),
                 Arguments.of(new Ombud(personid, "1234567811234", 0, null, null, null, null, null, null, null, null, null, null), 4),
                 Arguments.of(new Ombud(personid, "1234567811234", 0, "Ombud", null, null, null, null, null, null, null, null, null), 3),
                 Arguments.of(new Ombud(personid, "1234567811234", 0, "Ombud", roll, null, null, null, null, null, null, null, null), 2),

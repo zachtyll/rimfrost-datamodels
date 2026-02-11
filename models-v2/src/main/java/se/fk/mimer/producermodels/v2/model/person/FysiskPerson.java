@@ -3,7 +3,6 @@ package se.fk.mimer.producermodels.v2.model.person;
 import jakarta.annotation.Nullable;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -19,13 +18,12 @@ import java.util.UUID;
 @Accessors( chain = true )
 @EqualsAndHashCode( callSuper = true )
 @Setter
-@Getter
 @ValidFysiskPerson
 public class FysiskPerson extends Person
 {
     @Builder
-    public FysiskPerson( UUID id, String kundid, int revision, String variant, @Nullable String personnummer, @Nullable RollIProdukt rollIProdukt,
-                         @Nullable EnskildNaringsidkare enskildNaringsidkare, Map<UUID, RollIKundbehov> rollIKundbehov)
+    public FysiskPerson( UUID id, String kundid, int revision, String variant, String personnummer, RollIProdukt rollIProdukt,
+                         EnskildNaringsidkare enskildNaringsidkare, Map<UUID, RollIKundbehov> rollIKundbehov)
     {
         super( id, revision, variant, kundid, rollIKundbehov);
         this.personnummer = personnummer;
@@ -33,13 +31,10 @@ public class FysiskPerson extends Person
         this.enskildNaringsidkare = enskildNaringsidkare;
     }
 
-    @Nullable
     private String personnummer;
 
-    @Nullable
     private RollIProdukt rollIProdukt;
 
-    @Nullable
     private EnskildNaringsidkare enskildNaringsidkare;
 
     public Optional<String> getPersonnummer()

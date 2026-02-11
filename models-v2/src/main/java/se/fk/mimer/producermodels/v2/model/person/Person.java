@@ -24,6 +24,7 @@ import java.util.UUID;
 @NoArgsConstructor( force = true )
 @Accessors( chain = true )
 @Setter
+@Getter
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -35,22 +36,16 @@ import java.util.UUID;
 } )
 public abstract class Person extends KlassificeratObjekt
 {
-    public Person(UUID id, int revision, String variant, @Nullable String kundid, Map<UUID, RollIKundbehov> rollIKundbehov)
+    public Person(UUID id, int revision, String variant, String kundid, Map<UUID, RollIKundbehov> rollIKundbehov)
     {
         super(id, revision, variant);
         this.kundid = kundid;
         this.rollIKundbehov = rollIKundbehov;
     }
 
-    @Nullable
+    @NotNull
     protected String kundid;
 
     @NotNull
-    @Getter
     protected Map<UUID, RollIKundbehov> rollIKundbehov;
-
-    public Optional<String> getKundid()
-    {
-        return Optional.ofNullable( kundid );
-    }
 }

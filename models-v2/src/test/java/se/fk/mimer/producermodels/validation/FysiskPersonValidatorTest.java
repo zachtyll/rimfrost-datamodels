@@ -51,7 +51,6 @@ public class FysiskPersonValidatorTest {
         assertTrue(validator.isValid(person, context));
     }
 
-    // What's the point of this test?
     @Test
     void personEmptyNumberAndNullId() {
         FysiskPerson customer = FysiskPerson.builder()
@@ -62,7 +61,6 @@ public class FysiskPersonValidatorTest {
         assertFalse(validator.isValid(customer, context));
     }
 
-    // Same question as above
     @Test
     void personEmptyOptionalNumberAndNullId() {
         FysiskPerson customer = FysiskPerson.builder()

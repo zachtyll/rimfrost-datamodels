@@ -56,9 +56,9 @@ class JuridiskPersonTest
         Map<UUID, RollIKundbehov> roll = TestObjectUtil.getRollIKundbehovMap();
 
         return Stream.of(
-                Arguments.of(new JuridiskPerson(), 3),
-                Arguments.of(new JuridiskPerson(null, null, 0, null, null, null), 3),
-                Arguments.of(new JuridiskPerson(uuid, null, 0, null, null, null), 2),
+                Arguments.of(new JuridiskPerson(), 4),
+                Arguments.of(new JuridiskPerson(null, null, 0, null, null, null), 4),
+                Arguments.of(new JuridiskPerson(uuid, null, 0, null, null, null), 3),
                 Arguments.of(new JuridiskPerson(uuid, "1234567811234", 0, null, null, null), 2),
                 Arguments.of(new JuridiskPerson(uuid, "1234567811234", 0, "JuridiskPerson", null, null), 1),
                 Arguments.of(new JuridiskPerson(uuid, "1234567811234", 0, "JuridiskPerson", "11223344", null), 1),
