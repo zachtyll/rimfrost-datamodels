@@ -7,12 +7,11 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'se.fk.mimer'
-version = '2.0.2'
+version = providers.gradleProperty( 'artifact.v1.version' ).get()
 
 jar {
     manifest {
-        attributes 'Implementation-Version': "${version}"
+        attributes 'Implementation-Version': project.version.toString()
     }
 }
 
@@ -41,9 +40,7 @@ dependencies {
 publishing {
     publications {
         lib(MavenPublication) {
-            artifactId = "${artifact}"
-            version = "${version}"
-
+            artifactId = 'mimer-datamodels'
             from components.java
         }
     }

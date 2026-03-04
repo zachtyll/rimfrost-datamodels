@@ -1,0 +1,13 @@
+package se.fk.mimer.datamodel.v2.beslut;
+
+public enum BeslutandeOrganisation
+{
+    FORSAKRINGSKASSAN,
+    FORVALTNINGSRATTEN,
+    KAMMARRATTEN,
+    HOGSTA_FORVALTNINGSDOMSTOLEN,
+    MIGRATIONSVERKET,
+    ARBETSFORMEDLINGEN,
+    TINGSRATTEN,
+    SKATTEVERKET;
+}

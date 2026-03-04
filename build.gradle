@@ -1,7 +1,12 @@
-// group and version are special properties in gradle, therefore they are placed here. If they are in gradle.properties
-// they will be shadowed and can't be used.
+// set 'group' for all modules/projects from gradle.properties
+// Temporary disabled because of current CI validations
+//allprojects {
+//    group = providers.gradleProperty( "group" ).get()
+//}
+
+// root group and root version below is temporary fixes for pipeline validation
 group = "se.fk.mimer"
-version = "2.1.0"
+version = "0.0.0"
 
 subprojects {
     apply plugin: 'java-library'
