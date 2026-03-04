@@ -1,19 +1,51 @@
 {
   "@type": "Bidragssparr",
+  "id": "d3c4d8ba-142e-49f0-a3d2-c4497beaedff",
+  "faststallsForKundbehov": "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3",
+  "revision": 1,
+  "variant": "Bidragssparr",
+  "avserPerson": {
+    "@type": "FysiskPerson",
+    "id": "fe6272ab-ba50-45c5-888d-56d7e3bd0a41",
+    "kundid": "1234567811234",
+      "revision": 1,
+      "variant": "FysiskPerson",
+    "rollIKundbehov": {
+      "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3": {
+        "@type": "RollIKundbehov",
+        "kundid": "1234567811234",
+        "kundbehovId": "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3",
+        "roll": "MAKA",
+        "yrkande": true
+      }
+    },
+    "personnummer": "12345678-1234",
+    "rollIProdukt": {
+      "@type": "RollIProdukt",
+      "kundid": "1234567811234",
+      "produktId": "6a9fefdd-b92e-4dd7-a043-721c0a0b9e10",
+      "roll": "PRODUKTAGARE"
+    },
+    "enkildNaringsidkare": {
+      "@type": "EnskildNaringsidkare",
+      "id": "14b7e7a9-59c0-4d46-aed7-eb5c140eb638"
+    }
+  },
+  "period": {
+    "from": "2025-04-18T11:04:23.4877805+02:00",
+    "tom": "2025-04-30T11:04:23.4877805+02:00"
+  },
+  "typ": "test",
+  "status": "teststatus",
   "anledningIngenBidragssparr": "OSKALIGT_PGA_BARNETS_BASTA",
   "bedomdMedvetenhet": "INTE_AGERAT_MEDVETET_ELLER_GROVT_VARDSLOST",
   "bidragssparr": false,
   "bidragssparrStatus": "BORTTAGEN",
   "grundForBeslut": "VARKEN_ORIKTIGA_UPPGIFTER_ELLER_UNDERLATIT_SIG_ANMALNINGSSKYLDIGHET",
   "grundForUtredning": "BROTTSMISSTANKE",
-  "faststallsForKundbehov": "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3",
-  "id": "01c4e1a8-2a11-7aad-8f7c-3e98d6bc54b2",
-  "version" : 1,
-  "avserPerson": "194201014242",
-  "period": {
-    "from": "2025-04-18T11:04:23.4877805+02:00",
-    "tom": "2025-04-30T11:04:23.4877805+02:00"
-  },
-  "status": "Aktiv",
-  "typ": "TYP1"
+
+  "giltighetsperiod": {
+    "from": "2025-01-01T11:00:00.0000000+02:00",
+    "tom": "2026-01-01T11:00:00.0000000+02:00"
+  }
 }

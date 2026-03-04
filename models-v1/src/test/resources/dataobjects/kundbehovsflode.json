@@ -6,5 +6,6 @@
     "tom": "2025-04-30T11:04:23.4877805+02:00"
   },
   "stodtyp": "Kompensation",
-  "version": 1
+  "revision": 1,
+  "variant": "Kundbehovsflode"
 }

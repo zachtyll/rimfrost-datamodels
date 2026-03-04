@@ -1,12 +1,12 @@
 {
   "@type": "Beslut",
   "avserKundbehov": "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3",
-  "beslutandeOrganisation": "ORG123",
-  "beslutEnligtLagrum": "Lag123",
+  "beslutandeOrganisation": "FORSAKRINGSKASSAN",
   "beslutsdatum": "2025-04-28T11:04:23.4877805+02:00",
   "beslutsfattareId": "BF123",
-  "beslutstyp": "Tilldelning",
-  "beslutsutfall": "Godkänd",
+  "beslutstyp": "SLUTGILTIG",
+  "beslutsutfall": "BEVILJAT",
   "id": "01d5f0cb-7e9b-7cde-a0b4-1fc7d8e3a5d1",
-  "version": 1
+  "revision": 1,
+  "variant": "Beslut"
 }

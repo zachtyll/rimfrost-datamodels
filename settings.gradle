@@ -23,4 +23,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = 'mimer-datamodels'
-include 'models-v1', 'models-v2', 'codec-v2'
+include 'models-legacy', 'models-v1', 'codec-v1'

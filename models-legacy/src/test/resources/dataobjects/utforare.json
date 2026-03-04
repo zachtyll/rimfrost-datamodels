@@ -1,0 +1,25 @@
+{
+  "@type": "Utforare",
+  "avserPerson": "194201014242",
+  "betaltjanstkonto": [
+    {
+      "kontonummer": "222222",
+      "kontotyp": "BG"
+    }
+  ],
+  "faststallsForKundbehov": "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3",
+  "id": "01a2c395-ff3e-7d12-8ab9-7e5dc1f47e90",
+  "period": {
+    "from": "2025-04-18T11:04:23.4877805+02:00",
+    "tom": "2025-04-30T11:04:23.4877805+02:00"
+  },
+  "status": "STATUS",
+  "typ": "TYP2",
+  "utforarkonto": [
+    {
+      "kontonummer": "111111",
+      "kontotyp": "PG"
+    }
+  ],
+  "version": 1
+}

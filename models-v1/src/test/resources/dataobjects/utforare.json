@@ -1,8 +1,38 @@
 {
   "@type": "Utforare",
-  "avserPerson": "194201014242",
+  "avserPerson": {
+    "@type": "FysiskPerson",
+    "id": "fe6272ab-ba50-45c5-888d-56d7e3bd0a41",
+    "kundid": "1234567811234",
+    "revision": 1,
+    "variant": "FysiskPerson",
+    "rollIKundbehov": {
+      "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3": {
+        "@type": "RollIKundbehov",
+        "kundid": "1234567811234",
+        "kundbehovId": "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3",
+        "roll": "MAKA",
+        "yrkande": true
+      }
+    },
+    "personnummer": "12345678-1234",
+    "rollIProdukt": {
+      "@type": "RollIProdukt",
+      "kundid": "1234567811234",
+      "produktId": "6a9fefdd-b92e-4dd7-a043-721c0a0b9e10",
+      "roll": "PRODUKTAGARE"
+    },
+    "enkildNaringsidkare": {
+      "@type": "EnskildNaringsidkare",
+      "id": "14b7e7a9-59c0-4d46-aed7-eb5c140eb638"
+    }
+  },
   "betaltjanstkonto": [
     {
+      "@type": "Kontouppgift",
+      "id": "6a9625cd-19fa-4dcf-b38a-16dc8f02c29d",
+      "revision": 1,
+      "variant": "Kontouppgift",
       "kontonummer": "222222",
       "kontotyp": "BG"
     }
@@ -17,9 +47,15 @@
   "typ": "TYP2",
   "utforarkonto": [
     {
+      "@type": "Kontouppgift",
+      "id": "6c9625cd-19fa-4dcf-b38a-16dc8f02c29d",
+      "revision": 1,
+      "variant": "Kontouppgift",
       "kontonummer": "111111",
-      "kontotyp": "PG"
+      "kontotyp": "PG",
+      "tillatUtbetalning": true
     }
   ],
-  "version": 1
+  "revision": 1,
+  "variant": "Utforare"
 }

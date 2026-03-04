@@ -1,0 +1,21 @@
+{
+  "@type": "Kundbehov",
+  "andringsorsak": "Ändrad",
+  "avserErbjudande": "ERB1",
+  "avsikt": "TEST",
+  "id": "0197f8b5-12c4-7e9f-a3d0-4f5628b7d2c3",
+  "kundbehovsdatum": "2025-04-28T11:04:23.4877805+02:00",
+  "kundbehovsstatus": "TEST",
+  "period": {
+    "from": "2025-04-18T11:04:23.4877805+02:00",
+    "tom": "2025-04-30T11:04:23.4877805+02:00"
+  },
+  "roller": [
+    {
+      "kundid": "123123",
+      "roll": "ROLL_A",
+      "yrkande": true
+    }
+  ],
+  "version": 1
+}
