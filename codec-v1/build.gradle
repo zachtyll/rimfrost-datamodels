@@ -1,8 +1,8 @@
 plugins {
-    // Empty for now
+    id 'maven-publish'
 }
 
-group = "se.fk.mimer"
+group = "se.fk.mimer.codecs"
 version = providers.gradleProperty( 'artifact.v1.version' ).get()
 
 jar {
@@ -14,18 +14,19 @@ jar {
 dependencies {
     implementation(project(":models-v1"))
 
-    implementation libs.jakartaee.api
+    compileOnly libs.jakartaee.api
     implementation libs.jackson.databind
     implementation libs.jackson.datatype
     implementation libs.jackson.jdk8
+
+    implementation libs.hibernate.validator
+    runtimeOnly libs.glassfish.expressly
 
     compileOnly libs.lombok
     annotationProcessor( libs.lombok )
     testCompileOnly libs.lombok
     testAnnotationProcessor( libs.lombok )
 
-    testImplementation(libs.hibernate.validator)
-    testImplementation(libs.glassfish.expressly)
     testImplementation platform( libs.junit.bom )
     testImplementation libs.junit.jupiter
 }
@@ -35,4 +36,21 @@ tasks.test {
     testLogging { showStandardStreams = true }
 }
 
-// todo add publication
+publishing {
+    publications {
+        lib(MavenPublication) {
+            artifactId = 'codec-v1'
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url = uploadURLReleases
+            credentials {
+                username uploadUser
+                password uploadPassword
+            }
+        }
+    }
+}

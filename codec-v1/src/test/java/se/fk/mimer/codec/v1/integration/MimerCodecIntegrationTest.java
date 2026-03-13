@@ -11,6 +11,7 @@ import se.fk.mimer.codec.v1.api.CodecComponents;
 import se.fk.mimer.codec.v1.api.DecodedPayload;
 import se.fk.mimer.codec.v1.api.EncodeRequest;
 import se.fk.mimer.codec.v1.api.MimerCodecFactory;
+import se.fk.mimer.codec.v1.config.CodecConfig;
 import se.fk.mimer.codec.v1.dto.Dataleverans;
 import se.fk.mimer.codec.v1.exceptions.DecodeException;
 import se.fk.mimer.codec.v1.fixtures.MetadataFixtures;
@@ -21,14 +22,17 @@ import se.fk.mimer.codec.v1.jsonld.PayloadInspector;
 import se.fk.mimer.codec.v1.payload.Base64UrlCodec;
 import se.fk.mimer.codec.v1.payload.PayloadCodec;
 import se.fk.mimer.codec.v1.registry.CodecRegistries;
+import se.fk.mimer.codec.v1.validation.DataleveransContractValidator;
 import se.fk.mimer.datamodel.v1.yrkande.Yrkande;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class MimerCodecIntegrationTest
@@ -142,6 +146,74 @@ class MimerCodecIntegrationTest
 
         assertEquals( expectedData, extractedData );
         assertEquals( expectedRaw, extractedRaw );
+    }
+
+    @Test
+    void shouldAcceptExactTransportVersion() {
+        String json = "{\"@type\":\"x\",\"data\":{\"@type\":\"https://data.fk.se/typ/Yrkande/2.0\"},\"rawData\":{}}";
+
+        Dataleverans dataleverans = Dataleverans.builder()
+                .transportVersion( "1.0" )
+                .metadata( MetadataFixtures.metadataSJP() )
+                .payload( PAYLOAD_CODEC.encode( json.getBytes( StandardCharsets.UTF_8 ) ) )
+                .contentType( CodecConfig.CONTENT_TYPE_LD_JSON )
+                .payloadEncoding( CodecConfig.PAYLOAD_ENCODING_BASE64URL )
+                .build();
+
+        DataleveransContractValidator validator =
+                new DataleveransContractValidator(
+                        "1.0",
+                        CodecConfig.PAYLOAD_ENCODING_BASE64URL,
+                        CodecConfig.CONTENT_TYPE_LD_JSON );
+
+        assertDoesNotThrow(() -> validator.validate( dataleverans ));
+    }
+
+    @Test
+    void shouldAcceptSameMajorDifferentMinor() {
+        String json = "{\"@type\":\"x\",\"data\":{\"@type\":\"https://data.fk.se/typ/Yrkande/2.0\"},\"rawData\":{}}";
+
+        Dataleverans dataleverans = Dataleverans.builder()
+                .transportVersion( "1.3" )
+                .metadata( MetadataFixtures.metadataSJP() )
+                .payload( PAYLOAD_CODEC.encode( json.getBytes( StandardCharsets.UTF_8 ) ) )
+                .contentType( CodecConfig.CONTENT_TYPE_LD_JSON )
+                .payloadEncoding( CodecConfig.PAYLOAD_ENCODING_BASE64URL )
+                .build();
+
+        DataleveransContractValidator validator =
+                new DataleveransContractValidator(
+                        "1.0",
+                        CodecConfig.PAYLOAD_ENCODING_BASE64URL,
+                        CodecConfig.CONTENT_TYPE_LD_JSON );
+
+        assertDoesNotThrow(() -> validator.validate( dataleverans ));
+    }
+
+    @Test
+    void shouldRejectDifferentMajor() {
+        String json = "{\"@type\":\"x\",\"data\":{\"@type\":\"https://data.fk.se/typ/Yrkande/2.0\"},\"rawData\":{}}";
+
+        Dataleverans dataleverans = Dataleverans.builder()
+                .transportVersion( "2.0" )
+                .metadata( MetadataFixtures.metadataSJP() )
+                .payload( PAYLOAD_CODEC.encode( json.getBytes( StandardCharsets.UTF_8 ) ) )
+                .contentType( CodecConfig.CONTENT_TYPE_LD_JSON )
+                .payloadEncoding( CodecConfig.PAYLOAD_ENCODING_BASE64URL )
+                .build();
+
+        DataleveransContractValidator validator =
+                new DataleveransContractValidator(
+                        "1.0",
+                        CodecConfig.PAYLOAD_ENCODING_BASE64URL,
+                        CodecConfig.CONTENT_TYPE_LD_JSON );
+
+        DecodeException exception = assertThrows(
+                DecodeException.class,
+                () -> validator.validate( dataleverans )
+        );
+
+        assertTrue(exception.getMessage().contains("Unsupported transportVersion"));
     }
 
 

@@ -1,8 +1,9 @@
 plugins {
     alias libs.plugins.jandex
+    id 'maven-publish'
 }
 
-group = "se.fk.mimer"
+group = "se.fk.mimer.models"
 version = providers.gradleProperty( 'artifact.v1.version' ).get()
 
 jar {
@@ -33,4 +34,21 @@ dependencies {
     testImplementation libs.mockito
 }
 
-// todo add publication
+publishing {
+    publications {
+        lib(MavenPublication) {
+            artifactId = 'models-v1'
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url = uploadURLReleases
+            credentials {
+                username uploadUser
+                password uploadPassword
+            }
+        }
+    }
+}

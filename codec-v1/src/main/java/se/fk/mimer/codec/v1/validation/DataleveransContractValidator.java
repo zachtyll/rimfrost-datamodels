@@ -35,13 +35,7 @@ public class DataleveransContractValidator
     public void validate( Dataleverans dataleverans )
     {
         Objects.requireNonNull( dataleverans, "Dataleverans must not be null" );
-
-        if (!expectedTransportVersion.equals( dataleverans.getTransportVersion() )) {
-            throw new DecodeException(
-                    "Unsupported transportVersion: " + dataleverans.getTransportVersion()
-                    + ", expected: " + expectedTransportVersion
-            );
-        }
+        validateTransportVersion( dataleverans );
 
         if( isBlank( dataleverans.getPayload() ) )
         {
@@ -75,5 +69,37 @@ public class DataleveransContractValidator
             throw new IllegalArgumentException( name + " must not be blank" );
         }
         return value;
+    }
+
+    private static int parseMajor(String version) {
+        String[] parts = version.split("\\.");
+        if (parts.length != 2) {
+            throw new DecodeException( "Invalid transportversion format: " + version);
+        }
+
+        try {
+            return Integer.parseInt( parts[0] );
+        } catch (NumberFormatException e) {
+            throw new DecodeException( "Invalid transportVersion format: " + version );
+        }
+    }
+
+    private void validateTransportVersion(Dataleverans dataleverans) {
+        String actual = dataleverans.getTransportVersion();
+
+        if (isBlank( actual )) {
+            throw new DecodeException( "Missing transportVersion" );
+        }
+
+        int actualMajor = parseMajor(actual);
+        int expectedMajor = parseMajor(expectedTransportVersion);
+
+        if (actualMajor != expectedMajor) {
+            throw new DecodeException(
+                    "Unsupported transportVersion: " + actual
+                    + ", supported major: " + expectedMajor
+                    + ".x"
+            );
+        }
     }
 }
