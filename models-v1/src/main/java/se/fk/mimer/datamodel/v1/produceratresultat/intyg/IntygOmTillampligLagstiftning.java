@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import se.fk.mimer.datamodel.v1.Period;
 import se.fk.mimer.datamodel.v1.person.Person;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Intygstyp;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;

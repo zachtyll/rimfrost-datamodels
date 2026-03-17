@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import se.fk.mimer.datamodel.v1.exceptions.DomainInvariantException;
+import se.fk.mimer.datamodel.v1.referensdata.produkt.Erbjudandetyp;
+import se.fk.mimer.datamodel.v1.referensdata.produkt.Produktnamn;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +23,7 @@ import java.util.UUID;
 public class Produkt
 {
     @Builder
-    public Produkt( UUID id, int revision, EProduktnamn produktnamn, RollIProdukt[] roller, @Nullable Map<UUID, Erbjudande> erbjudande)
+    public Produkt( UUID id, int revision, Produktnamn produktnamn, RollIProdukt[] roller, @Nullable Map<UUID, se.fk.mimer.datamodel.v1.produkt.Erbjudande> erbjudande)
     {
         this.id = id;
         this.revision = revision;
@@ -36,16 +38,16 @@ public class Produkt
     private int revision;
 
     @NotNull
-    private EProduktnamn produktnamn;
+    private Produktnamn produktnamn;
 
     @NotNull
     private RollIProdukt[] roller;
 
     @Nullable
     @Setter(AccessLevel.NONE)
-    private Map<UUID, Erbjudande> erbjudanden;
+    private Map<UUID, se.fk.mimer.datamodel.v1.produkt.Erbjudande> erbjudanden;
 
-    private void setErbjudande(Map<UUID, Erbjudande> erbjudande)
+    private void setErbjudande(Map<UUID, se.fk.mimer.datamodel.v1.produkt.Erbjudande> erbjudande)
     {
         if(erbjudande == null || erbjudande.isEmpty())
         {
@@ -55,14 +57,14 @@ public class Produkt
         erbjudanden = new HashMap<>(erbjudande);
     }
 
-    public Erbjudande removeErbjudande(UUID erbjudandeId)
+    public se.fk.mimer.datamodel.v1.produkt.Erbjudande removeErbjudande( UUID erbjudandeId)
     {
         if( erbjudandeId == null)
         {
             throw new DomainInvariantException( "UUID kan inte vara null för detta metodanrop." );
         }
         assert erbjudanden != null;
-        Erbjudande erbjudande = erbjudanden.get(erbjudandeId);
+        se.fk.mimer.datamodel.v1.produkt.Erbjudande erbjudande = erbjudanden.get(erbjudandeId);
         if( erbjudande == null )
         {
             throw new DomainInvariantException( "Inget erbjudande med det angivna IDt kunde hittas." );
@@ -72,9 +74,9 @@ public class Produkt
         return erbjudande;
     }
 
-    public Erbjudande addNewErbjudande( UUID erbjudandeId, int version, String erbjudandenamn, EProduktnamn produktnamn, EErbjudande erbjudande)
+    public se.fk.mimer.datamodel.v1.produkt.Erbjudande addNewErbjudande( UUID erbjudandeId, int version, String erbjudandenamn, Produktnamn produktnamn, Erbjudandetyp erbjudandetyp )
     {
-        Erbjudande newErbjudande = new Erbjudande(erbjudandeId, version, erbjudandenamn, produktnamn, erbjudande);
+        se.fk.mimer.datamodel.v1.produkt.Erbjudande newErbjudande = new se.fk.mimer.datamodel.v1.produkt.Erbjudande(erbjudandeId, version, erbjudandenamn, produktnamn, erbjudandetyp );
         erbjudanden.put( newErbjudande.getId(), newErbjudande );
         // Loggning?
         return newErbjudande;

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import se.fk.mimer.datamodel.v1.exceptions.DomainInvariantException;
+import se.fk.mimer.datamodel.v1.referensdata.produkt.Erbjudandetyp;
+import se.fk.mimer.datamodel.v1.referensdata.produkt.Produktnamn;
 
 import java.util.UUID;
 
@@ -18,13 +20,13 @@ import java.util.UUID;
 public class Erbjudande
 {
     @Builder
-    public Erbjudande( UUID id, int revision, @Nullable String erbjudandeNamn, EProduktnamn produktnamn, EErbjudande erbjudande )
+    public Erbjudande( UUID id, int revision, @Nullable String erbjudandeNamn, Produktnamn produktnamn, Erbjudandetyp erbjudandetyp )
     {
         this.id = id;
         this.revision = revision;
         this.erbjudandeNamn = erbjudandeNamn;
         this.produktnamn = produktnamn;
-        this.setErbjudande( erbjudande );
+        this.setErbjudandetyp( erbjudandetyp );
     }
     @NotNull
     private UUID id;
@@ -36,18 +38,18 @@ public class Erbjudande
     private String erbjudandeNamn;
 
     @NotNull
-    private EProduktnamn produktnamn;
+    private Produktnamn produktnamn;
 
     @NotNull
-    private EErbjudande erbjudande;
+    private Erbjudandetyp erbjudandetyp;
 
     //ToDo: Bryt ut dessa till egna helper klasser
-    private void setErbjudande( EErbjudande erbjudande )
+    private void setErbjudandetyp( Erbjudandetyp erbjudandetyp )
     {
-        if( erbjudande != null && produktnamn != null && erbjudande.getProduktnamn() != produktnamn )
+        if( erbjudandetyp != null && produktnamn != null && erbjudandetyp.getProduktnamn() != produktnamn )
         {
-            throw new DomainInvariantException("Erbjudande " + erbjudande + " hör till produktnamn " + erbjudande.getProduktnamn() + ", inte " + produktnamn );
+            throw new DomainInvariantException("Erbjudande " + erbjudandetyp + " hör till produktnamn " + erbjudandetyp.getProduktnamn() + ", inte " + produktnamn );
         }
-        this.erbjudande = erbjudande;
+        this.erbjudandetyp = erbjudandetyp;
     }
 }

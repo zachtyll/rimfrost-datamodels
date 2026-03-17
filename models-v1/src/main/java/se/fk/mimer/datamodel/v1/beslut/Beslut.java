@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import se.fk.mimer.datamodel.v1.lagrum.Lagrum;
+import se.fk.mimer.datamodel.v1.referensdata.beslut.BeslutandeOrganisation;
+import se.fk.mimer.datamodel.v1.referensdata.beslut.Beslutstyp;
+import se.fk.mimer.datamodel.v1.referensdata.beslut.Beslutsutfall;
 
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -18,9 +21,9 @@ import java.util.UUID;
 public class Beslut
 {
     @Builder
-    public Beslut(UUID id, int revision, UUID avserKundbehov, ZonedDateTime beslutsdatum, Beslutstyp beslutstyp,
-                  Beslutsutfall beslutsutfall, String beslutsfattareId, Lagrum beslutEnligtLagrum, BeslutandeOrganisation beslutandeOrganisation,
-                  String avslagsAnledning)
+    public Beslut( UUID id, int revision, UUID avserKundbehov, ZonedDateTime beslutsdatum, Beslutstyp beslutstyp,
+                   Beslutsutfall beslutsutfall, String beslutsfattareId, Lagrum beslutEnligtLagrum, BeslutandeOrganisation beslutandeOrganisation,
+                   String avslagsAnledning)
     {
         this.id = id;
         this.revision = revision;

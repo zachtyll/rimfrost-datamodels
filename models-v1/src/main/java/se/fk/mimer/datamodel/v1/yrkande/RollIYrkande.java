@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import se.fk.mimer.datamodel.v1.referensdata.yrkande.RollerIYrkande;
 
 import java.util.Optional;
 

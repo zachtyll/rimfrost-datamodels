@@ -3,27 +3,26 @@ package se.fk.mimer.codec.v1.fixtures;
 import se.fk.mimer.codec.v1.util.TestValues;
 import se.fk.mimer.datamodel.v1.Period;
 import se.fk.mimer.datamodel.v1.beslut.Beslut;
-import se.fk.mimer.datamodel.v1.beslut.BeslutandeOrganisation;
+import se.fk.mimer.datamodel.v1.referensdata.beslut.BeslutandeOrganisation;
 import se.fk.mimer.datamodel.v1.beslut.delgivning.Delgivning;
-import se.fk.mimer.datamodel.v1.beslut.delgivning.Delgivningstyp;
+import se.fk.mimer.datamodel.v1.referensdata.beslut.Delgivningstyp;
 import se.fk.mimer.datamodel.v1.lagrum.Lagrum;
 import se.fk.mimer.datamodel.v1.person.EnskildNaringsidkare;
 import se.fk.mimer.datamodel.v1.person.FysiskPerson;
-import se.fk.mimer.datamodel.v1.produceratresultat.Periodisering;
-import se.fk.mimer.datamodel.v1.produceratresultat.ersattning.beloppstyp.EBeloppstyp;
-import se.fk.mimer.datamodel.v1.produceratresultat.ersattning.beloppstyp.EBeloppstypKategori;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Periodisering;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.Beloppstyp;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.BeloppstypKategori;
 import se.fk.mimer.datamodel.v1.produceratresultat.ersattning.omfattning.OmfattningBaseratPaErsattningstypEnligtLagrum;
 import se.fk.mimer.datamodel.v1.produceratresultat.krav.Krav;
-import se.fk.mimer.datamodel.v1.produceratresultat.krav.Kravtyp;
-import se.fk.mimer.datamodel.v1.produkt.EErbjudande;
-import se.fk.mimer.datamodel.v1.produkt.EProduktnamn;
-import se.fk.mimer.datamodel.v1.produkt.Erbjudande;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Kravtyp;
+import se.fk.mimer.datamodel.v1.referensdata.produkt.Erbjudandetyp;
+import se.fk.mimer.datamodel.v1.referensdata.produkt.Produktnamn;
 import se.fk.mimer.datamodel.v1.produkt.Produkt;
-import se.fk.mimer.datamodel.v1.produkt.Produktroller;
+import se.fk.mimer.datamodel.v1.referensdata.produkt.Produktroller;
 import se.fk.mimer.datamodel.v1.produkt.RollIProdukt;
-import se.fk.mimer.datamodel.v1.yrkande.Avsikt;
+import se.fk.mimer.datamodel.v1.referensdata.yrkande.Avsikt;
 import se.fk.mimer.datamodel.v1.yrkande.RollIYrkande;
-import se.fk.mimer.datamodel.v1.yrkande.RollerIYrkande;
+import se.fk.mimer.datamodel.v1.referensdata.yrkande.RollerIYrkande;
 import se.fk.mimer.datamodel.v1.yrkande.Yrkande;
 
 import java.util.List;
@@ -81,14 +80,14 @@ public class YrkandeFixtures
                 .build();
     }
 
-    private static Erbjudande createErbjudande()
+    private static se.fk.mimer.datamodel.v1.produkt.Erbjudande createErbjudande()
     {
-        return Erbjudande.builder()
+        return se.fk.mimer.datamodel.v1.produkt.Erbjudande.builder()
                 .id( TestValues.uuid() )
                 .revision( TestValues.revision() )
                 .erbjudandeNamn( "erbjudandeNamn" )
-                .produktnamn( EProduktnamn.UNDERHALLSSTOD )
-                .erbjudande( EErbjudande.BARNINKOMSTAVDRAG )
+                .produktnamn( Produktnamn.UNDERHALLSSTOD )
+                .erbjudandetyp( Erbjudandetyp.BARNINKOMSTAVDRAG )
                 .build();
     }
 
@@ -97,7 +96,7 @@ public class YrkandeFixtures
         return Produkt.builder()
                 .id( TestValues.uuid() )
                 .revision( TestValues.revision() )
-                .produktnamn( EProduktnamn.UNDERHALLSSTOD )
+                .produktnamn( Produktnamn.UNDERHALLSSTOD )
                 .roller( new RollIProdukt[]{
                         createRolliProdukt()
                 } )
@@ -165,8 +164,8 @@ public class YrkandeFixtures
                 .giltighetsperiod( createPeriod() )
                 .typ( "typ" )
                 .status( "status" )
-                .beloppstypKategori( EBeloppstypKategori.AS )
-                .beloppstyp( EBeloppstyp.AS_GARANTIBELOPP )
+                .beloppstypKategori( BeloppstypKategori.AS )
+                .beloppstyp( Beloppstyp.AS_GARANTIBELOPP )
                 .kravtyp( Kravtyp.BETALNINGSBELOPP_FOR_UNDERHALLSSTOD )
                 .periodisering( Periodisering.AR )
                 .omfattning( createOmfattningBaseratPaErsattningstypEnligtLagrum() )

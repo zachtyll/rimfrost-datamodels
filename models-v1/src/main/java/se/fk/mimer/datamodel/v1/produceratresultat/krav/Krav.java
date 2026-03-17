@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import se.fk.mimer.datamodel.v1.Period;
-import se.fk.mimer.datamodel.v1.produceratresultat.ersattning.beloppstyp.EBeloppstyp;
-import se.fk.mimer.datamodel.v1.produceratresultat.ersattning.beloppstyp.EBeloppstypKategori;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.Beloppstyp;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.BeloppstypKategori;
 import se.fk.mimer.datamodel.v1.produceratresultat.ersattning.omfattning.OmfattningBaseratPaErsattningstypEnligtLagrum;
 import se.fk.mimer.datamodel.v1.person.Person;
-import se.fk.mimer.datamodel.v1.produceratresultat.Periodisering;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Kravtyp;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Periodisering;
 import se.fk.mimer.datamodel.v1.produceratresultat.ProduceratResultat;
 
 import java.util.UUID;
@@ -28,7 +29,7 @@ public class Krav extends ProduceratResultat
 {
     @Builder
     public Krav( UUID id, UUID faststallsForKundbehov, int revision, Person avserPerson, Period giltighetsperiod, String typ, String status,
-                 @Nullable EBeloppstypKategori beloppstypKategori, @Nullable EBeloppstyp beloppstyp, @Nullable Kravtyp kravtyp, @Nullable Periodisering periodisering,
+                 @Nullable BeloppstypKategori beloppstypKategori, @Nullable Beloppstyp beloppstyp, @Nullable Kravtyp kravtyp, @Nullable Periodisering periodisering,
                  @Nullable OmfattningBaseratPaErsattningstypEnligtLagrum omfattning )
     {
         super(id, revision, faststallsForKundbehov, avserPerson, giltighetsperiod, typ, status);
@@ -40,10 +41,10 @@ public class Krav extends ProduceratResultat
     }
 
     @Nullable
-    private EBeloppstypKategori beloppstypKategori;
+    private BeloppstypKategori beloppstypKategori;
 
     @Nullable
-    private EBeloppstyp beloppstyp;
+    private Beloppstyp beloppstyp;
 
     @Nullable
     private Kravtyp kravtyp;
@@ -55,7 +56,7 @@ public class Krav extends ProduceratResultat
     private OmfattningBaseratPaErsattningstypEnligtLagrum omfattning;
 
 //    //ToDo: Bryt ut dessa till egna helper klasser
-    private void setBeloppstyp( EBeloppstyp beloppstyp )
+    private void setBeloppstyp( Beloppstyp beloppstyp )
     {
         if( beloppstyp != null && beloppstypKategori != null && beloppstyp.getBeloppstyp() != beloppstypKategori )
         {

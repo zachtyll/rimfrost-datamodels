@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import se.fk.mimer.datamodel.v1.referensdata.beslut.Delgivningstyp;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
@@ -18,8 +19,8 @@ import java.util.UUID;
 public class Delgivning
 {
     @Builder
-    public Delgivning(UUID id, int revision, @Nullable ZonedDateTime delgivningsdatum,
-                      @Nullable Delgivningstyp delgivningstyp, @Nullable UUID beslutId)
+    public Delgivning( UUID id, int revision, @Nullable ZonedDateTime delgivningsdatum,
+                       @Nullable Delgivningstyp delgivningstyp, @Nullable UUID beslutId)
     {
         this.id = id;
         this.revision = revision;

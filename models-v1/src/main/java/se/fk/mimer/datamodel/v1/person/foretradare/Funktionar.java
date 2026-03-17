@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import se.fk.mimer.datamodel.v1.Period;
+import se.fk.mimer.datamodel.v1.referensdata.person.Foretradartyp;
+import se.fk.mimer.datamodel.v1.referensdata.person.Funktionarstyp;
 import se.fk.mimer.datamodel.v1.yrkande.RollIYrkande;
 import se.fk.mimer.datamodel.v1.person.EnskildNaringsidkare;
 import se.fk.mimer.datamodel.v1.person.FysiskPerson;

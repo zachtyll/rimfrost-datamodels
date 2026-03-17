@@ -9,7 +9,8 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import se.fk.mimer.datamodel.v1.Period;
 import se.fk.mimer.datamodel.v1.person.Person;
-import se.fk.mimer.datamodel.v1.produceratresultat.Periodisering;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Kostnadstyp;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Periodisering;
 import se.fk.mimer.datamodel.v1.produceratresultat.ProduceratResultat;
 
 import java.util.UUID;

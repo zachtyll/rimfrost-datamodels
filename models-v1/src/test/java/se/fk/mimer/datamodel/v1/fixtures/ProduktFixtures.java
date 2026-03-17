@@ -1,11 +1,10 @@
 package se.fk.mimer.datamodel.v1.fixtures;
 
 import se.fk.mimer.datamodel.v1.utils.FixtureUtil;
-import se.fk.mimer.datamodel.v1.produkt.EErbjudande;
-import se.fk.mimer.datamodel.v1.produkt.EProduktnamn;
-import se.fk.mimer.datamodel.v1.produkt.Erbjudande;
+import se.fk.mimer.datamodel.v1.referensdata.produkt.Erbjudandetyp;
+import se.fk.mimer.datamodel.v1.referensdata.produkt.Produktnamn;
 import se.fk.mimer.datamodel.v1.produkt.Produkt;
-import se.fk.mimer.datamodel.v1.produkt.Produktroller;
+import se.fk.mimer.datamodel.v1.referensdata.produkt.Produktroller;
 import se.fk.mimer.datamodel.v1.produkt.RollIProdukt;
 
 import java.util.HashMap;
@@ -36,29 +35,29 @@ public class ProduktFixtures
     }
 
     // Erbjudande
-    public static Erbjudande erbjudande() {
+    public static se.fk.mimer.datamodel.v1.produkt.Erbjudande erbjudande() {
         return erbjudande(FixtureUtil.newId(), 0, "testErbjudande",
-                EProduktnamn.UNDERHALLSSTOD,
-                EErbjudande.UNDERHALLSSTOD);
+                Produktnamn.UNDERHALLSSTOD,
+                Erbjudandetyp.UNDERHALLSSTOD);
     }
 
-    public static Erbjudande erbjudande(UUID id,
-                                        int revision,
-                                        String namn,
-                                        EProduktnamn produktnamn,
-                                        EErbjudande eerbjudande) {
-        return Erbjudande.builder()
+    public static se.fk.mimer.datamodel.v1.produkt.Erbjudande erbjudande( UUID id,
+                                                                          int revision,
+                                                                          String namn,
+                                                                          Produktnamn produktnamn,
+                                                                          Erbjudandetyp erbjudandetyp) {
+        return se.fk.mimer.datamodel.v1.produkt.Erbjudande.builder()
                 .id( id )
                 .revision( revision )
                 .erbjudandeNamn( namn )
                 .produktnamn( produktnamn )
-                .erbjudande( eerbjudande )
+                .erbjudandetyp( erbjudandetyp )
                 .build();
     }
 
-    public static Map<UUID, Erbjudande> erbjudandeMap() {
-        Erbjudande e = erbjudande();
-        Map<UUID, Erbjudande> map = new HashMap<>();
+    public static Map<UUID, se.fk.mimer.datamodel.v1.produkt.Erbjudande> erbjudandeMap() {
+        se.fk.mimer.datamodel.v1.produkt.Erbjudande e = erbjudande();
+        Map<UUID, se.fk.mimer.datamodel.v1.produkt.Erbjudande> map = new HashMap<>();
         map.put(e.getId(), e);
         return map;
     }
@@ -68,7 +67,7 @@ public class ProduktFixtures
         return produkt(
                 FixtureUtil.newId(),
                 FixtureUtil.revision1(),
-                EProduktnamn.UNDERHALLSSTOD,
+                Produktnamn.UNDERHALLSSTOD,
                 rollIProduktArray(),
                 erbjudandeMap()
         );
@@ -76,13 +75,13 @@ public class ProduktFixtures
 
     public static Produkt produkt(UUID id,
                                   int revision,
-                                  EProduktnamn namn,
+                                  Produktnamn namn,
                                   RollIProdukt[] roller,
-                                  Map<UUID, Erbjudande> erbjudande) {
+                                  Map<UUID, se.fk.mimer.datamodel.v1.produkt.Erbjudande> erbjudande) {
         RollIProdukt[] safeRoller =
                 roller == null ? new RollIProdukt[0] : roller.clone();
 
-        Map<UUID, Erbjudande> safeMap =
+        Map<UUID, se.fk.mimer.datamodel.v1.produkt.Erbjudande> safeMap =
                 erbjudande == null ? new HashMap<>() : new HashMap<>(erbjudande);
 
         return Produkt.builder()

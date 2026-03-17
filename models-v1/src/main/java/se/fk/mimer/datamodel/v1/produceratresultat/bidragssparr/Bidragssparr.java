@@ -9,6 +9,11 @@ import lombok.experimental.Accessors;
 import se.fk.mimer.datamodel.v1.Period;
 import se.fk.mimer.datamodel.v1.person.Person;
 import se.fk.mimer.datamodel.v1.produceratresultat.ProduceratResultat;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.bidragssparr.AnledningIngenBidragssparr;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.bidragssparr.BedomdMedvetenhet;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.bidragssparr.BidragssparrStatus;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.bidragssparr.GrundForBeslut;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.bidragssparr.GrundForUtredning;
 
 import java.util.UUID;
 

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import se.fk.mimer.datamodel.v1.produceratresultat.ersattning.ersattningstyp.ErsattningstypEnligtLagrum;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.Beloppstyp;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.BeloppstypKategori;
 
 import java.util.UUID;
 
@@ -18,8 +20,8 @@ import java.util.UUID;
 public class BeloppstypBaseratPaErsattningstypEnligtLagrum
 {
     @Builder
-    public BeloppstypBaseratPaErsattningstypEnligtLagrum(UUID id, int revision, @Nullable EBeloppstypKategori beloppstypKategori,
-                                                         @Nullable EBeloppstyp beloppstyp, @Nullable ErsattningstypEnligtLagrum ersattningstypEnligtLagrum)
+    public BeloppstypBaseratPaErsattningstypEnligtLagrum( UUID id, int revision, @Nullable BeloppstypKategori beloppstypKategori,
+                                                          @Nullable Beloppstyp beloppstyp, @Nullable ErsattningstypEnligtLagrum ersattningstypEnligtLagrum)
     {
         this.id = id;
         this.revision = revision;
@@ -35,10 +37,10 @@ public class BeloppstypBaseratPaErsattningstypEnligtLagrum
     private int revision;
 
     @Nullable
-    private EBeloppstypKategori beloppstypKategori;
+    private BeloppstypKategori beloppstypKategori;
 
     @Nullable
-    private EBeloppstyp beloppstyp;
+    private Beloppstyp beloppstyp;
 
     @Nullable
     private ErsattningstypEnligtLagrum ersattningstypEnligtLagrum;

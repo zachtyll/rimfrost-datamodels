@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import se.fk.mimer.datamodel.v1.produceratresultat.ersattning.ersattningstyp.ErsattningstypEnligtLagrum;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.Berakningsgrund;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.BerakningsgrundRegel;
 
 import java.util.UUID;
 
@@ -18,8 +20,8 @@ import java.util.UUID;
 public class BerakningsgrundBaseratPaErsattningstypEnligtLagrum
 {
     @Builder
-    public BerakningsgrundBaseratPaErsattningstypEnligtLagrum(UUID id, int revision, @Nullable EBerakningsgrundRegel berakningsgrundRegel,
-                                                              @Nullable EBerakningsgrund berakningsgrund, @Nullable ErsattningstypEnligtLagrum ersattningstypEnligtLagrum)
+    public BerakningsgrundBaseratPaErsattningstypEnligtLagrum( UUID id, int revision, @Nullable BerakningsgrundRegel berakningsgrundRegel,
+                                                               @Nullable Berakningsgrund berakningsgrund, @Nullable ErsattningstypEnligtLagrum ersattningstypEnligtLagrum)
     {
         this.id = id;
         this.revision = revision;
@@ -35,10 +37,10 @@ public class BerakningsgrundBaseratPaErsattningstypEnligtLagrum
     private int revision;
 
     @Nullable
-    private EBerakningsgrundRegel berakningsgrundRegel;
+    private BerakningsgrundRegel berakningsgrundRegel;
 
     @Nullable
-    private EBerakningsgrund berakningsgrund;
+    private Berakningsgrund berakningsgrund;
 
     @Nullable
     private ErsattningstypEnligtLagrum ersattningstypEnligtLagrum;

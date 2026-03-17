@@ -8,7 +8,10 @@ import lombok.experimental.Accessors;
 import se.fk.mimer.datamodel.v1.exceptions.DomainInvariantException;
 import se.fk.mimer.datamodel.v1.Period;
 import se.fk.mimer.datamodel.v1.person.Person;
-import se.fk.mimer.datamodel.v1.produceratresultat.Periodisering;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Beloppstyp;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Inkomsttyp;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.InkomsttypKategori;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Periodisering;
 import se.fk.mimer.datamodel.v1.produceratresultat.ProduceratResultat;
 
 import java.util.UUID;
@@ -21,7 +24,7 @@ public class BedomdInkomst extends ProduceratResultat
 {
     @Builder
     public BedomdInkomst( UUID id, UUID faststallsForKundbehov, int revision, Person avserPerson, Period giltighetsperiod, String typ, String status,
-                          double belopp, EInkomsttyp inkomsttyp, EInkomsttypKategori inkomsttypKategori, Periodisering periodisering, Beloppstyp beloppstyp )
+                          double belopp, Inkomsttyp inkomsttyp, InkomsttypKategori inkomsttypKategori, Periodisering periodisering, Beloppstyp beloppstyp )
     {
         super(id, revision, faststallsForKundbehov, avserPerson, giltighetsperiod, typ, status);
         this.belopp = belopp;
@@ -33,15 +36,15 @@ public class BedomdInkomst extends ProduceratResultat
 
     private double belopp;
 
-    private EInkomsttypKategori inkomsttypKategori;
+    private InkomsttypKategori inkomsttypKategori;
 
-    private EInkomsttyp inkomsttyp;
+    private Inkomsttyp inkomsttyp;
 
     private Periodisering periodisering;
 
     private Beloppstyp beloppstyp;
 
-    private void setInkomsttyp( EInkomsttyp inkomsttyp)
+    private void setInkomsttyp( Inkomsttyp inkomsttyp)
     {
         if( inkomsttyp != null && inkomsttypKategori != null && inkomsttyp.getKategori() != inkomsttypKategori )
         {

@@ -15,6 +15,8 @@ import se.fk.mimer.datamodel.v1.person.Person;
 import se.fk.mimer.datamodel.v1.produceratresultat.ProduceratResultat;
 import se.fk.mimer.datamodel.v1.produkt.Erbjudande;
 import se.fk.mimer.datamodel.v1.produkt.Produkt;
+import se.fk.mimer.datamodel.v1.referensdata.yrkande.Avsikt;
+import se.fk.mimer.datamodel.v1.referensdata.yrkande.YrkandeStatus;
 
 import java.time.ZonedDateTime;
 import java.util.List;

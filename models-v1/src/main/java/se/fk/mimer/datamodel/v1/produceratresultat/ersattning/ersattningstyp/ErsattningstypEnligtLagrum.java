@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.Ersattningstyp;
+import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.LagrumForErsattningstyp;
 
 import java.util.UUID;
 
@@ -17,7 +19,7 @@ import java.util.UUID;
 public class ErsattningstypEnligtLagrum
 {
     @Builder
-    public ErsattningstypEnligtLagrum(UUID id, int revision, EErsattningstyp ersattningstyp, ELagrumForErsattningstyp lagrumForErsattningstyp)
+    public ErsattningstypEnligtLagrum( UUID id, int revision, Ersattningstyp ersattningstyp, LagrumForErsattningstyp lagrumForErsattningstyp)
     {
         this.id = id;
         this.revision = revision;
@@ -32,12 +34,12 @@ public class ErsattningstypEnligtLagrum
     private int revision;
 
     @NotNull( message = "An Ersattningstyp needs to be set.")
-    private EErsattningstyp ersattningstyp;
+    private Ersattningstyp ersattningstyp;
 
     @Nullable
-    private ELagrumForErsattningstyp lagrumForErsattningstyp;
+    private LagrumForErsattningstyp lagrumForErsattningstyp;
 
-    private void setLagrumForErsattningstyp( ELagrumForErsattningstyp lagrumForErsattningstyp)
+    private void setLagrumForErsattningstyp( LagrumForErsattningstyp lagrumForErsattningstyp)
     {
         if(ersattningstyp != null && lagrumForErsattningstyp != null && ersattningstyp.getLagrumForErsattningstyp() != lagrumForErsattningstyp)
         {
