@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import se.fk.mimer.datamodel.v1.exceptions.DomainInvariantException;
+import se.fk.rdl.utils.errorhandling.exceptions.MimerException;
 import se.fk.mimer.datamodel.v1.referensdata.produkt.Erbjudandetyp;
 import se.fk.mimer.datamodel.v1.referensdata.produkt.Produktnamn;
 
@@ -61,13 +61,13 @@ public class Produkt
     {
         if( erbjudandeId == null)
         {
-            throw new DomainInvariantException( "UUID kan inte vara null för detta metodanrop." );
+            throw new MimerException( "UUID kan inte vara null för detta metodanrop." );
         }
         assert erbjudanden != null;
         se.fk.mimer.datamodel.v1.produkt.Erbjudande erbjudande = erbjudanden.get(erbjudandeId);
         if( erbjudande == null )
         {
-            throw new DomainInvariantException( "Inget erbjudande med det angivna IDt kunde hittas." );
+            throw new MimerException( "Inget erbjudande med det angivna IDt kunde hittas." );
         }
         //Loggning?
         erbjudanden.remove( erbjudandeId );

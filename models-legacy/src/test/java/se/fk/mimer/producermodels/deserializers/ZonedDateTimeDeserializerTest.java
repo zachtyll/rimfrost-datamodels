@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import se.fk.mimer.producermodels.exceptions.MimerException;
+import se.fk.rdl.utils.errorhandling.exceptions.MimerException;
 
 import java.io.IOException;
 import java.time.ZoneId;

@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import se.fk.mimer.datamodel.v1.exceptions.DomainInvariantException;
 import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Artikel;
 import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Forordning;
 import se.fk.mimer.datamodel.v1.referensdata.yrkande.YrkandeStatus;
@@ -15,6 +14,7 @@ import se.fk.mimer.datamodel.v1.referensdata.Land;
 import se.fk.mimer.datamodel.v1.Period;
 import se.fk.mimer.datamodel.v1.person.Person;
 import se.fk.mimer.datamodel.v1.produceratresultat.ProduceratResultat;
+import se.fk.rdl.utils.errorhandling.exceptions.MimerException;
 
 import java.util.UUID;
 
@@ -58,7 +58,7 @@ public class PeriodTillampligLagstiftning extends ProduceratResultat
     {
         if( artikel != null && forordning != null && artikel.getForordning() != forordning )
         {
-            throw new DomainInvariantException("Artikel " + artikel + " hör till förordning " + artikel.getForordning() + ", inte " + forordning );
+            throw new MimerException("Artikel " + artikel + " hör till förordning " + artikel.getForordning() + ", inte " + forordning );
         }
         this.artikel = artikel;
     }

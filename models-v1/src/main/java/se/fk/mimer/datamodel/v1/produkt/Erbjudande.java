@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import se.fk.mimer.datamodel.v1.exceptions.DomainInvariantException;
+import se.fk.rdl.utils.errorhandling.exceptions.MimerException;
 import se.fk.mimer.datamodel.v1.referensdata.produkt.Erbjudandetyp;
 import se.fk.mimer.datamodel.v1.referensdata.produkt.Produktnamn;
 
@@ -48,7 +48,7 @@ public class Erbjudande
     {
         if( erbjudandetyp != null && produktnamn != null && erbjudandetyp.getProduktnamn() != produktnamn )
         {
-            throw new DomainInvariantException("Erbjudande " + erbjudandetyp + " hör till produktnamn " + erbjudandetyp.getProduktnamn() + ", inte " + produktnamn );
+            throw new MimerException("Erbjudande " + erbjudandetyp + " hör till produktnamn " + erbjudandetyp.getProduktnamn() + ", inte " + produktnamn );
         }
         this.erbjudandetyp = erbjudandetyp;
     }

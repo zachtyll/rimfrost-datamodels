@@ -19,6 +19,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         create( "libs" ) {
             from( "se.fk.rdl:rdl-version-catalog:1.0.2" )
+            library( "mimer.utils", 'se.fk.rdl:rdl-utils:3.0.2' )
         }
     }
 }

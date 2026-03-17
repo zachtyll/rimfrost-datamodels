@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import se.fk.mimer.datamodel.v1.exceptions.DomainInvariantException;
 import se.fk.mimer.datamodel.v1.Period;
 import se.fk.mimer.datamodel.v1.person.Person;
 import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Beloppstyp;
@@ -13,6 +12,7 @@ import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Inkomsttyp;
 import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.InkomsttypKategori;
 import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Periodisering;
 import se.fk.mimer.datamodel.v1.produceratresultat.ProduceratResultat;
+import se.fk.rdl.utils.errorhandling.exceptions.MimerException;
 
 import java.util.UUID;
 
@@ -48,7 +48,7 @@ public class BedomdInkomst extends ProduceratResultat
     {
         if( inkomsttyp != null && inkomsttypKategori != null && inkomsttyp.getKategori() != inkomsttypKategori )
         {
-            throw new DomainInvariantException( "Inkomsttypen " + inkomsttyp + " hör till kategorin " + inkomsttyp.getKategori() + ", inte " + inkomsttypKategori );
+            throw new MimerException( "Inkomsttypen " + inkomsttyp + " hör till kategorin " + inkomsttyp.getKategori() + ", inte " + inkomsttypKategori );
         }
         this.inkomsttyp = inkomsttyp;
     }

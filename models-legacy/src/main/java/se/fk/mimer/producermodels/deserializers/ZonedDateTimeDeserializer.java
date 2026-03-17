@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import lombok.extern.slf4j.Slf4j;
-import se.fk.mimer.producermodels.exceptions.MimerException;
+import se.fk.rdl.utils.errorhandling.exceptions.MimerException;
 
 import java.io.IOException;
 import java.time.LocalDate;
