@@ -1,13 +1,9 @@
 plugins {
     alias libs.plugins.jandex
-    // TODO: is groovy necessary?, i will paste earlier comment below:
-    // Apply the groovy plugin to also add support for Groovy (needed for Spock)
-    id 'groovy'
-    // Adds the 'publish' task which is used to push to java.repo
-    id 'maven-publish'
-}
 
-version = providers.gradleProperty( 'artifact.legacy.version' ).get()
+    // Adds the 'publish' task which is used to push to java.repo
+//    id 'maven-publish'
+}
 
 jar {
     manifest {
@@ -38,21 +34,23 @@ dependencies {
     testImplementation libs.mockito
 }
 
-publishing {
-    publications {
-        lib(MavenPublication) {
-            artifactId = 'mimer-datamodels'
-            from components.java
-        }
-    }
-
-    repositories {
-        maven {
-            url = uploadURLReleases
-            credentials {
-                username uploadUser
-                password uploadPassword
-            }
-        }
-    }
-}
+// Utkommenterad då vi mest troligen inte kommer behöva denna något mer, men den är kvar ifall det blir en akut-rättning
+//version = providers.gradleProperty( 'artifact.legacy.version' ).get()
+//publishing {
+//    publications {
+//        lib(MavenPublication) {
+//            artifactId = 'mimer-datamodels'
+//            from components.java
+//        }
+//    }
+//
+//    repositories {
+//        maven {
+//            url = uploadURLReleases
+//            credentials {
+//                username uploadUser
+//                password uploadPassword
+//            }
+//        }
+//    }
+//}

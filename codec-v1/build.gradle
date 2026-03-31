@@ -2,9 +2,6 @@ plugins {
     id 'maven-publish'
 }
 
-group = "se.fk.mimer.codecs"
-version = providers.gradleProperty( 'artifact.v1.version' ).get()
-
 jar {
     manifest {
         attributes 'Implementation-Version': project.version.toString()
@@ -38,8 +35,10 @@ tasks.test {
 
 publishing {
     publications {
-        lib(MavenPublication) {
+        codec(MavenPublication) {
+            groupId = group+".codecs"
             artifactId = 'codec-v1'
+            version = version
             from components.java
         }
     }

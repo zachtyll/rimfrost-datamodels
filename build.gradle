@@ -1,12 +1,3 @@
-// set 'group' for all modules/projects from gradle.properties
-// Temporary disabled because of current CI validations
-//allprojects {
-//    group = providers.gradleProperty( "group" ).get()
-//}
-
-// root group and root version below is temporary fixes for pipeline validation
-group = "se.fk.mimer"
-version = "0.0.0"
 
 subprojects {
     apply plugin: 'java-library'

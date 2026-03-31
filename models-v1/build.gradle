@@ -3,9 +3,6 @@ plugins {
     id 'maven-publish'
 }
 
-group = "se.fk.mimer.models"
-version = providers.gradleProperty( 'artifact.v1.version' ).get()
-
 jar {
     manifest {
         attributes 'Implementation-Version': project.version.toString()
@@ -37,8 +34,10 @@ dependencies {
 
 publishing {
     publications {
-        lib(MavenPublication) {
+        model(MavenPublication) {
+            groupId = group+".models"
             artifactId = 'models-v1'
+            version = version
             from components.java
         }
     }
