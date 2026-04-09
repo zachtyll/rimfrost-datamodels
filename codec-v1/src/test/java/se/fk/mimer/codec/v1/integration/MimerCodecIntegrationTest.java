@@ -40,7 +40,8 @@ class MimerCodecIntegrationTest
 
     private static Codec codec;
     private static PayloadInspector inspector;
-    private static ObjectMapper mapper;
+    private static ObjectMapper variantMapper;
+    private static ObjectMapper rawMapper;
     private static final PayloadCodec PAYLOAD_CODEC = new Base64UrlCodec();
 
 
@@ -49,7 +50,8 @@ class MimerCodecIntegrationTest
         CodecComponents components = MimerCodecFactory.create();
         codec = components.getCodec();
         inspector =  components.getInspector();
-        mapper = new CodecObjectMapperFactory( CodecRegistries.createVariantRegistry() ).create();
+        variantMapper = CodecObjectMapperFactory.createVariantMapper( CodecRegistries.createVariantRegistry() );
+        rawMapper = CodecObjectMapperFactory.createRawMapper();
     }
 
 
@@ -131,11 +133,11 @@ class MimerCodecIntegrationTest
         byte[] dataBytes = inspector.extractDataJsonBytes(payloadBytes);
         byte[] rawDataBytes = inspector.extractRawDataJsonBytes( payloadBytes );
 
-        JsonNode extractedData = mapper.readTree( dataBytes );
-        JsonNode extractedRaw = mapper.readTree( rawDataBytes );
+        JsonNode extractedData = variantMapper.readTree( dataBytes );
+        JsonNode extractedRaw = variantMapper.readTree( rawDataBytes );
 
-        JsonNode expectedData = mapper.valueToTree( yrkande );
-        JsonNode expectedRaw = mapper.valueToTree( rawData );
+        JsonNode expectedData = variantMapper.valueToTree( yrkande );
+        JsonNode expectedRaw = rawMapper.valueToTree( rawData );
 
         if (extractedData.has( JsonLdKeys.TYPE )) {
             ((ObjectNode) extractedData).remove(JsonLdKeys.TYPE);

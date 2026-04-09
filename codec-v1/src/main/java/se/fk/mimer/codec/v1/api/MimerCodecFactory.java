@@ -5,6 +5,7 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import se.fk.mimer.codec.v1.config.CodecConfig;
 import se.fk.mimer.codec.v1.jackson.CodecObjectMapperFactory;
+import se.fk.mimer.codec.v1.jackson.CodecObjectMappers;
 import se.fk.mimer.codec.v1.jsonld.DataPayloadInspector;
 import se.fk.mimer.codec.v1.jsonld.JsonLdEnvelopeBuilder;
 import se.fk.mimer.codec.v1.jsonld.PayloadInspector;
@@ -40,8 +41,8 @@ public final class MimerCodecFactory
 
         RegistryValidator.ValidateCoreOrThrow( typeRegistry, Yrkande.class, Handlaggning.class );
 
-        ObjectMapper mapper = new CodecObjectMapperFactory( variantRegistry ).create();
-        PayloadParser parser = new PayloadParser(mapper);
+        CodecObjectMappers mappers = new CodecObjectMappers(variantRegistry);
+        PayloadParser parser = new PayloadParser(mappers.variant());
         PayloadCodec payloadCodec = new Base64UrlCodec();
 
         // A dummy context provider for now
@@ -56,7 +57,8 @@ public final class MimerCodecFactory
                 new DataleveransContractValidator( CodecConfig.TRANSPORT_VERSION, CodecConfig.PAYLOAD_ENCODING_BASE64URL, CodecConfig.CONTENT_TYPE_LD_JSON );
 
         Codec codec = new MimerCodec(
-                mapper,
+                mappers.variant(),
+                mappers.raw(),
                 parser,
                 payloadCodec,
                 envelopeBuilder,
@@ -68,7 +70,7 @@ public final class MimerCodecFactory
                 CodecConfig.PAYLOAD_ENCODING_BASE64URL
         );
 
-        PayloadInspector inspector = new DataPayloadInspector( mapper );
+        PayloadInspector inspector = new DataPayloadInspector( mappers.raw() );
 
         return new CodecComponents( codec, inspector );
     }

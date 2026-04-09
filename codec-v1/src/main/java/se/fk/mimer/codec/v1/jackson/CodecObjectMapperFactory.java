@@ -20,7 +20,17 @@ public class CodecObjectMapperFactory
         return new CodecObjectMapperFactory( VariantRegistry.empty() );
     }
 
-    public ObjectMapper create() {
+    public static ObjectMapper createVariantMapper(VariantRegistry registry) {
+        ObjectMapper mapper = createBaseMapper();
+        mapper.registerModule(new CodecJacksonModule(registry));
+        return mapper;
+    }
+
+    public static ObjectMapper createRawMapper() {
+        return createBaseMapper();
+    }
+
+    private static ObjectMapper createBaseMapper() {
         ObjectMapper mapper = new ObjectMapper();
 
         // Java time (Instant, LocalDat, ZonedDateTime, etc.)
@@ -34,13 +44,8 @@ public class CodecObjectMapperFactory
         timeOverrides.addDeserializer( ZonedDateTime.class, new ZonedDateTimeDeserializer() );
         mapper.registerModule( timeOverrides );
 
-        // Variant-based polymorphism
-        mapper.registerModule( new CodecJacksonModule(variantRegistry) );
-
         // Ensure only ISO time formats
         mapper.disable( SerializationFeature.WRITE_DATES_AS_TIMESTAMPS );
-
-        System.out.println("Modules: " + mapper.getRegisteredModuleIds());
 
         return mapper;
     }

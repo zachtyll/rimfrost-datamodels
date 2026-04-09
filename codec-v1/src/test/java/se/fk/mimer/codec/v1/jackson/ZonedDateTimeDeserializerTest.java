@@ -22,7 +22,7 @@ class ZonedDateTimeDeserializerTest {
 
     @BeforeEach
     void setup() {
-        mapper = CodecObjectMapperFactory.withEmptyVariants().create();
+        mapper = CodecObjectMapperFactory.createRawMapper();
     }
 
     @Test

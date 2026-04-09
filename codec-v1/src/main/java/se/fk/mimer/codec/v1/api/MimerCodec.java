@@ -35,7 +35,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class MimerCodec implements Codec
 {
-    private final ObjectMapper mapper;
+    private final ObjectMapper variantMapper;
+    private final ObjectMapper rawMapper;
     private final PayloadParser parser;
     private final PayloadCodec payloadCodec;
     private final JsonLdEnvelopeBuilder envelopeBuilder;
@@ -61,8 +62,8 @@ public class MimerCodec implements Codec
             requireNonBlank(contentType, "contentType");
             requireNonBlank(payloadEncoding, "payloadEncoding");
 
-            ObjectNode dataNode = ensureObjectNode(mapper.valueToTree( request.getData() ), "data");
-            ObjectNode rawNode = ensureObjectNode(mapper.valueToTree( request.getRawData() ), "rawData");
+            ObjectNode dataNode = ensureObjectNode(variantMapper.valueToTree( request.getData() ), "data");
+            ObjectNode rawNode = ensureObjectNode(rawMapper.valueToTree( request.getRawData() ), "rawData");
 
             String dataTypeIri = typeRegistry.typeIdForClass( request.getData().getClass() );
             String modelVersion = typeRegistry.modelVersionForTypeId( dataTypeIri );
@@ -77,10 +78,10 @@ public class MimerCodec implements Codec
                     request.getMetadata().getProducentId(),
                     modelVersion,
                     request.getTaggingMode(),
-                    mapper.createObjectNode()
+                    variantMapper.createObjectNode()
             );
 
-            byte[] payloadBytes = mapper.writeValueAsBytes( root );
+            byte[] payloadBytes = variantMapper.writeValueAsBytes( root );
             String payload = payloadCodec.encode( payloadBytes );
 
             Dataleverans dataleverans = Dataleverans.builder()
@@ -145,7 +146,7 @@ public class MimerCodec implements Codec
 
             JsonLdStripper.stripInPlace( dataCopy );
 
-            Object dataPojo = mapper.treeToValue( dataCopy, expectedBaseClass );
+            Object dataPojo = variantMapper.treeToValue( dataCopy, expectedBaseClass );
             contractValidator.validate( dataPojo );
 
             return DecodedPayload.builder()

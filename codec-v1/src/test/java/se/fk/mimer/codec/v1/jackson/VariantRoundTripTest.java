@@ -18,7 +18,7 @@ class VariantRoundTripTest
     @Test
     void person_subclass_roundtrip_injects_variant_and_decodes_subclass() throws Exception {
         VariantRegistry registry = CodecRegistries.createVariantRegistry();
-        ObjectMapper mapper = new CodecObjectMapperFactory( registry ).create();
+        ObjectMapper mapper = CodecObjectMapperFactory.createVariantMapper( registry );
 
         FysiskPerson original = FysiskPerson.builder()
                 .personnummer( "199204543567" )
