@@ -4,20 +4,20 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import lombok.extern.jackson.Jacksonized;
 import se.fk.mimer.datamodel.v1.Period;
 
 import java.util.UUID;
 
-@NoArgsConstructor( force = true )
+@Jacksonized
 @Accessors( chain = true )
 @Setter
 @Getter
+@Builder
 public class Lagrum
 {
-    @Builder
     public Lagrum( UUID id, int revision, String forfattning, String kapitel, String paragraf,
                    @Nullable String stycke, @Nullable String punkt, Period giltighetstid)
     {

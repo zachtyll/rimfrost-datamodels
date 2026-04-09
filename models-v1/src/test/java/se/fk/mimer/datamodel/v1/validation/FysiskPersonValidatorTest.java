@@ -24,7 +24,6 @@ public class FysiskPersonValidatorTest {
     void validPerson() {
         FysiskPerson person = FysiskPerson.builder()
                 .personnummer("2000-01-01-1234")
-                .kundid("1234")
                 .build();
 
         assertTrue(validator.isValid(person, context));
@@ -34,37 +33,24 @@ public class FysiskPersonValidatorTest {
     void personOnlyPnr() {
         FysiskPerson person = FysiskPerson.builder()
                 .personnummer("2000-01-01-1234")
-                .kundid(null)
                 .build();
 
         assertTrue(validator.isValid(person, context));
     }
 
     @Test
-    void personWithIDOnly() {
-        FysiskPerson person = FysiskPerson.builder()
-                .personnummer(null)
-                .kundid("1234")
-                .build();
-
-        assertTrue(validator.isValid(person, context));
-    }
-
-    @Test
-    void personEmptyNumberAndNullId() {
+    void personEmptyNumber() {
         FysiskPerson customer = FysiskPerson.builder()
                 .personnummer("")
-                .kundid(null)
                 .build();
 
         assertFalse(validator.isValid(customer, context));
     }
 
     @Test
-    void personEmptyOptionalNumberAndNullId() {
+    void personEmptyOptionalNumber() {
         FysiskPerson customer = FysiskPerson.builder()
                 .personnummer(null) // Missing number
-                .kundid(null)
                 .build();
 
         assertFalse(validator.isValid(customer, context));

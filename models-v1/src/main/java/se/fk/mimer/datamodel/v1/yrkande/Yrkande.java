@@ -5,16 +5,15 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import lombok.extern.jackson.Jacksonized;
 import se.fk.mimer.datamodel.v1.Period;
 import se.fk.mimer.datamodel.v1.beslut.Beslut;
 import se.fk.mimer.datamodel.v1.beslut.delgivning.Delgivning;
 import se.fk.mimer.datamodel.v1.person.Person;
 import se.fk.mimer.datamodel.v1.produceratresultat.ProduceratResultat;
-import se.fk.mimer.datamodel.v1.produkt.Erbjudande;
-import se.fk.mimer.datamodel.v1.produkt.Produkt;
+import se.fk.mimer.datamodel.v1.produkt.erbjudande.Erbjudande;
 import se.fk.mimer.datamodel.v1.referensdata.yrkande.Avsikt;
 import se.fk.mimer.datamodel.v1.referensdata.yrkande.YrkandeStatus;
 
@@ -23,8 +22,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Jacksonized
 @AllArgsConstructor
-@NoArgsConstructor( force = true )
 @Accessors( chain = true )
 @Setter
 @Builder
@@ -47,7 +46,6 @@ public class Yrkande
     private Beslut beslut;
     private Delgivning delgivning;
     private Erbjudande avserErbjudande;
-    private Produkt produkt;
     private List<Person> personer;
     private List<ProduceratResultat> produceradeResultat;
 
@@ -81,8 +79,6 @@ public class Yrkande
     {
         return Optional.ofNullable( avserErbjudande );
     }
-
-    public Optional<Produkt> getProdukt() { return Optional.ofNullable( produkt ); }
 
     public Optional<List<Person>> getPersoner() { return Optional.ofNullable( personer ); }
 

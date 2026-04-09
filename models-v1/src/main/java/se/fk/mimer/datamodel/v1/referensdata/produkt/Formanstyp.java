@@ -1,0 +1,13 @@
+package se.fk.mimer.datamodel.v1.referensdata.produkt;
+
+public enum Formanstyp
+{
+    SJUKPENNING,
+    REHABILITERINGSERSATTNING,
+    FOREBYGGANDE_SJUKPENNING,
+    BOSTADSBIDRAG,
+    TILLFALLIG_FORALDRAPENNING,
+    FORALDRAPENNING,
+    UNDERHALLSSTOD,
+    GEMENSAM
+}

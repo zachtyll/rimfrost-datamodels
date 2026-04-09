@@ -1,4 +1,4 @@
-package se.fk.mimer.datamodel.v1.test.yrkande;
+package se.fk.mimer.datamodel.v1.handlaggning;
 
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -6,12 +6,13 @@ import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import se.fk.mimer.datamodel.v1.fixtures.YrkandeFixtures;
-import se.fk.mimer.datamodel.v1.yrkande.Yrkande;
+import se.fk.mimer.datamodel.v1.fixtures.HandlaggningFixtures;
+import se.fk.mimer.datamodel.v1.handlaggning.Handlaggning;
+import se.fk.mimer.datamodel.v1.utils.FixtureUtil;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class YrkandeValidationTest
+public class HandlaggningValidationTest
 {
 
     private static ValidatorFactory factory;
@@ -29,11 +30,15 @@ public class YrkandeValidationTest
     }
 
     @Test
-    void valid_yrkan_hasNoViolations() {
-        Yrkande yrkande = YrkandeFixtures.valid();
-        var violations = validator.validate( yrkande );
+    void valid_handlaggning_hasNoViolations() {
+        // Arrange
+        Handlaggning handlaggning = HandlaggningFixtures.valid();
+        handlaggning.setAvslutad( FixtureUtil.fixedDate() );
+        handlaggning.setSkapad( FixtureUtil.fixedDate() );
+        handlaggning.setArendeId( FixtureUtil.newId().toString() );
+
+        var violations = validator.validate( handlaggning );
         assertTrue(violations.isEmpty(), () -> "Violations: " + violations);
     }
-
 
 }

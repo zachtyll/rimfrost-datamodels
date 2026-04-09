@@ -1,23 +1,23 @@
 package se.fk.mimer.datamodel.v1.person;
 
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
 import se.fk.mimer.datamodel.v1.yrkande.RollIYrkande;
 
 import java.util.Map;
 import java.util.UUID;
 
-@NoArgsConstructor( force = true )
+@Jacksonized
 @Accessors( chain = true )
 @EqualsAndHashCode( callSuper = true )
 @Setter
+@SuperBuilder
 public class JuridiskPerson extends Person
 {
-    @Builder
     public JuridiskPerson( UUID id, String kundid, int revision, String organisationsnummer, Map<UUID, RollIYrkande> rollIKundbehov)
     {
         super( id,  revision, kundid, rollIKundbehov);

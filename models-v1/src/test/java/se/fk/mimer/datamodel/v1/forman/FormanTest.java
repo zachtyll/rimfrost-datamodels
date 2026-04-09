@@ -1,0 +1,33 @@
+package se.fk.mimer.datamodel.v1.forman;
+
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import se.fk.mimer.datamodel.v1.fixtures.FormanFixtures;
+import se.fk.mimer.datamodel.v1.produkt.erbjudande.Formanstyp;
+import se.fk.mimer.datamodel.v1.produkt.forman.Forman;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+
+class FormanTest
+{
+    @Test
+    @Tag( "ProduktCanAddAndRemoveErbjudandenTest" )
+    void FormanInstansiatesCorrectly()
+    {
+        Forman forman = FormanFixtures.getForman();
+
+        assertInstanceOf( Forman.class, forman );
+        assertInstanceOf( Formanstyp.class, forman.getFormanstyp() );
+        assertNotNull( forman.getBeskrivning() );
+        assertInstanceOf( Optional.class, forman.getBeskrivning() );
+        forman.setBeskrivning( "Testbeskrivning" );
+        assertTrue( forman.getBeskrivning().isPresent() );
+        assertEquals( "Testbeskrivning", forman.getBeskrivning().get() );
+    }
+}

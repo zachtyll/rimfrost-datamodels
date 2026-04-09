@@ -2,18 +2,18 @@ package se.fk.mimer.datamodel.v1.person;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 import se.fk.mimer.datamodel.v1.yrkande.RollIYrkande;
 
 import java.util.Map;
 import java.util.UUID;
 
-@NoArgsConstructor( force = true )
 @Accessors( chain = true )
 @Setter
 @Getter
+@SuperBuilder
 public abstract class Person
 {
     public Person(UUID id, int revision, String kundid, Map<UUID, RollIYrkande> rollIKundbehov)

@@ -3,6 +3,10 @@ package se.fk.mimer.codec.v1.fixtures;
 import se.fk.mimer.codec.v1.util.TestValues;
 import se.fk.mimer.datamodel.v1.Period;
 import se.fk.mimer.datamodel.v1.beslut.Beslut;
+import se.fk.mimer.datamodel.v1.produkt.erbjudande.Erbjudande;
+import se.fk.mimer.datamodel.v1.produkt.erbjudande.Erbjudandetyp;
+import se.fk.mimer.datamodel.v1.produkt.erbjudande.Formanstyp;
+import se.fk.mimer.datamodel.v1.referensdata.produkt.erbjudande.Erbjudandenamn;
 import se.fk.mimer.datamodel.v1.referensdata.beslut.BeslutandeOrganisation;
 import se.fk.mimer.datamodel.v1.beslut.delgivning.Delgivning;
 import se.fk.mimer.datamodel.v1.referensdata.beslut.Delgivningstyp;
@@ -15,11 +19,7 @@ import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.Belop
 import se.fk.mimer.datamodel.v1.produceratresultat.ersattning.omfattning.OmfattningBaseratPaErsattningstypEnligtLagrum;
 import se.fk.mimer.datamodel.v1.produceratresultat.krav.Krav;
 import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Kravtyp;
-import se.fk.mimer.datamodel.v1.referensdata.produkt.Erbjudandetyp;
-import se.fk.mimer.datamodel.v1.referensdata.produkt.Produktnamn;
-import se.fk.mimer.datamodel.v1.produkt.Produkt;
-import se.fk.mimer.datamodel.v1.referensdata.produkt.Produktroller;
-import se.fk.mimer.datamodel.v1.produkt.RollIProdukt;
+import se.fk.mimer.datamodel.v1.produkt.forman.Forman;
 import se.fk.mimer.datamodel.v1.referensdata.yrkande.Avsikt;
 import se.fk.mimer.datamodel.v1.yrkande.RollIYrkande;
 import se.fk.mimer.datamodel.v1.referensdata.yrkande.RollerIYrkande;
@@ -80,38 +80,40 @@ public class YrkandeFixtures
                 .build();
     }
 
-    private static se.fk.mimer.datamodel.v1.produkt.Erbjudande createErbjudande()
+    private static Erbjudandetyp createErbjudandetyp()
     {
-        return se.fk.mimer.datamodel.v1.produkt.Erbjudande.builder()
+        return Erbjudandetyp.builder()
                 .id( TestValues.uuid() )
-                .revision( TestValues.revision() )
-                .erbjudandeNamn( "erbjudandeNamn" )
-                .produktnamn( Produktnamn.UNDERHALLSSTOD )
-                .erbjudandetyp( Erbjudandetyp.BARNINKOMSTAVDRAG )
+                .version( TestValues.revision() )
+                .erbjudandenamn( Erbjudandenamn.ANSOKA_OM_FORALDRAPENNING )
                 .build();
     }
 
-    private static Produkt createProdukt()
+    private static Formanstyp createFormanstyp()
     {
-        return Produkt.builder()
+        return Formanstyp.builder()
                 .id( TestValues.uuid() )
-                .revision( TestValues.revision() )
-                .produktnamn( Produktnamn.UNDERHALLSSTOD )
-                .roller( new RollIProdukt[]{
-                        createRolliProdukt()
-                } )
-                .erbjudande( Map.of( TestValues.uuid(), createErbjudande() ) )
+                .version( TestValues.revision() )
+                .formanstyp( se.fk.mimer.datamodel.v1.referensdata.produkt.Formanstyp.GEMENSAM )
                 .build();
     }
 
-    private static RollIProdukt createRolliProdukt()
+    private static Forman createForman()
     {
-        return RollIProdukt.builder()
+        return Forman.builder()
                 .id( TestValues.uuid() )
-                .revision( TestValues.revision() )
-                .kundid( "kundID" )
-                .produktid( TestValues.uuid() )
-                .roll( Produktroller.PRODUKTAGARE )
+                .version( TestValues.revision() )
+                .formanstyp( createFormanstyp() )
+                .build();
+    }
+
+    private static Erbjudande createErbjudande()
+    {
+        return Erbjudande.builder()
+                .id( TestValues.uuid() )
+                .version( TestValues.revision() )
+                .erbjudande( createErbjudandetyp() )
+                .ingarIProdukt( List.of( createForman() ) )
                 .build();
     }
 
@@ -139,7 +141,6 @@ public class YrkandeFixtures
                 .kundid( "kundID" )
                 .revision( TestValues.revision() )
                 .personnummer( "199203459456" )
-                .rollIProdukt( createRolliProdukt() )
                 .enskildNaringsidkare( createEnskildNaringsIdkare() )
                 .rollIKundbehov( Map.of( TestValues.uuid(), createRolliYrkande() ) )
                 .build();
@@ -184,7 +185,6 @@ public class YrkandeFixtures
                 .beslut( createBeslut() )
                 .delgivning( createDelgivning() )
                 .avserErbjudande( createErbjudande() )
-                .produkt( createProdukt() )
                 .personer( List.of( createFysiskPerson() ) )
                 .produceradeResultat( List.of( createKrav() ) )
                 .build();

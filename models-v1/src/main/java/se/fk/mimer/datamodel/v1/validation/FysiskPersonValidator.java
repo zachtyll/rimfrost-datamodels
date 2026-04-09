@@ -13,6 +13,6 @@ public class FysiskPersonValidator implements ConstraintValidator<ValidFysiskPer
                 .map(String::isEmpty)
                 .orElse(true);
 
-        return !(pnrMissingOrEmpty && person.getKundid() == null);
+        return !(pnrMissingOrEmpty);
     }
 }
