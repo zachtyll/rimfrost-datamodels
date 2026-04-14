@@ -16,7 +16,6 @@ dependencies {
     implementation libs.jackson.core
     implementation libs.jackson.jdk8
     implementation libs.java.uuid.generator
-    implementation libs.mimer.utils
 
     compileOnly libs.lombok
     annotationProcessor( libs.lombok )

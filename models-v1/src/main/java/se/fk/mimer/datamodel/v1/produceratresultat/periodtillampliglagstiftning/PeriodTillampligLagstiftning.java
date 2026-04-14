@@ -7,14 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import se.fk.mimer.datamodel.v1.Period;
+import se.fk.mimer.datamodel.v1.exceptions.MimerModelsException;
+import se.fk.mimer.datamodel.v1.person.Person;
+import se.fk.mimer.datamodel.v1.produceratresultat.ProduceratResultat;
+import se.fk.mimer.datamodel.v1.referensdata.Land;
 import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Artikel;
 import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Forordning;
 import se.fk.mimer.datamodel.v1.referensdata.yrkande.YrkandeStatus;
-import se.fk.mimer.datamodel.v1.referensdata.Land;
-import se.fk.mimer.datamodel.v1.Period;
-import se.fk.mimer.datamodel.v1.person.Person;
-import se.fk.mimer.datamodel.v1.produceratresultat.ProduceratResultat;
-import se.fk.rdl.utils.errorhandling.exceptions.MimerException;
 
 import java.util.UUID;
 
@@ -26,13 +26,15 @@ import java.util.UUID;
 public class PeriodTillampligLagstiftning extends ProduceratResultat
 {
     @Builder
-    public PeriodTillampligLagstiftning( UUID id, UUID faststallsForKundbehov, int revision, Person avserPerson, Period giltighetsperiod, String typ, String status,
+    public PeriodTillampligLagstiftning( UUID id, UUID faststallsForKundbehov, int revision, Person avserPerson,
+                                         Period giltighetsperiod, String typ, String status,
                                          @Nullable Forordning forordning, Artikel artikel, @Nullable Land bosattning,
-                                         @Nullable String statVarsSocialforsakringPersonenOmfattasAv, @Nullable YrkandeStatus yrkandeStatus )
+                                         @Nullable String statVarsSocialforsakringPersonenOmfattasAv,
+                                         @Nullable YrkandeStatus yrkandeStatus )
     {
-        super( id, revision, faststallsForKundbehov, avserPerson, giltighetsperiod, typ, status);
+        super( id, revision, faststallsForKundbehov, avserPerson, giltighetsperiod, typ, status );
         this.forordning = forordning;
-        this.setArtikel(artikel);
+        this.setArtikel( artikel );
         this.bosattning = bosattning;
         this.statVarsSocialforsakringPersonenOmfattasAv = statVarsSocialforsakringPersonenOmfattasAv;
         this.yrkandeStatus = yrkandeStatus;
@@ -54,11 +56,12 @@ public class PeriodTillampligLagstiftning extends ProduceratResultat
     @Nullable
     private YrkandeStatus yrkandeStatus;
 
-    private void setArtikel( Artikel artikel)
+    private void setArtikel( Artikel artikel )
     {
         if( artikel != null && forordning != null && artikel.getForordning() != forordning )
         {
-            throw new MimerException("Artikel " + artikel + " hör till förordning " + artikel.getForordning() + ", inte " + forordning );
+            throw new MimerModelsException( "Artikel " + artikel + " hör till förordning " + artikel.getForordning() + "," +
+                    " inte " + forordning );
         }
         this.artikel = artikel;
     }
