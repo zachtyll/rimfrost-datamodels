@@ -57,6 +57,7 @@ public class MimerCodec implements Codec
         try {
             Objects.requireNonNull(request, "request must not be null");
             contractValidator.validate(request);
+            contractValidator.validate(request.getData());
 
             requireNonBlank(transportVersion, "transportVersion");
             requireNonBlank(contentType, "contentType");
