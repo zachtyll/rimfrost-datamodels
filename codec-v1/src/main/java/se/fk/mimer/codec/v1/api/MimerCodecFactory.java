@@ -4,23 +4,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import se.fk.mimer.codec.v1.config.CodecConfig;
-import se.fk.mimer.codec.v1.jackson.CodecObjectMapperFactory;
 import se.fk.mimer.codec.v1.jackson.CodecObjectMappers;
-import se.fk.mimer.codec.v1.jsonld.DataPayloadInspector;
-import se.fk.mimer.codec.v1.jsonld.JsonLdEnvelopeBuilder;
-import se.fk.mimer.codec.v1.jsonld.PayloadInspector;
+import se.fk.mimer.codec.v1.jsonld.builder.ContextBuilder;
+import se.fk.mimer.codec.v1.jsonld.builder.JsonLdGraphBuilder;
+import se.fk.mimer.codec.v1.jsonld.builder.JsonLdPayloadBuilder;
+import se.fk.mimer.codec.v1.jsonld.builder.NodeTraverser;
+import se.fk.mimer.codec.v1.jsonld.context.ContextProvider;
+import se.fk.mimer.codec.v1.jsonld.context.StaticContextProvider;
+import se.fk.mimer.codec.v1.jsonld.extract.DataPayloadInspector;
+import se.fk.mimer.codec.v1.jsonld.extract.PayloadInspector;
+import se.fk.mimer.codec.v1.jsonld.field.FieldNameResolver;
+import se.fk.mimer.codec.v1.jsonld.field.FieldToClassMapBuilder;
+import se.fk.mimer.codec.v1.jsonld.strip.JsonLdStripper;
 import se.fk.mimer.codec.v1.payload.Base64UrlCodec;
 import se.fk.mimer.codec.v1.payload.PayloadCodec;
 import se.fk.mimer.codec.v1.payload.PayloadParser;
-import se.fk.mimer.codec.v1.registry.CodecRegistries;
-import se.fk.mimer.codec.v1.registry.DummyEmptyContextProvider;
-import se.fk.mimer.codec.v1.registry.RegistryValidator;
-import se.fk.mimer.codec.v1.registry.TypeRegistry;
-import se.fk.mimer.codec.v1.registry.VariantRegistry;
+import se.fk.mimer.codec.v1.registry.*;
 import se.fk.mimer.codec.v1.validation.ContractValidator;
 import se.fk.mimer.codec.v1.validation.DataleveransContractValidator;
 import se.fk.mimer.datamodel.v1.handlaggning.Handlaggning;
 import se.fk.mimer.datamodel.v1.yrkande.Yrkande;
+
+import java.util.Map;
 
 /**
  * Factory för att skapa en komplett codec v1-konfiguration.
@@ -41,14 +46,24 @@ public final class MimerCodecFactory
 
         RegistryValidator.ValidateCoreOrThrow( typeRegistry, Yrkande.class, Handlaggning.class );
 
-        CodecObjectMappers mappers = new CodecObjectMappers(variantRegistry);
+        CodecObjectMappers mappers = new CodecObjectMappers(variantRegistry, typeRegistry);
         PayloadParser parser = new PayloadParser(mappers.variant());
         PayloadCodec payloadCodec = new Base64UrlCodec();
 
-        // A dummy context provider for now
-        DummyEmptyContextProvider contextProvider = new DummyEmptyContextProvider();
+        ContextProvider contextProvider = new StaticContextProvider();
+        ContextBuilder contextBuilder = new ContextBuilder(contextProvider, mappers.raw());
+        FieldNameResolver fieldResolver = new FieldNameResolver();
+        Map<String, Class<?>> fieldToClass = FieldToClassMapBuilder.build(typeRegistry.getRegisteredClasses());
 
-        JsonLdEnvelopeBuilder envelopeBuilder = new JsonLdEnvelopeBuilder( typeRegistry, contextProvider );
+        NodeTraverser traverser = new NodeTraverser(
+                fieldResolver,
+                typeRegistry,
+                fieldToClass,
+                mappers.raw()
+        );
+        JsonLdPayloadBuilder jsonLdPayloadBuilder = new JsonLdGraphBuilder(contextBuilder, traverser, mappers.raw());
+
+        JsonLdStripper stripper = new JsonLdStripper(mappers.raw());
 
         Validator beanValidator = Validation.buildDefaultValidatorFactory().getValidator();
         ContractValidator contractValidator = new ContractValidator( beanValidator );
@@ -61,7 +76,8 @@ public final class MimerCodecFactory
                 mappers.raw(),
                 parser,
                 payloadCodec,
-                envelopeBuilder,
+                jsonLdPayloadBuilder,
+                stripper,
                 typeRegistry,
                 contractValidator,
                 dataleveransContractValidator,

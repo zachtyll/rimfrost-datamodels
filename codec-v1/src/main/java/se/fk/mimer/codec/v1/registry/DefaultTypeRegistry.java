@@ -1,8 +1,7 @@
 package se.fk.mimer.codec.v1.registry;
 
 
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Defaultimplementation av {@link TypeRegistry} med interna URN-baserade type-id:n.
@@ -10,15 +9,13 @@ import java.util.Objects;
  * <p>
  * Format:
  * <ul>
- *     <li>Data: {@code urn:mimer:typ:<TypToken>:<ModelVersion>}</li>
- *     <li>Payload: {@code urn:mimer:payload:<ModelVersion>}</li>
+ *     <li>Data: {@code urn:fk:typ:<TypToken>:<ModelVersion>}</li>
  * </ul>
  */
 public class DefaultTypeRegistry implements TypeRegistry
 {
-    private static final String URN_PREFIX = "urn:mimer:";
+    private static final String URN_PREFIX = "urn:fk:";
     private static final String KIND_TYP = "typ";
-    private static final String KIND_PAYLOAD = "payload";
 
     private final String modelVersion;
 
@@ -26,7 +23,7 @@ public class DefaultTypeRegistry implements TypeRegistry
     private final Map<String, Class<?>> typeTokenToClass;
 
     public DefaultTypeRegistry( String modelVersion, Map<Class<?>, String> classToTypeToken,
-                                Map<String, Class<?>> typeTokenToClass )
+                                Map<String, Class<?>> typeTokenToClass)
     {
         this.modelVersion = requireNonBlank(modelVersion, "modelVersion");
         this.classToTypeToken = Map.copyOf( classToTypeToken );
@@ -37,24 +34,18 @@ public class DefaultTypeRegistry implements TypeRegistry
     public String typeIdForClass( Class<?> clazz )
     {
         Objects.requireNonNull( clazz, "clazz must not be null" );
-        String typeName = classToTypeToken.get( clazz );
-        if (typeName == null || typeName.isBlank()) {
+        String token = classToTypeToken.get( clazz );
+        if (token == null || token.isBlank()) {
             throw new IllegalArgumentException("No typeToken mapping for class: " + clazz.getName());
         }
-        return dataTypeId(typeName, modelVersion);
-    }
-
-    @Override
-    public String payloadTypeId( String modelVersion )
-    {
-        return buildPayloadTypeId( requireNonBlank( modelVersion, "modelVersion" ) );
+        return buildTypeId(token, modelVersion);
     }
 
     @Override
     public Class<?> classForTypeId( String typeId )
     {
         Parsed parsed = parse(typeId);
-        if (parsed == null || parsed.kind != Kind.DATA) return null;
+        if (parsed == null) return null;
         return typeTokenToClass.get(parsed.typeToken);
     }
 
@@ -65,12 +56,40 @@ public class DefaultTypeRegistry implements TypeRegistry
         return parsed == null ? null : parsed.modelVersion;
     }
 
-    private static String dataTypeId(String typeName, String modelVersion) {
-        return URN_PREFIX + KIND_TYP + ":" + typeName + ":" + modelVersion;
+    @Override
+    public Class<?> classForShortType(String shortTypeId)
+    {
+        if (shortTypeId == null || shortTypeId.isBlank()) return null;
+        String token = shortTypeId.contains(":")
+                ? shortTypeId.substring(shortTypeId.indexOf(':') + 1)
+                : shortTypeId;
+        return typeTokenToClass.get(token);
     }
 
-    private static String buildPayloadTypeId(String modelVersion) {
-        return URN_PREFIX + KIND_PAYLOAD + ":" + modelVersion;
+    @Override
+    public boolean isRegistered(Class<?> clazz) {
+        return clazz != null && classToTypeToken.containsKey(clazz);
+    }
+
+    @Override
+    public Set<Class<?>> getRegisteredClasses() {
+        return Set.copyOf(classToTypeToken.keySet());
+    }
+
+    @Override
+    public Class<?> classForVariantName(String variantName) {
+        if (variantName == null || variantName.isBlank()) {
+            return null;
+        }
+        return typeTokenToClass.entrySet().stream()
+                .filter(e -> e.getKey().equalsIgnoreCase(variantName))
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .orElse(null);
+    }
+
+    private static String buildTypeId(String token, String version) {
+        return URN_PREFIX + KIND_TYP + ":" + token + ":" + version;
     }
 
     private static Parsed parse(String typeId) {
@@ -78,26 +97,13 @@ public class DefaultTypeRegistry implements TypeRegistry
         if (!typeId.startsWith( URN_PREFIX )) return null;
 
         String[] parts = typeId.split( ":" );
-        if (parts.length < 4) return null;
+        if (parts.length != 5) return null;
+        if (!KIND_TYP.equals(parts[2])) return null;
 
-        String typ = parts[2];
-
-        if (KIND_PAYLOAD.equals( typ )) {
-            if (parts.length != 4) return null;
-            return new Parsed( Kind.PAYLOAD, null, parts[3] );
-        }
-
-        if (KIND_TYP.equals( typ )) {
-            if (parts.length != 5) return null;
-            return new Parsed(Kind.DATA, parts[3], parts[4]);
-        }
-
-        return null;
+        return new Parsed(parts[3], parts[4]);
     }
 
-    private enum Kind { DATA, PAYLOAD };
-
-    private record Parsed(Kind kind, String typeToken, String modelVersion) {}
+    private record Parsed(String typeToken, String modelVersion) {}
 
     private static String requireNonBlank(String s, String name) {
         Objects.requireNonNull(s, name + " must not be null");

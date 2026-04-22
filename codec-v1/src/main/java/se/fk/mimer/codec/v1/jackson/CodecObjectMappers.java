@@ -1,6 +1,7 @@
 package se.fk.mimer.codec.v1.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import se.fk.mimer.codec.v1.registry.TypeRegistry;
 import se.fk.mimer.codec.v1.registry.VariantRegistry;
 
 public final class CodecObjectMappers {
@@ -8,8 +9,8 @@ public final class CodecObjectMappers {
     private final ObjectMapper variantMapper;
     private final ObjectMapper rawMapper;
 
-    public CodecObjectMappers(VariantRegistry registry) {
-        this.variantMapper = CodecObjectMapperFactory.createVariantMapper(registry);
+    public CodecObjectMappers(VariantRegistry registry, TypeRegistry typeRegistry) {
+        this.variantMapper = CodecObjectMapperFactory.createVariantMapper(registry, typeRegistry);
         this.rawMapper = CodecObjectMapperFactory.createRawMapper();
     }
 

@@ -1,4 +1,4 @@
-package se.fk.mimer.codec.v1.jsonld;
+package se.fk.mimer.codec.v1.jsonld.extract;
 
 import se.fk.mimer.codec.v1.exceptions.DecodeException;
 
@@ -28,11 +28,11 @@ public interface PayloadInspector
     byte[] extractRawDataJsonBytes(byte[] payloadBytes);
 
     /**
-     * Extraherar {@code data} från payload-envelope.
+     * Extraherar {@code @graph} bas-data från payload-envelope.
      *
      * @param payloadBytes UTF-8 JSON payload-envelope.
      * @return data som UTF-8 JSON bytes
-     * @throws DecodeException om payload saknar rawData eller har fel struktur.
+     * @throws DecodeException om payload saknar bas-data eller har fel struktur.
      */
-    byte[] extractDataJsonBytes(byte[] payloadBytes);
+    byte[] extractBaseDataJsonBytes(byte[] payloadBytes);
 }

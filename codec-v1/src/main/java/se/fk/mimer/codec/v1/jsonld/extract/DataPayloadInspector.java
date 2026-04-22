@@ -1,9 +1,10 @@
-package se.fk.mimer.codec.v1.jsonld;
+package se.fk.mimer.codec.v1.jsonld.extract;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import se.fk.mimer.codec.v1.exceptions.DecodeException;
+import se.fk.mimer.codec.v1.jsonld.JsonLdKeys;
 
 import java.util.Objects;
 
@@ -24,10 +25,10 @@ public final class DataPayloadInspector implements PayloadInspector
     }
 
     @Override
-    public byte[] extractDataJsonBytes( byte[] payloadBytes )
+    public byte[] extractBaseDataJsonBytes( byte[] payloadBytes )
     {
         JsonNode root = parseRoot( payloadBytes );
-        JsonNode data = requireObject( root, JsonLdKeys.DATA );
+        JsonNode data = JsonLdExtractor.baseDataNode(root);
         return write(data);
     }
 

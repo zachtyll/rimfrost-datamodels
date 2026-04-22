@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import se.fk.mimer.codec.v1.jackson.deserializers.ZonedDateTimeDeserializer;
+import se.fk.mimer.codec.v1.registry.TypeRegistry;
 import se.fk.mimer.codec.v1.registry.VariantRegistry;
 
 import java.time.ZonedDateTime;
@@ -20,9 +21,9 @@ public class CodecObjectMapperFactory
         return new CodecObjectMapperFactory( VariantRegistry.empty() );
     }
 
-    public static ObjectMapper createVariantMapper(VariantRegistry registry) {
+    public static ObjectMapper createVariantMapper(VariantRegistry registry, TypeRegistry typeRegistry) {
         ObjectMapper mapper = createBaseMapper();
-        mapper.registerModule(new CodecJacksonModule(registry));
+        mapper.registerModule(new CodecJacksonModule(registry, typeRegistry));
         return mapper;
     }
 

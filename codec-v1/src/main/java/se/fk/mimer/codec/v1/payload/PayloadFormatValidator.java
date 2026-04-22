@@ -2,7 +2,7 @@ package se.fk.mimer.codec.v1.payload;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import se.fk.mimer.codec.v1.exceptions.DecodeException;
-import se.fk.mimer.codec.v1.jsonld.JsonLdExtractor;
+import se.fk.mimer.codec.v1.jsonld.extract.JsonLdExtractor;
 import se.fk.mimer.codec.v1.jsonld.JsonLdKeys;
 
 public final class PayloadFormatValidator
@@ -14,14 +14,12 @@ public final class PayloadFormatValidator
             throw new DecodeException( "Payload root must be a JSON object" );
         }
 
-        requireTextField(root, JsonLdKeys.TYPE, "payload root" );
-
-        JsonNode data = JsonLdExtractor.dataNode( root );
-        if (data == null || data.isNull()) {
-            throw new DecodeException( "Missing '" + JsonLdKeys.DATA + "'" );
+        JsonNode baseData = JsonLdExtractor.baseDataNode( root );
+        if (baseData == null || baseData.isNull()) {
+            throw new DecodeException( "Missing '" + JsonLdKeys.GRAPH + "'" );
         }
-        if (!data.isObject()) {
-            throw new DecodeException( "'" + JsonLdKeys.DATA + "' must be a JSON object" );
+        if (!baseData.isObject()) {
+            throw new DecodeException( "'" + JsonLdKeys.GRAPH + "' must be a JSON object" );
         }
 
         JsonNode raw = JsonLdExtractor.rawDataNode( root );
@@ -32,16 +30,9 @@ public final class PayloadFormatValidator
             throw new DecodeException( "'" + JsonLdKeys.RAW_DATA + "' must be a JSON object");
         }
 
-        String dataType = JsonLdExtractor.typeId( data );
+        String dataType = JsonLdExtractor.typeId( baseData );
         if (dataType == null || dataType.isBlank()) {
-            throw new DecodeException( "Missing '" + JsonLdKeys.TYPE + "' in '" + JsonLdKeys.DATA + "'");
-        }
-    }
-
-    private static void requireTextField(JsonNode obj, String field, String where) {
-        JsonNode node = obj.get(field);
-        if (node == null || node.isNull() || !node.isTextual() || node.asText().isBlank()) {
-            throw new DecodeException( "Missing '" + field + "' in " + where);
+            throw new DecodeException( "Missing '" + JsonLdKeys.TYPE_ID + "' in '" + JsonLdKeys.GRAPH + "'");
         }
     }
 }

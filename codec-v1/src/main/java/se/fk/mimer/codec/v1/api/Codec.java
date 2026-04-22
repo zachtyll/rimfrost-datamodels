@@ -15,7 +15,7 @@ import se.fk.mimer.codec.v1.exceptions.EncodeException;
  * <p>
  * Kontrakt:
  * <ul>
- *     <li>Payload representeras som JSON-LD-envelope innehållande {@code data} och {@code rawData}.</li>
+ *     <li>Payload representeras som JSON-LD-envelope innehållande {@code @context}, {@code @graph} och {@code rawData}.</li>
  *     <li>Payload serialiseras till UTF-8 JSON och transporteras som base64Url.</li>
  *     <li>Decode metoder gör strikt typkontroll baserat på {@code data.@type}.</li>
  * </ul>

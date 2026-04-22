@@ -3,7 +3,6 @@ package se.fk.mimer.codec.v1.integration;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import se.fk.mimer.codec.v1.api.Codec;
@@ -18,7 +17,7 @@ import se.fk.mimer.codec.v1.fixtures.MetadataFixtures;
 import se.fk.mimer.codec.v1.fixtures.YrkandeFixtures;
 import se.fk.mimer.codec.v1.jackson.CodecObjectMapperFactory;
 import se.fk.mimer.codec.v1.jsonld.JsonLdKeys;
-import se.fk.mimer.codec.v1.jsonld.PayloadInspector;
+import se.fk.mimer.codec.v1.jsonld.extract.PayloadInspector;
 import se.fk.mimer.codec.v1.payload.Base64UrlCodec;
 import se.fk.mimer.codec.v1.payload.PayloadCodec;
 import se.fk.mimer.codec.v1.registry.CodecRegistries;
@@ -50,7 +49,10 @@ class MimerCodecIntegrationTest
         CodecComponents components = MimerCodecFactory.create();
         codec = components.getCodec();
         inspector =  components.getInspector();
-        variantMapper = CodecObjectMapperFactory.createVariantMapper( CodecRegistries.createVariantRegistry() );
+        variantMapper = CodecObjectMapperFactory.createVariantMapper(
+                CodecRegistries.createVariantRegistry(),
+                CodecRegistries.createTypeRegistry()
+        );
         rawMapper = CodecObjectMapperFactory.createRawMapper();
     }
 
@@ -126,28 +128,24 @@ class MimerCodecIntegrationTest
 
         Dataleverans dataleverans = codec.encode(request);
         DecodedPayload payload = codec.decodeYrkande( dataleverans );
-
         byte[] payloadBytes = payload.getPayloadBytes();
 
         // extract
-        byte[] dataBytes = inspector.extractDataJsonBytes(payloadBytes);
+        byte[] dataBytes = inspector.extractBaseDataJsonBytes(payloadBytes);
         byte[] rawDataBytes = inspector.extractRawDataJsonBytes( payloadBytes );
 
-        JsonNode extractedData = variantMapper.readTree( dataBytes );
-        JsonNode extractedRaw = variantMapper.readTree( rawDataBytes );
+        JsonNode extractedData = variantMapper.readTree(dataBytes);
+        JsonNode extractedRaw = variantMapper.readTree(rawDataBytes);
 
-        JsonNode expectedData = variantMapper.valueToTree( yrkande );
-        JsonNode expectedRaw = rawMapper.valueToTree( rawData );
+        // Base data ska vara JSON-LD-formaterad graf-nod
+        assertTrue(extractedData.has(JsonLdKeys.ID), "base data saknar @id");
+        assertTrue(extractedData.has(JsonLdKeys.TYPE), "base data saknar @type");
+        assertTrue(extractedData.has(JsonLdKeys.TYPE_ID), "base data saknar meta:typeId");
+        assertEquals("fk:Yrkande", extractedData.get(JsonLdKeys.TYPE).asText());
 
-        if (extractedData.has( JsonLdKeys.TYPE )) {
-            ((ObjectNode) extractedData).remove(JsonLdKeys.TYPE);
-        }
-        if (extractedData.has( JsonLdKeys.CONTEXT )) {
-            ((ObjectNode) extractedData).remove( JsonLdKeys.CONTEXT );
-        }
-
-        assertEquals( expectedData, extractedData );
-        assertEquals( expectedRaw, extractedRaw );
+        // RawData ska vara orörd originalserialisering
+        JsonNode expectedRaw = rawMapper.valueToTree(rawData);
+        assertEquals(expectedRaw, extractedRaw);
     }
 
     @Test

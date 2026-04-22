@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import se.fk.mimer.codec.v1.dto.Dataleverans;
 import se.fk.mimer.codec.v1.exceptions.DecodeException;
 import se.fk.mimer.codec.v1.exceptions.EncodeException;
-import se.fk.mimer.codec.v1.jsonld.JsonLdEnvelopeBuilder;
-import se.fk.mimer.codec.v1.jsonld.JsonLdExtractor;
-import se.fk.mimer.codec.v1.jsonld.JsonLdStripper;
+import se.fk.mimer.codec.v1.jsonld.builder.JsonLdPayloadBuilder;
+import se.fk.mimer.codec.v1.jsonld.extract.JsonLdExtractor;
+import se.fk.mimer.codec.v1.jsonld.strip.JsonLdStripper;
 import se.fk.mimer.codec.v1.payload.PayloadCodec;
 import se.fk.mimer.codec.v1.payload.PayloadFormatValidator;
 import se.fk.mimer.codec.v1.payload.PayloadParser;
@@ -25,12 +25,12 @@ import java.util.Objects;
  * Implementation av {@link Codec}.
  *
  * <p>
- * Encode bygger JSON-LD-envelope (root + data + rawData), injicerar {@code @type} (och ev {@code @context}),
+ * Encode bygger JSON-LD-envelope ({@code @context} + {@code @graph}, + {@code rawData}),
  * serialiserar till UTF-8 bytes, base64Url-kodar och kaplsar i {@link Dataleverans}.
  *
  * <p>
  * Decode avkodar payload till byte-exakta JSON-LD-bytes, validerar envelope-strukture och gör strikt
- * typkontroll via {@code data.@type}. Returnerar payload bytes som source of truth.
+ * typkontroll via {@code @type}. Returnerar payload bytes som source of truth.
  */
 @RequiredArgsConstructor
 public class MimerCodec implements Codec
@@ -39,7 +39,8 @@ public class MimerCodec implements Codec
     private final ObjectMapper rawMapper;
     private final PayloadParser parser;
     private final PayloadCodec payloadCodec;
-    private final JsonLdEnvelopeBuilder envelopeBuilder;
+    private final JsonLdPayloadBuilder jsonLdPayloadBuilder;
+    private final JsonLdStripper stripper;
     private final TypeRegistry typeRegistry;
 
     // Validators
@@ -72,14 +73,12 @@ public class MimerCodec implements Codec
                 throw new EncodeException( "could not derive modelVersion from data @type: " + dataTypeIri);
             }
 
-            ObjectNode root = envelopeBuilder.buildRoot(
+            ObjectNode root = jsonLdPayloadBuilder.build(
                     dataNode,
-                    request.getData().getClass(),
                     rawNode,
+                    request.getData().getClass(),
                     request.getMetadata().getProducentId(),
-                    modelVersion,
-                    request.getTaggingMode(),
-                    variantMapper.createObjectNode()
+                    modelVersion
             );
 
             byte[] payloadBytes = variantMapper.writeValueAsBytes( root );
@@ -127,12 +126,12 @@ public class MimerCodec implements Codec
 
             PayloadFormatValidator.validateRoot( root );
 
-            JsonNode dataNode = JsonLdExtractor.dataNode( root );
-            String typeIri = JsonLdExtractor.typeId(dataNode);
+            JsonNode baseDataNode = JsonLdExtractor.baseDataNode( root );
+            String typeIri = JsonLdExtractor.typeId(baseDataNode);
 
             Class<?> actualBaseClass = typeRegistry.classForTypeId( typeIri );
             if (actualBaseClass == null) {
-                throw new DecodeException( "Unknown data @type: " + typeIri );
+                throw new DecodeException( "Unknown baseData type: " + typeIri );
             }
 
             if (!expectedBaseClass.equals( actualBaseClass )) {
@@ -143,11 +142,10 @@ public class MimerCodec implements Codec
                 + " (" + typeIri + ")");
             }
 
-            JsonNode dataCopy = dataNode.deepCopy();
+            ObjectNode dataCopy = baseDataNode.deepCopy();
+            JsonNode stripped = stripper.stripForDecode(dataCopy);
 
-            JsonLdStripper.stripInPlace( dataCopy );
-
-            Object dataPojo = variantMapper.treeToValue( dataCopy, expectedBaseClass );
+            Object dataPojo = variantMapper.treeToValue( stripped, expectedBaseClass );
             contractValidator.validate( dataPojo );
 
             return DecodedPayload.builder()

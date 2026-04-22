@@ -1,6 +1,8 @@
 package se.fk.mimer.codec.v1.registry;
 
-import java.util.List;
+import se.fk.mimer.codec.v1.jsonld.context.ContextProvider;
+
+import java.util.Map;
 
 /**
  * This is a dummy provider which returns a empty list of context data.
@@ -10,8 +12,7 @@ import java.util.List;
 public final class DummyEmptyContextProvider implements ContextProvider
 {
     @Override
-    public List<String> contextsFor( String producerId, String modelVersion, String typeIri )
-    {
-        return List.of();
+    public Map<String, String> contexts() {
+        return Map.of();
     }
 }
