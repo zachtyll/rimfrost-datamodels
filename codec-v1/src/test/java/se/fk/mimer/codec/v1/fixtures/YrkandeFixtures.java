@@ -1,83 +1,36 @@
 package se.fk.mimer.codec.v1.fixtures;
 
 import se.fk.mimer.codec.v1.util.TestValues;
-import se.fk.mimer.datamodel.v1.Period;
-import se.fk.mimer.datamodel.v1.beslut.Beslut;
-import se.fk.mimer.datamodel.v1.produkt.erbjudande.Erbjudande;
-import se.fk.mimer.datamodel.v1.produkt.erbjudande.Erbjudandetyp;
-import se.fk.mimer.datamodel.v1.produkt.erbjudande.Formanstyp;
-import se.fk.mimer.datamodel.v1.referensdata.produkt.erbjudande.Erbjudandenamn;
-import se.fk.mimer.datamodel.v1.referensdata.beslut.BeslutandeOrganisation;
-import se.fk.mimer.datamodel.v1.beslut.delgivning.Delgivning;
-import se.fk.mimer.datamodel.v1.referensdata.beslut.Delgivningstyp;
-import se.fk.mimer.datamodel.v1.lagrum.Lagrum;
-import se.fk.mimer.datamodel.v1.person.EnskildNaringsidkare;
+import se.fk.mimer.datamodel.v1.IDTyp;
+import se.fk.mimer.datamodel.v1.forman.sakfraga.Sakfraga;
+import se.fk.mimer.datamodel.v1.forman.sakfraga.Sakfragetyper;
+import se.fk.mimer.datamodel.v1.person.Person;
+import se.fk.mimer.datamodel.v1.person.adress.Folkbokforingsadress;
+import se.fk.mimer.datamodel.v1.forman.erbjudande.Erbjudande;
+import se.fk.mimer.datamodel.v1.forman.erbjudande.Erbjudandetyp;
+import se.fk.mimer.datamodel.v1.forman.Formanstyp;
+import se.fk.mimer.datamodel.v1.referensdata.IDTyper;
+import se.fk.mimer.datamodel.v1.referensdata.forman.erbjudande.Erbjudandenamn;
 import se.fk.mimer.datamodel.v1.person.FysiskPerson;
-import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Periodisering;
-import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.Beloppstyp;
-import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.ersattning.BeloppstypKategori;
-import se.fk.mimer.datamodel.v1.produceratresultat.ersattning.omfattning.OmfattningBaseratPaErsattningstypEnligtLagrum;
-import se.fk.mimer.datamodel.v1.produceratresultat.krav.Krav;
-import se.fk.mimer.datamodel.v1.referensdata.produceratresultat.Kravtyp;
-import se.fk.mimer.datamodel.v1.produkt.forman.Forman;
-import se.fk.mimer.datamodel.v1.referensdata.yrkande.Avsikt;
-import se.fk.mimer.datamodel.v1.yrkande.RollIYrkande;
-import se.fk.mimer.datamodel.v1.referensdata.yrkande.RollerIYrkande;
+import se.fk.mimer.datamodel.v1.referensdata.yrkande.YrkandeStatus;
+import se.fk.mimer.datamodel.v1.forman.Forman;
+import se.fk.mimer.datamodel.v1.referensdata.yrkande.Avsiktstyper;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.somgerrattentill.RattenTillPeriod;
+import se.fk.mimer.datamodel.v1.yrkande.Avsiktstyp;
+import se.fk.mimer.datamodel.v1.yrkande.Yrkandestatus;
+import se.fk.mimer.datamodel.v1.yrkande.beslut.Beslut;
+import se.fk.mimer.datamodel.v1.yrkande.roller.RollIYrkande;
 import se.fk.mimer.datamodel.v1.yrkande.Yrkande;
 
+import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.UUID;
 
 public class YrkandeFixtures
 {
     private YrkandeFixtures()
     {
-    }
-
-    private static Period createPeriod()
-    {
-        return Period.builder()
-                .from( TestValues.now() )
-                .tom( TestValues.now() )
-                .build();
-    }
-
-    private static Lagrum createLagrum()
-    {
-        return Lagrum.builder()
-                .id( TestValues.uuid() )
-                .forfattning( "forfattning" )
-                .kapitel( "kapitel" )
-                .paragraf( "paragraf" )
-                .stycke( "stycke" )
-                .punkt( "punkt" )
-                .giltighetstid( createPeriod() )
-                .build();
-    }
-
-    private static Beslut createBeslut()
-    {
-        return Beslut.builder()
-                .id( TestValues.uuid() )
-                .revision( TestValues.revision() )
-                .avserKundbehov( TestValues.uuid() )
-                .beslutsdatum( TestValues.now() )
-                .beslutsfattareId( "1234" )
-                .beslutEnligtLagrum( createLagrum() )
-                .beslutandeOrganisation( BeslutandeOrganisation.FORSAKRINGSKASSAN )
-                .avslagsAnledning( "Handläggningsfel" )
-                .build();
-    }
-
-    private static Delgivning createDelgivning()
-    {
-        return Delgivning.builder()
-                .id( TestValues.uuid() )
-                .revision( TestValues.revision() )
-                .delgivningsdatum( TestValues.now() )
-                .delgivningstyp( Delgivningstyp.VANLIG )
-                .beslutId( TestValues.uuid() )
-                .build();
     }
 
     private static Erbjudandetyp createErbjudandetyp()
@@ -94,7 +47,7 @@ public class YrkandeFixtures
         return Formanstyp.builder()
                 .id( TestValues.uuid() )
                 .version( TestValues.revision() )
-                .formanstyp( se.fk.mimer.datamodel.v1.referensdata.produkt.Formanstyp.GEMENSAM )
+                .formanstyp( se.fk.mimer.datamodel.v1.referensdata.forman.Formanstyp.GEMENSAM )
                 .build();
     }
 
@@ -113,80 +66,139 @@ public class YrkandeFixtures
                 .id( TestValues.uuid() )
                 .version( TestValues.revision() )
                 .erbjudande( createErbjudandetyp() )
-                .ingarIProdukt( List.of( createForman() ) )
-                .build();
-    }
-
-    private static EnskildNaringsidkare createEnskildNaringsIdkare()
-    {
-        return EnskildNaringsidkare.builder()
-                .id( TestValues.uuid() )
-                .revision( TestValues.revision() )
+                .ingarIForman( List.of( createForman() ) )
                 .build();
     }
 
     private static RollIYrkande createRolliYrkande()
     {
         return RollIYrkande.builder()
-                .kundid( "kundID" )
-                .roll( RollerIYrkande.MAKA )
-                .yrkande( true )
+                .individ( createIdTyp() )
+                .avserPerson( createPerson() )
+                .avserYrkande( createYrkande() )
+                .build();
+    }
+
+    private static Folkbokforingsadress createFolkbokforingsadress()
+    {
+        return Folkbokforingsadress.builder()
+                .id( TestValues.uuid() )
+                .version( TestValues.revision() )
+                .careOf( "" )
+                .utdelningsadress1( "Testvägen 1" )
+                .postnummer( "12323" )
+                .postort( "Testia" )
                 .build();
     }
 
     private static FysiskPerson createFysiskPerson()
     {
         return FysiskPerson.builder()
-                .id( TestValues.uuid() )
-                .kundid( "kundID" )
-                .revision( TestValues.revision() )
-                .personnummer( "199203459456" )
-                .enskildNaringsidkare( createEnskildNaringsIdkare() )
-                .rollIKundbehov( Map.of( TestValues.uuid(), createRolliYrkande() ) )
+                .id( "194101014243" )
+                .efternamn( "Testsson" )
+                .fornamn( "Test" )
+                .kon( "Man" )
+                .adress( createFolkbokforingsadress() )
                 .build();
     }
 
-    private static OmfattningBaseratPaErsattningstypEnligtLagrum createOmfattningBaseratPaErsattningstypEnligtLagrum()
+    private static IDTyp createIdTyp()
     {
-        return OmfattningBaseratPaErsattningstypEnligtLagrum.builder()
+        return IDTyp.builder()
                 .id( TestValues.uuid() )
-                .revision( TestValues.revision() )
-                .procentAvErsattning( 2.3 )
+                .version( TestValues.revision() )
+                .idTyp( IDTyper.PERSONNUMMER )
                 .build();
     }
 
-    private static Krav createKrav()
+    private static Person createPerson()
     {
-        return Krav.builder()
+        return Person.builder()
                 .id( TestValues.uuid() )
-                .faststallsForKundbehov( TestValues.uuid() )
-                .revision( TestValues.revision() )
-                .avserPerson( createFysiskPerson() )
-                .giltighetsperiod( createPeriod() )
-                .typ( "typ" )
-                .status( "status" )
-                .beloppstypKategori( BeloppstypKategori.AS )
-                .beloppstyp( Beloppstyp.AS_GARANTIBELOPP )
-                .kravtyp( Kravtyp.BETALNINGSBELOPP_FOR_UNDERHALLSSTOD )
-                .periodisering( Periodisering.AR )
-                .omfattning( createOmfattningBaseratPaErsattningstypEnligtLagrum() )
+                .version( TestValues.revision() )
+                .idTyp( createIdTyp() )
+                .fysiskPerson( createFysiskPerson() )
+                .build();
+    }
+
+    public static Avsiktstyp createAvsiktstyp()
+    {
+        return Avsiktstyp.builder()
+                .id( TestValues.uuid() )
+                .version( TestValues.revision() )
+                .avsiktstyp( Avsiktstyper.NY )
+                .build();
+    }
+
+    public static Yrkandestatus createYrkandestatus()
+    {
+        return Yrkandestatus.builder()
+                .id( TestValues.uuid() )
+                .version( TestValues.revision() )
+                .status( YrkandeStatus.YRKAT )
+                .build();
+    }
+
+    public static Sakfragetyper createSakfragetyper()
+    {
+        return Sakfragetyper.builder()
+                .id( TestValues.uuid() )
+                .version( TestValues.revision() )
+                .build();
+    }
+
+    public static Sakfraga createSakfraga()
+    {
+        return Sakfraga.builder()
+                .id( TestValues.uuid() )
+                .version( TestValues.revision() )
+                .sakfragetyper( createSakfragetyper() )
+                .ingarIFormaner( List.of( createForman() ) )
+                .beskrivning( "Testbeskrivning" )
+                .build();
+    }
+
+    public static RattenTillPeriod createRattenTillPeriod()
+    {
+        return RattenTillPeriod.builder()
+                .id( TestValues.uuid() )
+                .version( TestValues.revision() )
+                .from( TestValues.now() )
+                .tom( TestValues.now().plusDays( 1 ) )
+                .yrkandestatus( createYrkandestatus() )
+                .avserPersoner( List.of( createPerson() ) )
+                .faststallsForYrkande( createYrkande() )
+                .avserSakfraga( createSakfraga() )
+                .omfattningIProcent( 100.0 )
+                .build();
+    }
+
+    public static Beslut createBeslut()
+    {
+        return Beslut.builder()
+                .id( TestValues.uuid() )
+                .version( TestValues.revision() )
+                .beslutsDatum( TestValues.now() )
+                .beslutsfattare( createIdTyp() )
                 .build();
     }
 
     public static Yrkande createYrkande()
     {
         return Yrkande.builder()
-                .id( TestValues.uuid() )
-                .revision( TestValues.revision() )
-                .avsikt( Avsikt.NY )
-                .andringsorsak( "Omprövning" )
-                .yrkandeDatum( TestValues.now() )
-                .period( createPeriod() )
-                .beslut( createBeslut() )
-                .delgivning( createDelgivning() )
+                .id( UUID.randomUUID() )
+                .version( 1 )
+                .avserBeslut( List.of( createBeslut() ) )
+                .avserSakfragaStallningstaganden( Collections.emptyList() )
+                .avsikt( createAvsiktstyp() )
+                .yrkandeDatum( ZonedDateTime.now() )
                 .avserErbjudande( createErbjudande() )
-                .personer( List.of( createFysiskPerson() ) )
-                .produceradeResultat( List.of( createKrav() ) )
+                .avserBeslut( Collections.emptyList() )
+                .rollerIYrkandet( List.of() )
+                .yrkandeStatus( createYrkandestatus() )
+                .yrkandeFrom( ZonedDateTime.now() )
+                .yrkandeTom( ZonedDateTime.now().plusDays( 1 ) )
+                .hanterasIHandlaggningar( Collections.emptyList() )
                 .build();
     }
 }

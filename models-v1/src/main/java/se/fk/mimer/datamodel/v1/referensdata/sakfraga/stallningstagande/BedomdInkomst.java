@@ -1,0 +1,13 @@
+package se.fk.mimer.datamodel.v1.referensdata.sakfraga.stallningstagande;
+
+public enum BedomdInkomst
+{
+    PGI,
+    BGI,
+    HUSHALLSINKOMST,
+    INKOMSTFORMAGA_FORE_SKATT,
+    INKOMSTFORMAGA_EFTER_SKATT,
+    LIVRANTEUNDERLAG,
+    ANTAGANDEINKOMST,
+    BERAKNINGSUNDERLAG_FOR_DAGPENNING_TILL_TOTALFORSVARSPLIKTIGA
+}

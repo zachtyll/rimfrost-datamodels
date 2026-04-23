@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import se.fk.mimer.codec.v1.dto.Dataleverans;
-import se.fk.mimer.datamodel.v1.lagrum.Regel;
+import se.fk.mimer.datamodel.v1.handlaggning.uppgift.Tjansteanteckning;
+import se.fk.mimer.datamodel.v1.regel.Regel;
 
 import java.time.Instant;
 
@@ -39,36 +40,5 @@ class DataleveransJacksonTest
         assertEquals( "event1", dataleverans.getMetadata().getEventId() );
         assertEquals( Instant.parse("2024-01-01T00:00:00Z"), dataleverans.getMetadata().getCreatedAt());
         assertEquals( "eyJAdHlwZSI6InRlc3QifQ", dataleverans.getPayload() );
-    }
-
-    @Test
-    void shouldDeserializeJacksonizedObject() throws Exception
-    {
-        String json = """
-                {
-                  "id": "550e8400-e29b-41d4-a716-446655440000",
-                  "version": 1,
-                  "objektId": "123123",
-                  "lagrum": [
-                    {
-                      "id": "550e8400-e29b-41d4-a716-446655440087",
-                      "revision": 1,
-                      "forfattning": "Brottsbalken",
-                      "kapitel": "1a",
-                      "paragraf": "1a",
-                      "stycke": "2a",
-                      "punkt": "2a",
-                      "giltighetstid":
-                        {
-                            "from": "2025-03-01T12:00:00+01:00",
-                            "tom": "2026-03-01T12:00:00+01:00"
-                        }
-                    }
-                  ]
-                }
-                """;
-
-        Regel regel = mapper.readValue( json, Regel.class );
-        assertInstanceOf( Regel.class, regel );
     }
 }

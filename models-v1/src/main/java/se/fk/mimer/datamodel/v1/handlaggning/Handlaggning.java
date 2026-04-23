@@ -1,70 +1,60 @@
 package se.fk.mimer.datamodel.v1.handlaggning;
 
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
-import se.fk.mimer.datamodel.v1.yrkande.Yrkande;
+import lombok.extern.jackson.Jacksonized;
+import se.fk.mimer.datamodel.v1.anvandare.Anvandare;
 
 import java.time.ZonedDateTime;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@NoArgsConstructor( force = true )
-@Accessors( chain = true )
+@Jacksonized
+@AllArgsConstructor
+@Getter
 @Setter
+@Builder
 public class Handlaggning
 {
-    @Builder
-    public Handlaggning( UUID id, int revision, ZonedDateTime avslutad, ZonedDateTime skapad, List<UUID> yrkandeIds, List<Yrkande> yrkanden, @Nullable String arendeId )
-    {
-        this.id = id;
-        this.revision = revision;
-        this.avslutad = avslutad;
-        this.skapad = skapad;
-        this.yrkanden = Optional.ofNullable( yrkanden ).orElse( Collections.emptyList() );
-        this.yrkandeIds = Optional.ofNullable( yrkandeIds ).orElse( Collections.emptyList() );
-        this.arendeId = arendeId;
-    }
     @NotNull( message = "Handlaggning must have a proper ID." )
-    @Getter
     private UUID id;
+    @NotNull
+    @Min( 1 )
+    private int version;
+    @NotNull
+    private Handlaggningsspecifikation avserHandlaggningsspecifikation;
+    private Anvandare avserBesvarAvAnvandare;
+    @NotNull
+    private HandlaggningsIDTyp handlaggningsIdTyp;
+    @NotNull
+    @NotBlank
+    private String handlaggningsIdVarde;
+    @NotNull
+    private ZonedDateTime skapadTS;
+    private ZonedDateTime avslutadTS;
 
-    @Nullable
-    private String arendeId;
-
-    @Min(1)
-    @Getter
-    private int revision;
-
-    private ZonedDateTime avslutad;
-
-    private ZonedDateTime skapad;
-
-    @Getter
-    private List<UUID> yrkandeIds;
-
-    @Getter
-    private List<Yrkande> yrkanden;
-
-    public Optional<ZonedDateTime> getAvslutad()
+    public Optional<Anvandare> getAvserBesvarAvAnvandare()
     {
-        return Optional.ofNullable( avslutad );
+        return Optional.ofNullable( avserBesvarAvAnvandare );
+    }
+
+    public Optional<String> getHandlaggningsIdVarde()
+    {
+        return Optional.ofNullable( handlaggningsIdVarde );
     }
 
     public Optional<ZonedDateTime> getSkapad()
     {
-        return Optional.ofNullable( skapad );
+        return Optional.ofNullable( skapadTS );
     }
 
-    public Optional<String> getArendeId()
+    public Optional<ZonedDateTime> getAvslutad()
     {
-        return Optional.ofNullable( arendeId );
+        return Optional.ofNullable( avslutadTS );
     }
 }

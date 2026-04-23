@@ -1,87 +1,95 @@
 package se.fk.mimer.datamodel.v1.yrkande;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.extern.jackson.Jacksonized;
-import se.fk.mimer.datamodel.v1.Period;
-import se.fk.mimer.datamodel.v1.beslut.Beslut;
-import se.fk.mimer.datamodel.v1.beslut.delgivning.Delgivning;
-import se.fk.mimer.datamodel.v1.person.Person;
-import se.fk.mimer.datamodel.v1.produceratresultat.ProduceratResultat;
-import se.fk.mimer.datamodel.v1.produkt.erbjudande.Erbjudande;
-import se.fk.mimer.datamodel.v1.referensdata.yrkande.Avsikt;
-import se.fk.mimer.datamodel.v1.referensdata.yrkande.YrkandeStatus;
+import se.fk.mimer.datamodel.v1.forman.erbjudande.Erbjudande;
+import se.fk.mimer.datamodel.v1.handlaggning.Handlaggning;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.SakfragaStallningstagande;
+import se.fk.mimer.datamodel.v1.yrkande.beslut.Beslut;
+import se.fk.mimer.datamodel.v1.yrkande.roller.RollIYrkande;
 
 import java.time.ZonedDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Jacksonized
-@AllArgsConstructor
-@Accessors( chain = true )
+@Getter
 @Setter
 @Builder
 public class Yrkande
 {
     @NotNull
-    @Getter
     private UUID id;
-
-    @Min(1)
-    @Getter
-    private int revision;
-
-    private YrkandeStatus yrkandeStatus;
-    private Avsikt avsikt;
-    private String andringsorsak;
+    @NotNull
+    @Min( 1 )
+    private int version;
+    @NotNull
+    private Collection<Beslut> avserBeslut;
+    @NotNull
+    private Collection<SakfragaStallningstagande> avserSakfragaStallningstaganden;
+    @NotNull
+    private List<RollIYrkande> rollerIYrkandet;
+    @NotNull
+    private List<Handlaggning> hanterasIHandlaggningar;
+    private Beslut avserBesvarAvBeslut;
+    private Yrkandestatus yrkandeStatus;
+    private Avsiktstyp avsikt;
     private ZonedDateTime yrkandeDatum;
-    private Period period;
-
-    private Beslut beslut;
-    private Delgivning delgivning;
     private Erbjudande avserErbjudande;
-    private List<Person> personer;
-    private List<ProduceratResultat> produceradeResultat;
+    private ZonedDateTime yrkandeFrom;
+    private ZonedDateTime yrkandeTom;
 
-    @Getter
-    private List<RollIYrkande> roller;
+    public Optional<List<RollIYrkande>> getRollerIYrkandet()
+    {
+        return Optional.ofNullable( rollerIYrkandet );
+    }
 
-    public Optional<YrkandeStatus> getYrkandeStatus()
+    public Optional<List<Handlaggning>> getHanterasIHandlaggningar()
+    {
+        return Optional.ofNullable( hanterasIHandlaggningar );
+    }
+
+    public Optional<Beslut> getAvserBesvarAvBeslut()
+    {
+        return Optional.ofNullable( avserBesvarAvBeslut );
+    }
+
+    public Optional<Yrkandestatus> getYrkandeStatus()
     {
         return Optional.ofNullable( yrkandeStatus );
     }
 
-    public Optional<Avsikt> getAvsikt()
+    public Optional<Avsiktstyp> getAvsikt()
     {
         return Optional.ofNullable( avsikt );
     }
 
-    public Optional<String> getAndringsorsak() { return Optional.ofNullable( andringsorsak ); }
-
-    public Optional<ZonedDateTime> getyrkandeDatum() { return Optional.ofNullable( yrkandeDatum ); }
-
-    public Optional<Period> getPeriod()
+    public Optional<ZonedDateTime> getyrkandeDatum()
     {
-        return Optional.ofNullable( period );
+        return Optional.ofNullable( yrkandeDatum );
     }
-
-    public Optional<Beslut> getBeslut() { return Optional.ofNullable( beslut ); }
-
-    public Optional<Delgivning> getDelgivning() { return Optional.ofNullable( delgivning ); }
 
     public Optional<Erbjudande> getAvserErbjudande()
     {
         return Optional.ofNullable( avserErbjudande );
     }
 
-    public Optional<List<Person>> getPersoner() { return Optional.ofNullable( personer ); }
+    public Optional<ZonedDateTime> getYrkandeFrom()
+    {
+        return Optional.ofNullable( yrkandeFrom );
+    }
 
-    public Optional<List<ProduceratResultat>> getProduceradeResultat() { return Optional.ofNullable( produceradeResultat ); }
+    public Optional<ZonedDateTime> getYrkandeTom()
+    {
+        return Optional.ofNullable( yrkandeTom );
+    }
 
 }

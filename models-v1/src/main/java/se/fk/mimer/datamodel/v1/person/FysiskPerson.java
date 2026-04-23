@@ -1,41 +1,37 @@
 package se.fk.mimer.datamodel.v1.person;
 
-import lombok.EqualsAndHashCode;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
-import se.fk.mimer.datamodel.v1.yrkande.RollIYrkande;
-import se.fk.mimer.datamodel.v1.validation.ValidFysiskPerson;
+import se.fk.mimer.datamodel.v1.person.adress.Adress;
 
-import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
 @Jacksonized
-@Accessors( chain = true )
-@EqualsAndHashCode( callSuper = true )
+@Getter
 @Setter
-@ValidFysiskPerson
 @SuperBuilder
-public class FysiskPerson extends Person
+public class FysiskPerson
 {
-    public FysiskPerson( UUID id, String kundid, int revision, String personnummer,
-                         EnskildNaringsidkare enskildNaringsidkare, Map<UUID, RollIYrkande> rollIKundbehov)
+    @NotNull
+    @NotBlank
+    private String id;
+    @NotNull
+    @NotBlank
+    private String efternamn;
+    @NotNull
+    @NotBlank
+    private String fornamn;
+    @NotNull
+    @NotBlank
+    private String kon;
+    private Adress adress;
+
+    public Optional<Adress> getAdress()
     {
-        super( id, revision, kundid, rollIKundbehov);
-        this.personnummer = personnummer;
-        this.enskildNaringsidkare = enskildNaringsidkare;
+        return Optional.ofNullable( adress );
     }
-
-    private String personnummer;
-
-    private EnskildNaringsidkare enskildNaringsidkare;
-
-    public Optional<String> getPersonnummer()
-    {
-        return Optional.ofNullable( personnummer );
-    }
-
-    public Optional<EnskildNaringsidkare> getEnskildNaringsidkare(){ return Optional.ofNullable( enskildNaringsidkare ); }
 }

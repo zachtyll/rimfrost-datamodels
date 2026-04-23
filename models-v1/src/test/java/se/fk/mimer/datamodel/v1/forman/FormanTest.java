@@ -3,8 +3,6 @@ package se.fk.mimer.datamodel.v1.forman;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import se.fk.mimer.datamodel.v1.fixtures.FormanFixtures;
-import se.fk.mimer.datamodel.v1.produkt.erbjudande.Formanstyp;
-import se.fk.mimer.datamodel.v1.produkt.forman.Forman;
 
 import java.util.Optional;
 
@@ -20,7 +18,7 @@ class FormanTest
     @Tag( "ProduktCanAddAndRemoveErbjudandenTest" )
     void FormanInstansiatesCorrectly()
     {
-        Forman forman = FormanFixtures.getForman();
+        Forman forman = FormanFixtures.createForman();
 
         assertInstanceOf( Forman.class, forman );
         assertInstanceOf( Formanstyp.class, forman.getFormanstyp() );

@@ -3,36 +3,38 @@ package se.fk.mimer.datamodel.v1.person;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
-import se.fk.mimer.datamodel.v1.yrkande.RollIYrkande;
+import lombok.extern.jackson.Jacksonized;
+import se.fk.mimer.datamodel.v1.IDTyp;
+import se.fk.mimer.datamodel.v1.organisation.Organisation;
 
-import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
-@Accessors( chain = true )
-@Setter
+@Jacksonized
 @Getter
+@Setter
 @SuperBuilder
-public abstract class Person
+public class Person
 {
-    public Person(UUID id, int revision, String kundid, Map<UUID, RollIYrkande> rollIKundbehov)
-    {
-        this.id = id;
-        this.revision = revision;
-        this.kundid = kundid;
-        this.rollIKundbehov = rollIKundbehov;
-    }
-
     @NotNull
     private UUID id;
-
     @NotNull
-    private int revision;
-
+    private int version;
     @NotNull
-    protected String kundid;
-
+    private IDTyp idTyp;
     @NotNull
-    protected Map<UUID, RollIYrkande> rollIKundbehov;
+    private Individ arEnIndivid;
+    private Organisation juridiskPersonForOrganisation;
+    private FysiskPerson fysiskPerson;
+
+    public Optional<Organisation> getJuridiskPersonForOrganisation()
+    {
+        return Optional.ofNullable( juridiskPersonForOrganisation );
+    }
+
+    public Optional<FysiskPerson> getFysiskPerson()
+    {
+        return Optional.ofNullable( fysiskPerson );
+    }
 }

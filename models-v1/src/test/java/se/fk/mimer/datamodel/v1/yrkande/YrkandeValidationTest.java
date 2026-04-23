@@ -6,10 +6,9 @@ import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import se.fk.mimer.datamodel.v1.fixtures.YrkandeFixtures;
-import se.fk.mimer.datamodel.v1.yrkande.Yrkande;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static se.fk.mimer.datamodel.v1.fixtures.YrkandeFixtures.createYrkande;
 
 public class YrkandeValidationTest
 {
@@ -30,10 +29,8 @@ public class YrkandeValidationTest
 
     @Test
     void valid_yrkan_hasNoViolations() {
-        Yrkande yrkande = YrkandeFixtures.valid();
+        Yrkande yrkande = createYrkande();
         var violations = validator.validate( yrkande );
         assertTrue(violations.isEmpty(), () -> "Violations: " + violations);
     }
-
-
 }

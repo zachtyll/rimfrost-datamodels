@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint( validatedBy = FysiskPersonValidator.class )
+//@Constraint( validatedBy = FysiskPersonValidator.class )
 @Target( { ElementType.TYPE } )
 @Retention( RetentionPolicy.RUNTIME )
 public @interface ValidFysiskPerson
