@@ -1,12 +1,10 @@
 package se.fk.mimer.datamodel.v1.yrkande;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 import se.fk.mimer.datamodel.v1.forman.erbjudande.Erbjudande;
 import se.fk.mimer.datamodel.v1.handlaggning.Handlaggning;
@@ -23,7 +21,7 @@ import java.util.UUID;
 @Jacksonized
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 public class Yrkande
 {
     @NotNull
