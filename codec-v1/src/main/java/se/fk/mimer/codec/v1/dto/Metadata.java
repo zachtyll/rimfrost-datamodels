@@ -34,4 +34,7 @@ public class Metadata
     String breadcrumbId;
 
     String korrelationsId;
+
+    String mimerklientVersion;
+    String mimerDatamodelsVersion;
 }
