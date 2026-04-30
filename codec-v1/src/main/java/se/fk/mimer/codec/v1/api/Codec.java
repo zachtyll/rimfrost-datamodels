@@ -51,4 +51,13 @@ public interface Codec
      * @throws DecodeException vid strukturfel, okänd typ eller typ-mismatch
      */
     DecodedPayload decodeHandlaggning( Dataleverans leverans );
+
+    /**
+     * Extraherar fältet "rawData" från "payloadBytes", en leveransbody.
+     *
+     * @param payloadBytes leveransen i form av en byte[]
+     * @return byte[] som innehåller värdet av fältet "rawData".
+     * @throws DecodeException vid fel som uppstår under extraktionen, t.ex. det saknas ett "rawData" fält.
+     */
+    byte[] extractRawDataJsonBytes( byte[] payloadBytes );
 }

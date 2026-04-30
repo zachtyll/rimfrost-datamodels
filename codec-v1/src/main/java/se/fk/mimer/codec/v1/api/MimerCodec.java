@@ -9,6 +9,7 @@ import se.fk.mimer.codec.v1.exceptions.DecodeException;
 import se.fk.mimer.codec.v1.exceptions.EncodeException;
 import se.fk.mimer.codec.v1.jsonld.builder.JsonLdPayloadBuilder;
 import se.fk.mimer.codec.v1.jsonld.extract.JsonLdExtractor;
+import se.fk.mimer.codec.v1.jsonld.extract.PayloadInspector;
 import se.fk.mimer.codec.v1.jsonld.strip.JsonLdStripper;
 import se.fk.mimer.codec.v1.payload.PayloadCodec;
 import se.fk.mimer.codec.v1.payload.PayloadFormatValidator;
@@ -42,6 +43,7 @@ public class MimerCodec implements Codec
     private final JsonLdPayloadBuilder jsonLdPayloadBuilder;
     private final JsonLdStripper stripper;
     private final TypeRegistry typeRegistry;
+    private static final PayloadInspector inspector = MimerCodecFactory.create().getInspector();
 
     // Validators
     private final ContractValidator contractValidator;
@@ -157,6 +159,12 @@ public class MimerCodec implements Codec
         } catch (Exception e) {
             throw new DecodeException( "Decode failed", e );
         }
+    }
+
+    @Override
+    public byte[] extractRawDataJsonBytes( byte[] payloadBytes )
+    {
+        return inspector.extractRawDataJsonBytes( payloadBytes );
     }
 
     private static void requireNonBlank(String value, String name) {
