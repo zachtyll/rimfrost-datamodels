@@ -259,7 +259,7 @@ public final class CodecRegistries
                 entry( Avsiktstyp.class, "Avsiktstyp" ),
                 entry( Yrkandestatus.class, "Yrkandestatus" ),
                 entry( Berakningsgrunder.class, "Berakningsgrunder" ),
-                entry( IDTyp.class, "IdTyp" ),
+                entry( IDTyp.class, "IDTyp" ),
                 entry( Periodisering.class, "Periodisering" ),
                 entry( Verksamhetslogiktyper.class, "Verksamhetslogiktyper" )
         );
@@ -359,7 +359,7 @@ public final class CodecRegistries
                 entry( "Avsiktstyp", Avsiktstyp.class ),
                 entry( "Yrkandestatus", Yrkandestatus.class ),
                 entry( "Berakningsgrunder", Berakningsgrunder.class ),
-                entry( "IdTyp", IDTyp.class ),
+                entry( "IDTyp", IDTyp.class ),
                 entry( "Periodisering", Periodisering.class ),
                 entry( "Verksamhetslogiktyper", Verksamhetslogiktyper.class )
         );

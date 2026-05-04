@@ -21,7 +21,7 @@ public abstract class SakfragaIHandlaggningen extends SakfragaStallningstagande
 {
     public SakfragaIHandlaggningen( UUID id, int version, ZonedDateTime from, ZonedDateTime tom, Yrkandestatus yrkandestatus,
                                     Collection<Person> avserPersoner, Collection<Regel> godkandRegel,
-                                    Collection<Regel> avslagPaGrundAvRegel, Yrkande faststallsForYrkande,
+                                    Collection<Regel> avslagPaGrundAvRegel, UUID faststallsForYrkande,
                                     se.fk.mimer.datamodel.v1.forman.sakfraga.Sakfraga avserSakfraga )
     {
         super( id, version, from, tom, yrkandestatus, avserPersoner, faststallsForYrkande, godkandRegel, avslagPaGrundAvRegel );

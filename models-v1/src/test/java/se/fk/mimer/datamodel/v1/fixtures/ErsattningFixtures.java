@@ -49,7 +49,7 @@ public class ErsattningFixtures
                 .avserPersoner( List.of( createPerson() ) )
                 .godkandRegler( Collections.emptyList() )
                 .avslagPaGrundAvRegler( Collections.emptyList() )
-                .faststallsForYrkande( createYrkande() )
+                .faststallsForYrkande( UUID.randomUUID() )
                 .avserSakfraga( createSakfraga() )
                 .ersattningsBelopp( 100.0 )
                 .beloppsTyp( createBeloppstyp() )

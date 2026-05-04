@@ -60,4 +60,14 @@ public interface Codec
      * @throws DecodeException vid fel som uppstår under extraktionen, t.ex. det saknas ett "rawData" fält.
      */
     byte[] extractRawDataJsonBytes( byte[] payloadBytes );
+
+    /**
+     * Avkodar en byte[] och gör innehållet till en POJO.
+     *
+     * @param payloadBytes byte[] som POJOn ska skapas ifrån
+     * @param expectedBaseClass Klassen som förväntas ska extraheras från payloadBytes
+     * @return Ett Object som ska vara av den förväntade klassen
+     * @throws DecodeException vid strukturfel, okänd typ eller typ-mismatch
+     */
+    Object toPojo( byte[] payloadBytes, Class<?> expectedBaseClass );
 }

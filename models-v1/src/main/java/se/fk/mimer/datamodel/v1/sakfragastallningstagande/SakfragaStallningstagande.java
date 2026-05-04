@@ -34,8 +34,7 @@ public abstract class SakfragaStallningstagande
     @NotNull
     private Collection<Person> avserPersoner;
     @NotNull
-    @JsonBackReference
-    private Yrkande faststallsForYrkande;
+    private UUID faststallsForYrkande;
     @NotNull
     private Collection<Regel> godkandRegler;
     @NotNull

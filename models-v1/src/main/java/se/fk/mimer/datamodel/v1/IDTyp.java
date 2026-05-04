@@ -29,7 +29,7 @@ public class IDTyp
     private String varde;
     private Organisation avserOrganisation;
 
-    public Optional<Organisation> getOrganisation()
+    public Optional<Organisation> getAvserOrganisation()
     {
         return Optional.ofNullable( avserOrganisation );
     }

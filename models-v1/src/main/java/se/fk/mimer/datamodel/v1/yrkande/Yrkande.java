@@ -32,23 +32,22 @@ public class Yrkande
     @NotNull
     private Collection<Beslut> avserBeslut;
     @NotNull
-    private Collection<SakfragaStallningstagande> avserSakfragaStallningstaganden;
+    private SakfragaStallningstagande avserSakfragaStallningstagande;
     @NotNull
     private List<RollIYrkande> rollerIYrkandet;
     @NotNull
     private List<Handlaggning> hanterasIHandlaggningar;
     private Beslut avserBesvarAvBeslut;
+    @NotNull
     private Yrkandestatus yrkandeStatus;
     private Avsiktstyp avsikt;
+    @NotNull
     private ZonedDateTime yrkandeDatum;
+    @NotNull
     private Erbjudande avserErbjudande;
+    @NotNull
     private ZonedDateTime yrkandeFrom;
     private ZonedDateTime yrkandeTom;
-
-    public Optional<List<RollIYrkande>> getRollerIYrkandet()
-    {
-        return Optional.ofNullable( rollerIYrkandet );
-    }
 
     public Optional<List<Handlaggning>> getHanterasIHandlaggningar()
     {
@@ -60,29 +59,9 @@ public class Yrkande
         return Optional.ofNullable( avserBesvarAvBeslut );
     }
 
-    public Optional<Yrkandestatus> getYrkandeStatus()
-    {
-        return Optional.ofNullable( yrkandeStatus );
-    }
-
     public Optional<Avsiktstyp> getAvsikt()
     {
         return Optional.ofNullable( avsikt );
-    }
-
-    public Optional<ZonedDateTime> getyrkandeDatum()
-    {
-        return Optional.ofNullable( yrkandeDatum );
-    }
-
-    public Optional<Erbjudande> getAvserErbjudande()
-    {
-        return Optional.ofNullable( avserErbjudande );
-    }
-
-    public Optional<ZonedDateTime> getYrkandeFrom()
-    {
-        return Optional.ofNullable( yrkandeFrom );
     }
 
     public Optional<ZonedDateTime> getYrkandeTom()

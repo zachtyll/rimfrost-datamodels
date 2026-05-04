@@ -116,14 +116,10 @@ public class MimerCodec implements Codec
         return decode(dataleverans, Handlaggning.class );
     }
 
-    private DecodedPayload decode( Dataleverans dataleverans, Class<?> expectedBaseClass) {
-        try {
-            Objects.requireNonNull( dataleverans, "dataleverans must not be null" );
-            Objects.requireNonNull( expectedBaseClass, "expectedBaseClass must not be null" );
-
-            dataleveransContractValidator.validate( dataleverans );
-
-            byte[] payloadBytes = payloadCodec.decode( dataleverans.getPayload() );
+    @Override
+    public Object toPojo( byte[] payloadBytes, Class<?> expectedBaseClass )
+    {
+        try{
             JsonNode root = parser.parse( payloadBytes );
 
             PayloadFormatValidator.validateRoot( root );
@@ -138,10 +134,10 @@ public class MimerCodec implements Codec
 
             if (!expectedBaseClass.equals( actualBaseClass )) {
                 throw new DecodeException( "Wrong payload type for endpoint. Expected: "
-                + expectedBaseClass.getSimpleName()
-                + " but payload @type resolved to: "
-                + actualBaseClass.getSimpleName()
-                + " (" + typeIri + ")");
+                        + expectedBaseClass.getSimpleName()
+                        + " but payload @type resolved to: "
+                        + actualBaseClass.getSimpleName()
+                        + " (" + typeIri + ")");
             }
 
             ObjectNode dataCopy = baseDataNode.deepCopy();
@@ -149,6 +145,27 @@ public class MimerCodec implements Codec
 
             Object dataPojo = variantMapper.treeToValue( stripped, expectedBaseClass );
             contractValidator.validate( dataPojo );
+
+            return dataPojo;
+        } catch( DecodeException e )
+        {
+            throw new DecodeException( e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            throw new DecodeException( "Decode failed" );
+        }
+    }
+
+    private DecodedPayload decode( Dataleverans dataleverans, Class<?> expectedBaseClass) {
+        try {
+            Objects.requireNonNull( dataleverans, "dataleverans must not be null" );
+            Objects.requireNonNull( expectedBaseClass, "expectedBaseClass must not be null" );
+
+            dataleveransContractValidator.validate( dataleverans );
+
+            byte[] payloadBytes = payloadCodec.decode( dataleverans.getPayload() );
+            toPojo( payloadBytes, expectedBaseClass );
 
             return DecodedPayload.builder()
                     .payloadBytes( payloadBytes )

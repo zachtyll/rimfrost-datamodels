@@ -1,4 +1,4 @@
-package se.fk.mimer.datamodel.v1.fixtures;
+package se.fk.mimer.codec.v1.fixtures;
 
 import se.fk.mimer.datamodel.v1.referensdata.sakfraga.medanknytningtillformaner.Bidragssparrgrund;
 import se.fk.mimer.datamodel.v1.referensdata.sakfraga.medanknytningtillformaner.IngenSparrAnledning;
@@ -11,10 +11,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import static se.fk.mimer.datamodel.v1.fixtures.PersonFixtures.createPerson;
-import static se.fk.mimer.datamodel.v1.fixtures.SakfragaFixtures.createSakfraga;
-import static se.fk.mimer.datamodel.v1.fixtures.YrkandeFixtures.createYrkande;
-import static se.fk.mimer.datamodel.v1.fixtures.YrkandeFixtures.createYrkandestatus;
+import static se.fk.mimer.codec.v1.fixtures.PersonFixtures.createPerson;
+import static se.fk.mimer.codec.v1.fixtures.YrkandeFixtures.createSakfraga;
+import static se.fk.mimer.codec.v1.fixtures.YrkandeFixtures.createYrkande;
+import static se.fk.mimer.codec.v1.fixtures.YrkandeFixtures.createYrkandestatus;
 
 public class BidragssparrFixtures
 {

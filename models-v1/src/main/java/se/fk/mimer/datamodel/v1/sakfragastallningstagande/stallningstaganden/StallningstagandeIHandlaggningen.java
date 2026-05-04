@@ -21,7 +21,7 @@ public abstract class StallningstagandeIHandlaggningen extends SakfragaStallning
 {
     public StallningstagandeIHandlaggningen( @NotNull UUID id, @NotNull int version, @NotNull ZonedDateTime from, ZonedDateTime tom,
                                              @NotNull Yrkandestatus yrkandestatus, @NotNull Collection<Person> avserPersoner,
-                                             @NotNull Yrkande avserYrkande, @NotNull Collection<Regel> godkandRegler,
+                                             @NotNull UUID avserYrkande, @NotNull Collection<Regel> godkandRegler,
                                              @NotNull Collection<Regel> avslagPaGrundAvRegler,
                                              @NotNull Stallningstagande stallningstagande )
     {

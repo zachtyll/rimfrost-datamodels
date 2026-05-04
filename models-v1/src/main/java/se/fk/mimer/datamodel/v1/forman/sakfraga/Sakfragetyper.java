@@ -26,7 +26,7 @@ public class Sakfragetyper
     private BerattigadeSakfragetyper rattenTillSakfraga;
     private AnknytandeSakfragetyper anknytandeSakfraga;
 
-    public Optional<BerattigadeSakfragetyper> getBerattigadeSakfragetyper()
+    public Optional<BerattigadeSakfragetyper> getRattenTillSakfraga()
     {
         return Optional.ofNullable( rattenTillSakfraga );
     }

@@ -158,21 +158,6 @@ public class YrkandeFixtures
                 .build();
     }
 
-    public static RattenTillPeriod createRattenTillPeriod()
-    {
-        return RattenTillPeriod.builder()
-                .id( TestValues.uuid() )
-                .version( TestValues.revision() )
-                .from( TestValues.now() )
-                .tom( TestValues.now().plusDays( 1 ) )
-                .yrkandestatus( createYrkandestatus() )
-                .avserPersoner( List.of( createPerson() ) )
-                .faststallsForYrkande( createYrkande() )
-                .avserSakfraga( createSakfraga() )
-                .omfattningIProcent( 100.0 )
-                .build();
-    }
-
     public static Beslut createBeslut()
     {
         return Beslut.builder()
@@ -189,8 +174,8 @@ public class YrkandeFixtures
                 .id( UUID.randomUUID() )
                 .version( 1 )
                 .avserBeslut( List.of( createBeslut() ) )
-                .avserSakfragaStallningstaganden( Collections.emptyList() )
                 .avsikt( createAvsiktstyp() )
+                .avserSakfragaStallningstagande( BidragssparrFixtures.createBidragssparr() )
                 .yrkandeDatum( ZonedDateTime.now() )
                 .avserErbjudande( createErbjudande() )
                 .avserBeslut( Collections.emptyList() )
