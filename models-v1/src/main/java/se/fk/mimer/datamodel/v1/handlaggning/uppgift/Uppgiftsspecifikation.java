@@ -37,7 +37,7 @@ public class Uppgiftsspecifikation
     @NotNull
     private Verksamhetslogiktyper verksamhetslogik;
     @NotNull
-    private Behorighetsroller roll;
+    private Behorighetsroller behorighetsroll;
     @NotNull
     @NotBlank
     private String applikationsId;

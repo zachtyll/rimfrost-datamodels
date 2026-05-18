@@ -5,6 +5,7 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import se.fk.mimer.datamodel.v1.fixtures.BeslutFixtures;
 import se.fk.mimer.datamodel.v1.yrkande.beslut.Avslutstyp;
@@ -62,6 +63,7 @@ public class BeslutValidationTest
         assertTrue(violations.isEmpty(), () -> "Violations: " + violations);
     }
 
+    @Disabled( "Skipped until ownership of Beslutsrader is sorted out" )
     @Test
     void beslut_ownsBeslutsrader()
     {

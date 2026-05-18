@@ -7,7 +7,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import se.fk.mimer.datamodel.v1.yrkande.roller.RollIYrkande;
-import se.fk.mimer.datamodel.v1.yrkande.roller.RollerIYrkande;
+import se.fk.mimer.datamodel.v1.yrkande.roller.Yrkanderoll;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static se.fk.mimer.datamodel.v1.fixtures.YrkandeFixtures.createRollIYrkande;
@@ -42,7 +42,7 @@ public class RollClassesValidationTest
     @Test
     void valid_rollerIYrkande_hasNoViolations()
     {
-        RollerIYrkande roller = createRollerIYrkande();
+        Yrkanderoll roller = createRollerIYrkande();
         var violations = validator.validate( roller );
         assertTrue( violations.isEmpty(), () -> "Violations: " + violations );
     }

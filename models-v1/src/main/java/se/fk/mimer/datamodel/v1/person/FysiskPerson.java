@@ -2,23 +2,23 @@ package se.fk.mimer.datamodel.v1.person;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 import se.fk.mimer.datamodel.v1.person.adress.Adress;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Jacksonized
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 public class FysiskPerson
 {
     @NotNull
-    @NotBlank
-    private String id;
+    private UUID id;
     @NotNull
     @NotBlank
     private String efternamn;

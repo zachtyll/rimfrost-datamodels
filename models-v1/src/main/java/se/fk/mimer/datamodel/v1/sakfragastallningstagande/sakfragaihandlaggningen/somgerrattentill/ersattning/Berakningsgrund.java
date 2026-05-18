@@ -1,4 +1,4 @@
-package se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.somgerrattentill.ersattning;
+package se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.somgerrattentill.ersattning;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;

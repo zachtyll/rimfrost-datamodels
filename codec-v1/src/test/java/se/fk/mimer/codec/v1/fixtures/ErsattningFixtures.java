@@ -1,4 +1,4 @@
-package se.fk.mimer.datamodel.v1.fixtures;
+package se.fk.mimer.codec.v1.fixtures;
 
 import se.fk.mimer.datamodel.v1.Periodisering;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.somgerrattentill.Beloppstyper;
@@ -9,9 +9,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import static se.fk.mimer.datamodel.v1.fixtures.PersonFixtures.createPersontyp;
-import static se.fk.mimer.datamodel.v1.fixtures.SakfragaFixtures.createSakfraga;
-import static se.fk.mimer.datamodel.v1.fixtures.YrkandeFixtures.createYrkandestatus;
+import static se.fk.mimer.codec.v1.fixtures.PersonFixtures.createPerson;
+import static se.fk.mimer.codec.v1.fixtures.SakfragaFixtures.createSakfraga;
+import static se.fk.mimer.codec.v1.fixtures.YrkandeFixtures.createYrkandestatus;
 
 public class ErsattningFixtures
 {
@@ -45,7 +45,7 @@ public class ErsattningFixtures
                 .from( ZonedDateTime.now() )
                 .tom( ZonedDateTime.now().plusDays( 1 ) )
                 .yrkandestatus( createYrkandestatus() )
-                .avserPersontyper( List.of( createPersontyp() ) )
+                .avserPersontyper( List.of( createPerson() ) )
                 .godkandRegler( Collections.emptyList() )
                 .avslagPaGrundAvRegler( Collections.emptyList() )
                 .faststallsForYrkande( UUID.randomUUID() )

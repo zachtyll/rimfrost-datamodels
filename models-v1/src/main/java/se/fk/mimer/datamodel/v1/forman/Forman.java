@@ -33,9 +33,4 @@ public class Forman
     private String beskrivning;
     @NotNull
     private Organisationsenhet tillhorOrganisationsenhet;
-
-    public Optional<String> getBeskrivning()
-    {
-        return Optional.ofNullable( beskrivning );
-    }
 }

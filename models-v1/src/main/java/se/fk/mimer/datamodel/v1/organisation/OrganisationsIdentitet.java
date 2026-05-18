@@ -21,4 +21,6 @@ public class OrganisationsIdentitet
     private int version;
     @NotNull
     private OrganisationsIdentitetsKoder kod;
+    @NotNull
+    private String varde;
 }

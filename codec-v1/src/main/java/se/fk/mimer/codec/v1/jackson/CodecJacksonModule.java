@@ -8,11 +8,10 @@ import se.fk.mimer.codec.v1.registry.VariantRegistry;
 import se.fk.mimer.datamodel.v1.handlaggning.uppgift.Basuppgift;
 import se.fk.mimer.datamodel.v1.inkomst.Inkomst;
 import se.fk.mimer.datamodel.v1.inkomst.anstallning.Anstallning;
-import se.fk.mimer.datamodel.v1.person.Person;
 import se.fk.mimer.datamodel.v1.person.adress.Adress;
 import se.fk.mimer.datamodel.v1.regel.Lagrum;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.SakfragaStallningstagande;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.SakfragaIHandlaggningen;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.SakfragaIHandlaggningen;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.stallningstaganden.StallningstagandeIHandlaggningen;
 
 import java.io.Serial;

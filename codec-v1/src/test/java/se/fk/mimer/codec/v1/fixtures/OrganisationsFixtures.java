@@ -1,4 +1,4 @@
-package se.fk.mimer.datamodel.v1.fixtures;
+package se.fk.mimer.codec.v1.fixtures;
 
 import se.fk.mimer.datamodel.v1.organisation.JuridiskFormkod;
 import se.fk.mimer.datamodel.v1.organisation.Organisation;
@@ -41,7 +41,6 @@ public class OrganisationsFixtures
                 .id( UUID.randomUUID() )
                 .version( 1 )
                 .kod( OrganisationsIdentitetsKoder.ORGANISATIONSNUMMER )
-                .varde( "ABAB" )
                 .build();
     }
 

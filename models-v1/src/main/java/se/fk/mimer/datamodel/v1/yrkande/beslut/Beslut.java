@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Jacksonized
-@AllArgsConstructor
 @Getter
 @Setter
 @Builder
@@ -32,7 +31,7 @@ public class Beslut
     @NotNull
     private IDTyp beslutsfattare;
     @NotNull
-    private final List<Beslutsrad> beslutsrader = new ArrayList<>();
+    private List<Beslutsrad> beslutsrader;
 
     public Beslutsrad addBeslutsrad( UUID id, int version, Collection<SakfragaStallningstagande> harSakfragastallningstaganden )
     {
@@ -47,6 +46,10 @@ public class Beslut
 
     public boolean removeBeslutsad( UUID id )
     {
+        if( beslutsrader.isEmpty() )
+        {
+            return false;
+        }
         Optional<Beslutsrad> toRemove = beslutsrader.stream()
                 .filter( b -> b.getId().equals( id ) )
                 .findFirst();

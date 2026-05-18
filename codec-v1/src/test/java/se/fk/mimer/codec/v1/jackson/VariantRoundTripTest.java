@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import se.fk.mimer.codec.v1.fixtures.FolkbokforingsadressFixtures;
+import se.fk.mimer.codec.v1.fixtures.PersonFixtures;
 import se.fk.mimer.codec.v1.jsonld.JsonLdKeys;
 import se.fk.mimer.codec.v1.registry.CodecRegistries;
 import se.fk.mimer.codec.v1.registry.TypeRegistry;
@@ -34,7 +34,7 @@ class VariantRoundTripTest
     @Test
     void encode_injects_variant_for_polymorphic_subclass() throws Exception
     {
-        Folkbokforingsadress original = FolkbokforingsadressFixtures.createFolkbokforingsadress();
+        Folkbokforingsadress original = PersonFixtures.createFolkbokforingsadress();
 
         JsonNode tree = variantMapper.valueToTree( (Adress) original );
 

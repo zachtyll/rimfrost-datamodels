@@ -12,12 +12,6 @@ import java.util.UUID;
 @SuperBuilder
 public abstract class Adress
 {
-    public Adress( UUID id, int version )
-    {
-        this.id = id;
-        this.version = version;
-    }
-
     @NotNull
     private UUID id;
     @NotNull

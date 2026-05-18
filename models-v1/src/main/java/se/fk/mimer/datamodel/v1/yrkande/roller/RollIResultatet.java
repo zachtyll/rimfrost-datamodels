@@ -7,8 +7,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.jackson.Jacksonized;
 import se.fk.mimer.datamodel.v1.IDTyp;
-import se.fk.mimer.datamodel.v1.person.Person;
+import se.fk.mimer.datamodel.v1.person.Persontyp;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.SakfragaStallningstagande;
+
+import java.util.UUID;
 
 @Jacksonized
 @AllArgsConstructor
@@ -18,11 +20,13 @@ import se.fk.mimer.datamodel.v1.sakfragastallningstagande.SakfragaStallningstaga
 public class RollIResultatet
 {
     @NotNull
+    private UUID id;
+    @NotNull
     private IDTyp individ;
     @NotNull
-    private RollerIYrkande roll;
+    private Yrkanderoll yrkanderoll;
     @NotNull
     private SakfragaStallningstagande avserSakfragaStallningstagande;
     @NotNull
-    private Person avserPerson;
+    private Persontyp avserPersontyp;
 }

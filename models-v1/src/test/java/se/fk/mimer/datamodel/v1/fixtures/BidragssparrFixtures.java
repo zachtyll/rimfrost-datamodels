@@ -2,18 +2,17 @@ package se.fk.mimer.datamodel.v1.fixtures;
 
 import se.fk.mimer.datamodel.v1.referensdata.sakfraga.medanknytningtillformaner.Bidragssparrgrund;
 import se.fk.mimer.datamodel.v1.referensdata.sakfraga.medanknytningtillformaner.IngenSparrAnledning;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.bidragssparr.AnledningIngenBidragssparr;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.bidragssparr.Bidragssparr;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.bidragssparr.GrundForBidragssparrutredning;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.medanknytningtillformaner.bidragssparr.bidragssparr.AnledningIngenBidragssparr;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.medanknytningtillformaner.bidragssparr.bidragssparr.Bidragssparr;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.medanknytningtillformaner.bidragssparr.bidragssparr.GrundForBidragssparrutredning;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import static se.fk.mimer.datamodel.v1.fixtures.PersonFixtures.createPerson;
+import static se.fk.mimer.datamodel.v1.fixtures.PersonFixtures.createPersontyp;
 import static se.fk.mimer.datamodel.v1.fixtures.SakfragaFixtures.createSakfraga;
-import static se.fk.mimer.datamodel.v1.fixtures.YrkandeFixtures.createYrkande;
 import static se.fk.mimer.datamodel.v1.fixtures.YrkandeFixtures.createYrkandestatus;
 
 public class BidragssparrFixtures
@@ -48,7 +47,7 @@ public class BidragssparrFixtures
                 .from( ZonedDateTime.now() )
                 .tom( ZonedDateTime.now().plusDays( 1 ) )
                 .yrkandestatus( createYrkandestatus() )
-                .avserPersoner( List.of( createPerson() ) )
+                .avserPersontyper( List.of( createPersontyp() ) )
                 .godkandRegler( Collections.emptyList() )
                 .avslagPaGrundAvRegler( Collections.emptyList() )
                 .faststallsForYrkande( UUID.randomUUID() )

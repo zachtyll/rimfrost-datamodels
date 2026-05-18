@@ -1,13 +1,14 @@
-package se.fk.mimer.datamodel.v1.fixtures;
+package se.fk.mimer.codec.v1.fixtures;
 
-import se.fk.mimer.datamodel.v1.utils.FixtureUtil;
+import se.fk.mimer.codec.v1.util.FixtureUtil;
 import se.fk.mimer.datamodel.v1.yrkande.roller.RollIYrkande;
 
 import java.util.UUID;
 
-import static se.fk.mimer.datamodel.v1.fixtures.PersonFixtures.createIdTyp;
-import static se.fk.mimer.datamodel.v1.fixtures.PersonFixtures.createPersontyp;
-import static se.fk.mimer.datamodel.v1.fixtures.YrkandeFixtures.createRollerIYrkande;
+import static se.fk.mimer.codec.v1.fixtures.PersonFixtures.createIdTyp;
+import static se.fk.mimer.codec.v1.fixtures.PersonFixtures.createPerson;
+import static se.fk.mimer.codec.v1.fixtures.YrkandeFixtures.createRollerIYrkande;
+
 
 public class RollIYrkandeFixtures
 {
@@ -25,7 +26,7 @@ public class RollIYrkandeFixtures
                 .individ( createIdTyp() )
                 .yrkanderoll( createRollerIYrkande() )
                 .avserYrkande( UUID.randomUUID() )
-                .avserPersontyp( createPersontyp() )
+                .avserPersontyp( createPerson() )
                 .build();
     }
 }

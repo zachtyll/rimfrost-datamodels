@@ -10,7 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 @Getter
 @Setter
 @SuperBuilder
-public class StallningstagenBosattningEllerArbeteISverige extends StallningstagandeIHandlaggningen
+public class StallningstagenBosattningOchEllerArbeteISverige extends StallningstagandeIHandlaggningen
 {
     @NotNull
     private Boolean bosatt;

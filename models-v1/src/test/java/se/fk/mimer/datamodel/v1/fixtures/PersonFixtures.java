@@ -3,7 +3,7 @@ package se.fk.mimer.datamodel.v1.fixtures;
 import se.fk.mimer.datamodel.v1.IDTyp;
 import se.fk.mimer.datamodel.v1.person.FysiskPerson;
 import se.fk.mimer.datamodel.v1.person.Individ;
-import se.fk.mimer.datamodel.v1.person.Person;
+import se.fk.mimer.datamodel.v1.person.Persontyp;
 import se.fk.mimer.datamodel.v1.person.adress.Folkbokforingsadress;
 import se.fk.mimer.datamodel.v1.referensdata.IDTyper;
 
@@ -37,7 +37,7 @@ public class PersonFixtures
     public static FysiskPerson createFysiskPerson()
     {
         return FysiskPerson.builder()
-                .id( "194101014243" )
+                .id( UUID.randomUUID() )
                 .efternamn( "Testsson" )
                 .fornamn( "Test" )
                 .kon( "Man" )
@@ -55,9 +55,9 @@ public class PersonFixtures
                 .build();
     }
 
-    public static Person createPerson()
+    public static Persontyp createPersontyp()
     {
-        return Person.builder()
+        return Persontyp.builder()
                 .id( UUID.randomUUID() )
                 .version( 1 )
                 .idTyp( createIdTyp() )

@@ -1,4 +1,4 @@
-package se.fk.mimer.datamodel.v1.fixtures;
+package se.fk.mimer.codec.v1.fixtures;
 
 import se.fk.mimer.datamodel.v1.referensdata.yrkande.beslut.Avslutstyper;
 import se.fk.mimer.datamodel.v1.referensdata.yrkande.beslut.Beslutsutfall;
@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.UUID;
 
-import static se.fk.mimer.datamodel.v1.fixtures.PersonFixtures.createIdTyp;
+import static se.fk.mimer.codec.v1.fixtures.PersonFixtures.createIdTyp;
 
 public class BeslutFixtures
 {

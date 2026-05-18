@@ -9,7 +9,7 @@ import se.fk.mimer.codec.v1.jsonld.JsonLdKeys;
 import se.fk.mimer.codec.v1.registry.CodecRegistries;
 import se.fk.mimer.codec.v1.registry.TypeRegistry;
 import se.fk.mimer.codec.v1.registry.VariantRegistry;
-import se.fk.mimer.datamodel.v1.person.Person;
+import se.fk.mimer.datamodel.v1.person.Persontyp;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -29,7 +29,7 @@ public class TypeBasedDeserializerTest {
         ObjectNode tree = variantMapper.createObjectNode();
         tree.put("personnummer", "1992042536567");
 
-        assertThrows(DecodeException.class, () -> variantMapper.treeToValue(tree, Person.class));
+        assertThrows(DecodeException.class, () -> variantMapper.treeToValue(tree, Persontyp.class));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class TypeBasedDeserializerTest {
         ObjectNode tree = variantMapper.createObjectNode();
         tree.put(JsonLdKeys.TYPE, "fk:NotARealClass");
 
-        assertThrows(DecodeException.class, () -> variantMapper.treeToValue(tree, Person.class));
+        assertThrows(DecodeException.class, () -> variantMapper.treeToValue(tree, Persontyp.class));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class TypeBasedDeserializerTest {
         ObjectNode tree = variantMapper.createObjectNode();
         tree.put(JsonLdKeys.TYPE, "fk:Yrkande");
 
-        assertThrows(DecodeException.class, () -> variantMapper.treeToValue(tree, Person.class));
+        assertThrows(DecodeException.class, () -> variantMapper.treeToValue(tree, Persontyp.class));
     }
 
 }

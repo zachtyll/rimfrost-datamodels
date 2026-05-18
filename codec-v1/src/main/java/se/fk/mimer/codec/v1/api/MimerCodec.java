@@ -153,7 +153,7 @@ public class MimerCodec implements Codec
         }
         catch( Exception e )
         {
-            throw new DecodeException( "Decode failed" );
+            throw new DecodeException( "Decode failed: " + e.getMessage() );
         }
     }
 

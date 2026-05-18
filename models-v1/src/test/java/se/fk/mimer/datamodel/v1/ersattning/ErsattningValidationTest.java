@@ -7,7 +7,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import se.fk.mimer.datamodel.v1.fixtures.ErsattningFixtures;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.somgerrattentill.ersattning.Ersattning;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.somgerrattentill.ersattning.Ersattning;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

@@ -2,13 +2,12 @@ package se.fk.mimer.datamodel.v1.fixtures;
 
 import se.fk.mimer.datamodel.v1.referensdata.yrkande.Avsiktstyper;
 import se.fk.mimer.datamodel.v1.referensdata.yrkande.YrkandeStatus;
-import se.fk.mimer.datamodel.v1.referensdata.yrkande.Yrkanderoller;
+import se.fk.mimer.datamodel.v1.referensdata.yrkande.YrkanderollTyper;
 import se.fk.mimer.datamodel.v1.yrkande.Avsiktstyp;
 import se.fk.mimer.datamodel.v1.yrkande.Yrkande;
 import se.fk.mimer.datamodel.v1.yrkande.Yrkandestatus;
-import se.fk.mimer.datamodel.v1.yrkande.beslut.Beslut;
 import se.fk.mimer.datamodel.v1.yrkande.roller.RollIYrkande;
-import se.fk.mimer.datamodel.v1.yrkande.roller.RollerIYrkande;
+import se.fk.mimer.datamodel.v1.yrkande.roller.Yrkanderoll;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;
@@ -17,21 +16,12 @@ import java.util.UUID;
 
 import static se.fk.mimer.datamodel.v1.fixtures.ErbjudandeFixtures.createErbjudande;
 import static se.fk.mimer.datamodel.v1.fixtures.PersonFixtures.createIdTyp;
-import static se.fk.mimer.datamodel.v1.fixtures.PersonFixtures.createPerson;
+import static se.fk.mimer.datamodel.v1.fixtures.PersonFixtures.createPersontyp;
 
 public class YrkandeFixtures
 {
     public YrkandeFixtures()
     {
-    }
-    public static Beslut createBeslut()
-    {
-        return Beslut.builder()
-                .id( UUID.randomUUID() )
-                .version( 1 )
-                .beslutsDatum( ZonedDateTime.now() )
-                .beslutsfattare( createIdTyp() )
-                .build();
     }
 
     public static Avsiktstyp createAvsiktstyp()
@@ -43,22 +33,43 @@ public class YrkandeFixtures
                 .build();
     }
 
-    public static RollerIYrkande createRollerIYrkande()
+    public static Yrkanderoll createRollerIYrkande()
     {
-        return RollerIYrkande.builder()
+        return Yrkanderoll.builder()
                 .id( UUID.randomUUID() )
                 .version( 1 )
-                .yrkanderoll( Yrkanderoller.BAS_SOKANDE )
+                .yrkanderollTyp( YrkanderollTyper.BAS_SOKANDE )
+                .build();
+    }
+
+    public static Yrkanderoll createRollerPersonenYrkandetAvser()
+    {
+        return Yrkanderoll.builder()
+                .id( UUID.randomUUID() )
+                .version( 1 )
+                .yrkanderollTyp( YrkanderollTyper.BAS_DEN_SOM_SAKFRAGAN_AVSER )
                 .build();
     }
 
     public static RollIYrkande createRollIYrkande()
     {
         return RollIYrkande.builder()
+                .id( UUID.randomUUID() )
                 .individ( createIdTyp() )
-                .roll( createRollerIYrkande() )
-                .avserPerson( createPerson() )
-                .avserYrkande( createYrkande() )
+                .yrkanderoll( createRollerIYrkande() )
+                .avserPersontyp( createPersontyp() )
+                .avserYrkande( UUID.randomUUID() )
+                .build();
+    }
+
+    public static RollIYrkande createRollPersonenYrkandetAvser()
+    {
+        return RollIYrkande.builder()
+                .id( UUID.randomUUID() )
+                .individ( createIdTyp() )
+                .yrkanderoll( createRollerPersonenYrkandetAvser() )
+                .avserPersontyp( createPersontyp() )
+                .avserYrkande( UUID.randomUUID() )
                 .build();
     }
 
@@ -76,17 +87,16 @@ public class YrkandeFixtures
         return Yrkande.builder()
                 .id( UUID.randomUUID() )
                 .version( 1 )
-                .avserBeslut( List.of( createBeslut() ) )
+                .avserBeslut( List.of( BeslutFixtures.createBeslut() ) )
                 .avserSakfragaStallningstagande( BidragssparrFixtures.createBidragssparr() )
                 .avsikt( createAvsiktstyp() )
                 .yrkandeDatum( ZonedDateTime.now() )
                 .avserErbjudande( createErbjudande() )
-                .avserBeslut( Collections.emptyList() )
                 .hanterasIHandlaggningar( Collections.emptyList() )
-                .rollerIYrkandet( List.of() )
+                .rollerIYrkandet( List.of( createRollIYrkande(), createRollPersonenYrkandetAvser() ) )
                 .yrkandeStatus( createYrkandestatus() )
-                .yrkandeFrom( ZonedDateTime.now() )
-                .yrkandeTom( ZonedDateTime.now().plusDays( 1 ) )
+                .from( ZonedDateTime.now() )
+                .tom( ZonedDateTime.now().plusDays( 1 ) )
                 .build();
     }
 }

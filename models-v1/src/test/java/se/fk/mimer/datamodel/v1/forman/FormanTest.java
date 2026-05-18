@@ -23,9 +23,7 @@ class FormanTest
         assertInstanceOf( Forman.class, forman );
         assertInstanceOf( Formanstyp.class, forman.getFormanstyp() );
         assertNotNull( forman.getBeskrivning() );
-        assertInstanceOf( Optional.class, forman.getBeskrivning() );
         forman.setBeskrivning( "Testbeskrivning" );
-        assertTrue( forman.getBeskrivning().isPresent() );
-        assertEquals( "Testbeskrivning", forman.getBeskrivning().get() );
+        assertEquals( "Testbeskrivning", forman.getBeskrivning() );
     }
 }

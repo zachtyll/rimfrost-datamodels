@@ -8,6 +8,8 @@ import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 import se.fk.mimer.datamodel.v1.forman.erbjudande.Erbjudande;
 import se.fk.mimer.datamodel.v1.handlaggning.Handlaggning;
+import se.fk.mimer.datamodel.v1.person.Persontyp;
+import se.fk.mimer.datamodel.v1.referensdata.yrkande.YrkanderollTyper;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.SakfragaStallningstagande;
 import se.fk.mimer.datamodel.v1.yrkande.beslut.Beslut;
 import se.fk.mimer.datamodel.v1.yrkande.roller.RollIYrkande;
@@ -46,8 +48,8 @@ public class Yrkande
     @NotNull
     private Erbjudande avserErbjudande;
     @NotNull
-    private ZonedDateTime yrkandeFrom;
-    private ZonedDateTime yrkandeTom;
+    private ZonedDateTime from;
+    private ZonedDateTime tom;
 
     public Optional<List<Handlaggning>> getHanterasIHandlaggningar()
     {
@@ -64,9 +66,14 @@ public class Yrkande
         return Optional.ofNullable( avsikt );
     }
 
-    public Optional<ZonedDateTime> getYrkandeTom()
+    public Optional<ZonedDateTime> getTom()
     {
-        return Optional.ofNullable( yrkandeTom );
+        return Optional.ofNullable( tom );
     }
 
+    public Persontyp personenYrkandetAvser()
+    {
+        Optional<RollIYrkande> roll = rollerIYrkandet.stream().filter( f -> f.getYrkanderoll().getYrkanderollTyp().equals( YrkanderollTyper.BAS_DEN_SOM_SAKFRAGAN_AVSER ) ).findAny();
+        return roll.map( RollIYrkande::getAvserPersontyp ).orElse( null );
+    }
 }

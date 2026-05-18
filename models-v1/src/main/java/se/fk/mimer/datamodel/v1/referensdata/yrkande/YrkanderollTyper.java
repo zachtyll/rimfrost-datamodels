@@ -1,6 +1,6 @@
 package se.fk.mimer.datamodel.v1.referensdata.yrkande;
 
-public enum Yrkanderoller
+public enum YrkanderollTyper
 {
     // Delade bas-roller
     BAS_SOKANDE,

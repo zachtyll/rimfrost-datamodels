@@ -1,9 +1,9 @@
 package se.fk.mimer.datamodel.v1.person;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 import se.fk.mimer.datamodel.v1.IDTyp;
 import se.fk.mimer.datamodel.v1.organisation.Organisation;
@@ -14,8 +14,8 @@ import java.util.UUID;
 @Jacksonized
 @Getter
 @Setter
-@SuperBuilder
-public class Person
+@Builder
+public class Persontyp
 {
     @NotNull
     private UUID id;

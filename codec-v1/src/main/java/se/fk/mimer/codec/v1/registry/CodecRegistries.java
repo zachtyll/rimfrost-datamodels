@@ -52,7 +52,8 @@ import se.fk.mimer.datamodel.v1.organisation.OrganisationsIdentitet;
 import se.fk.mimer.datamodel.v1.organisation.Organisationsenhet;
 import se.fk.mimer.datamodel.v1.person.Funktionar;
 import se.fk.mimer.datamodel.v1.person.FysiskPerson;
-import se.fk.mimer.datamodel.v1.person.Person;
+import se.fk.mimer.datamodel.v1.person.Individ;
+import se.fk.mimer.datamodel.v1.person.Persontyp;
 import se.fk.mimer.datamodel.v1.person.adress.Adress;
 import se.fk.mimer.datamodel.v1.person.adress.Folkbokforingsadress;
 import se.fk.mimer.datamodel.v1.regel.Lagrum;
@@ -61,19 +62,20 @@ import se.fk.mimer.datamodel.v1.regel.Punkt;
 import se.fk.mimer.datamodel.v1.regel.Regel;
 import se.fk.mimer.datamodel.v1.regel.Stycke;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.SakfragaStallningstagande;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.SakfragaIHandlaggningen;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.Betalningsbelopp;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.SFBInkomsttyp;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.SjukpenninggrundandeInkomst;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.bidragssparr.AnledningIngenBidragssparr;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.bidragssparr.GrundForBidragssparrutredning;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.somgerrattentill.Beloppstyper;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.somgerrattentill.RattenTillPeriod;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.somgerrattentill.ersattning.Ersattning;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.SakfragaIHandlaggningen;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.medanknytningtillformaner.bidragssparr.Betalningsbelopp;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.medanknytningtillformaner.bidragssparr.SFBInkomsttyp;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.medanknytningtillformaner.bidragssparr.SjukpenninggrundandeInkomst;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.medanknytningtillformaner.bidragssparr.bidragssparr.AnledningIngenBidragssparr;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.medanknytningtillformaner.bidragssparr.bidragssparr.Bidragssparr;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.medanknytningtillformaner.bidragssparr.bidragssparr.GrundForBidragssparrutredning;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.somgerrattentill.Beloppstyper;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.somgerrattentill.RattenTillPeriod;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfragaihandlaggningen.somgerrattentill.ersattning.Ersattning;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.stallningstaganden.Stallningstagande;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.stallningstaganden.Stallningstagandetyp;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.stallningstaganden.StallningstagandeIHandlaggningen;
-import se.fk.mimer.datamodel.v1.sakfragastallningstagande.stallningstaganden.StallningstagenBosattningEllerArbeteISverige;
+import se.fk.mimer.datamodel.v1.sakfragastallningstagande.stallningstaganden.StallningstagenBosattningOchEllerArbeteISverige;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.stallningstaganden.StallningstagenInkomst;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.stallningstaganden.StallningstagenKostnad;
 import se.fk.mimer.datamodel.v1.sakfragastallningstagande.stallningstaganden.StallningstagenKvalificeringEllerUndantagenKvalificeringForVissaBosattningsbaseradeFormaner;
@@ -93,7 +95,7 @@ import se.fk.mimer.datamodel.v1.yrkande.beslut.Beslutstyp;
 import se.fk.mimer.datamodel.v1.yrkande.beslut.Beslutsutfallstyp;
 import se.fk.mimer.datamodel.v1.yrkande.roller.RollIResultatet;
 import se.fk.mimer.datamodel.v1.yrkande.roller.RollIYrkande;
-import se.fk.mimer.datamodel.v1.yrkande.roller.RollerIYrkande;
+import se.fk.mimer.datamodel.v1.yrkande.roller.Yrkanderoll;
 
 import java.util.Map;
 
@@ -120,13 +122,13 @@ public final class CodecRegistries
                 entry( SakfragaIHandlaggningen.class, "SakfragaIHandlaggningen" ),
                 entry( RattenTillPeriod.class, "RattenTillPeriod" ),
                 entry( Ersattning.class, "Ersattning" ),
-                entry( se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.bidragssparr.Bidragssparr.class, "Bidragssparr" ),
+                entry( Bidragssparr.class, "Bidragssparr" ),
                 entry( Betalningsbelopp.class, "Betalningsbelopp" ),
                 entry( SjukpenninggrundandeInkomst.class, "SjukpenninggrundandeInkomst" ),
                 entry( StallningstagandeIHandlaggningen.class, "StallningstagandeIHandlaggningen" ),
                 entry( StallningstagenKostnad.class, "StallningstagenKostnad" ),
                 entry( StallningstagenInkomst.class, "StallningstagenInkomst" ),
-                entry( StallningstagenBosattningEllerArbeteISverige.class,
+                entry( StallningstagenBosattningOchEllerArbeteISverige.class,
                         "StallningstagenBosattningEllerArbeteISverige" ),
                 entry( StallningstagenKvalificeringEllerUndantagenKvalificeringForVissaBosattningsbaseradeFormaner.class, "StallningstagenKvalificeringEllerUndantagenKvalificeringForVissaBosattningsbaseradeFormaner" )
         );
@@ -145,14 +147,14 @@ public final class CodecRegistries
                 entry( "SakfragaIHandlaggningen", SakfragaIHandlaggningen.class ),
                 entry( "RattenTillPeriod", RattenTillPeriod.class ),
                 entry( "Ersattning", Ersattning.class ),
-                entry( "Bidragssparr", se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.bidragssparr.Bidragssparr.class ),
+                entry( "Bidragssparr", Bidragssparr.class ),
                 entry( "Betalningsbelopp", Betalningsbelopp.class ),
                 entry( "SjukpenninggrundandeInkomst", SjukpenninggrundandeInkomst.class ),
                 entry( "StallningstagandeIHandlaggningen", StallningstagandeIHandlaggningen.class ),
                 entry( "StallningstagenKostnad", StallningstagenKostnad.class ),
                 entry( "StallningstagenInkomst", StallningstagenInkomst.class ),
                 entry( "StallningstagenBosattningEllerArbeteISverige",
-                        StallningstagenBosattningEllerArbeteISverige.class ),
+                        StallningstagenBosattningOchEllerArbeteISverige.class ),
                 entry( "StallningstagenKvalificeringEllerUndantagenKvalificeringForVissaBosattningsbaseradeFormaner",
                         StallningstagenKvalificeringEllerUndantagenKvalificeringForVissaBosattningsbaseradeFormaner.class )
         );
@@ -167,6 +169,7 @@ public final class CodecRegistries
 
         Map<Class<?>, String> classToTypeToken = Map.ofEntries(
                 entry( Sakfragetypkategori.class, "Sakfragetypkategori" ),
+                entry( Individ.class, "Individ" ),
                 entry( Anvandare.class, "Anvandare" ),
                 entry( ErbjudanDatamangdsgrupper.class, "ErbjudanDatamangdsgrupper" ),
                 entry( ErbjudnaDatamangder.class, "ErbjudnaDatamangder" ),
@@ -215,14 +218,14 @@ public final class CodecRegistries
                 entry( Folkbokforingsadress.class, "Folkbokforingsadress" ),
                 entry( Funktionar.class, "Funktionar" ),
                 entry( FysiskPerson.class, "FysiskPerson" ),
-                entry( Person.class, "Person" ),
+                entry( Persontyp.class, "Persontyp" ),
                 entry( Lagrum.class, "Lagrum" ),
                 entry( ParagrafArtikel.class, "ParagrafArtikel" ),
                 entry( Punkt.class, "Punkt" ),
                 entry( Regel.class, "Regel" ),
                 entry( Stycke.class, "Stycke" ),
                 entry( AnledningIngenBidragssparr.class, "AnledningIngenBidragssparr" ),
-                entry( se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.bidragssparr.Bidragssparr.class, "Bidragssparr" ),
+                entry( Bidragssparr.class, "Bidragssparr" ),
                 entry( GrundForBidragssparrutredning.class, "GrundForBidragssparrutredning" ),
                 entry( Betalningsbelopp.class, "Betalningsbelopp" ),
                 entry( SFBInkomsttyp.class, "SfbInkomsttyp" ),
@@ -234,7 +237,7 @@ public final class CodecRegistries
                 entry( Stallningstagande.class, "Stallningstagande" ),
                 entry( Stallningstagandetyp.class, "Stallningstagandetyp" ),
                 entry( StallningstagandeIHandlaggningen.class, "StallningstagandeIHandlaggningen" ),
-                entry( StallningstagenBosattningEllerArbeteISverige.class,
+                entry( StallningstagenBosattningOchEllerArbeteISverige.class,
                         "StallningstagenBosattningEllerArbeteISverige" ),
                 entry( StallningstagenInkomst.class, "StallningstagenInkomst" ),
                 entry( StallningstagenKostnad.class, "StallningstagenKostnad" ),
@@ -253,7 +256,7 @@ public final class CodecRegistries
                 entry( Beslutsrad.class, "Beslutsrad" ),
                 entry( Beslutstyp.class, "Beslutstyp" ),
                 entry( Beslutsutfallstyp.class, "Beslutsutfallstyp" ),
-                entry( RollerIYrkande.class, "RollerIYrkande" ),
+                entry( Yrkanderoll.class, "Yrkanderoll" ),
                 entry( RollIYrkande.class, "RollIYrkande" ),
                 entry( RollIResultatet.class, "RollIResultatet" ),
                 entry( Avsiktstyp.class, "Avsiktstyp" ),
@@ -266,6 +269,7 @@ public final class CodecRegistries
 
         Map<String, Class<?>> typeTokenToClass = Map.ofEntries(
                 entry( "Sakfragetypkategori", Sakfragetypkategori.class ),
+                entry( "Individ", Individ.class ),
                 entry( "Anvandare", Anvandare.class ),
                 entry( "SakfragaStallningstagande", SakfragaStallningstagande.class ),
                 entry( "SakfragaIHandlaggningen", SakfragaIHandlaggningen.class ),
@@ -316,14 +320,14 @@ public final class CodecRegistries
                 entry( "Folkbokforingsadress", Folkbokforingsadress.class ),
                 entry( "Funktionar", Funktionar.class ),
                 entry( "FysiskPerson", FysiskPerson.class ),
-                entry( "Person", Person.class ),
+                entry( "Persontyp", Persontyp.class ),
                 entry( "Lagrum", Lagrum.class ),
                 entry( "ParagrafArtikel", ParagrafArtikel.class ),
                 entry( "Punkt", Punkt.class ),
                 entry( "Regel", Regel.class ),
                 entry( "Stycke", Stycke.class ),
                 entry( "AnledningIngenBidragssparr", AnledningIngenBidragssparr.class ),
-                entry( "Bidragssparr", se.fk.mimer.datamodel.v1.sakfragastallningstagande.sakfraga.medanknytningtillformaner.bidragssparr.bidragssparr.Bidragssparr.class ),
+                entry( "Bidragssparr", Bidragssparr.class ),
                 entry( "GrundForBidragssparrutredning", GrundForBidragssparrutredning.class ),
                 entry( "Betalningsbelopp", Betalningsbelopp.class ),
                 entry( "SfbInkomsttyp", SFBInkomsttyp.class ),
@@ -335,7 +339,7 @@ public final class CodecRegistries
                 entry( "Stallningstagandetyp", Stallningstagandetyp.class ),
                 entry( "StallningstagandeIHandlaggningen", StallningstagandeIHandlaggningen.class ),
                 entry( "StallningstagenBosattningEllerArbeteISverige",
-                        StallningstagenBosattningEllerArbeteISverige.class ),
+                        StallningstagenBosattningOchEllerArbeteISverige.class ),
                 entry( "StallningstagenInkomst", StallningstagenInkomst.class ),
                 entry( "StallningstagenKostnad", StallningstagenKostnad.class ),
                 entry( "StallningstagenKvalificeringEllerUndantagenKvalificeringForVissaBosattningsbaseradeFormaner",
@@ -353,7 +357,7 @@ public final class CodecRegistries
                 entry( "Beslutsrad", Beslutsrad.class ),
                 entry( "Beslutstyp", Beslutstyp.class ),
                 entry( "Beslutsutfallstyp", Beslutsutfallstyp.class ),
-                entry( "RollerIYrkande", RollerIYrkande.class ),
+                entry( "Yrkanderoll", Yrkanderoll.class ),
                 entry( "RollIYrkande", RollIYrkande.class ),
                 entry( "RollIResultatet", RollIResultatet.class ),
                 entry( "Avsiktstyp", Avsiktstyp.class ),
