@@ -34,7 +34,7 @@ public class Yrkande
     @NotNull
     private Collection<Beslut> avserBeslut;
     @NotNull
-    private SakfragaStallningstagande avserSakfragaStallningstagande;
+    private Collection<SakfragaStallningstagande> avserSakfragaStallningstagande;
     @NotNull
     private List<RollIYrkande> rollerIYrkandet;
     @NotNull
@@ -50,11 +50,6 @@ public class Yrkande
     @NotNull
     private ZonedDateTime from;
     private ZonedDateTime tom;
-
-    public Optional<List<Handlaggning>> getHanterasIHandlaggningar()
-    {
-        return Optional.ofNullable( hanterasIHandlaggningar );
-    }
 
     public Optional<Beslut> getAvserBesvarAvBeslut()
     {

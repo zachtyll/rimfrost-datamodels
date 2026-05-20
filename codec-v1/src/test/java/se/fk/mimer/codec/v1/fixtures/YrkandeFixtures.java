@@ -89,7 +89,7 @@ public class YrkandeFixtures
                 .id( UUID.randomUUID() )
                 .version( 1 )
                 .avserBeslut( List.of( BeslutFixtures.createBeslut() ) )
-                .avserSakfragaStallningstagande( BidragssparrFixtures.createBidragssparr() )
+                .avserSakfragaStallningstagande( List.of( BidragssparrFixtures.createBidragssparr() ) )
                 .avsikt( createAvsiktstyp() )
                 .yrkandeDatum( ZonedDateTime.now() )
                 .avserErbjudande( createErbjudande() )
