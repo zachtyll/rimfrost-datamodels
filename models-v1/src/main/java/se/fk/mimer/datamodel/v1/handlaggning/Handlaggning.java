@@ -48,12 +48,7 @@ public class Handlaggning
         return Optional.ofNullable( handlaggningsIdVarde );
     }
 
-    public Optional<ZonedDateTime> getSkapad()
-    {
-        return Optional.ofNullable( skapadTS );
-    }
-
-    public Optional<ZonedDateTime> getAvslutad()
+    public Optional<ZonedDateTime> getAvslutadTS()
     {
         return Optional.ofNullable( avslutadTS );
     }
